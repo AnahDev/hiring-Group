@@ -24,11 +24,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nomina_id')->constrained('nomina')->onDelete('cascade');
             $table->foreignId('contrato_id')->constrained('contrato')->onDelete('cascade');
-            $table->decimal('sueldoBruto');
-            $table->decimal('comisionHg');
-            $table->decimal('deduccionInces');
-            $table->decimal('deduccionIvss');
-            $table->decimal('salarioNeto');
+            $table->decimal('sueldoBruto', 10, 2);
+            $table->decimal('comisionHg', 10, 2);
+            $table->decimal('deduccionInces', 10, 2);
+            $table->decimal('deduccionIvss', 10, 2);
+            $table->decimal('salarioNeto', 10, 2);
             $table->timestamps();
         });
     }
