@@ -25,12 +25,6 @@ return new class extends Migration
             $table->string('cuentaBanco');
             $table->timestamps();
         });
-
-
-        Schema::table('banco', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombreBanco');
-        });
     }
 
     /**
@@ -39,6 +33,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('contrato');
-        Schema::dropIfExists('banco');
     }
 };
