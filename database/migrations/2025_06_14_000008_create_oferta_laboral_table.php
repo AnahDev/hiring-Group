@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cargo');
             $table->text('descripcion');
             $table->decimal('salario', 10, 2)->nullable();
-            $table->enum('estado', ['activa', 'inactiva'])->default('abierta');
+            $table->enum('estado', ['activa', 'inactiva'])->default('inactiva');
             $table->date('fechaCreacion')->nullable();
             $table->string('ubicacion')->nullable();
             $table->timestamps();
