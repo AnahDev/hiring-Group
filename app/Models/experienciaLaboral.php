@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
 class experienciaLaboral extends Model
@@ -17,4 +18,10 @@ class experienciaLaboral extends Model
         'fechaInicio',
         'fechaFin',
     ];
+
+    // Relacion uno a muchos
+    public function candidato(): BelongsTo
+    {
+        return $this->belongsTo(candidato::class, 'candidato_id');
+    }
 }

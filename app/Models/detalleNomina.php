@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class detalleNomina extends Model
 {
@@ -18,4 +19,16 @@ class detalleNomina extends Model
         'deduccionIvss',
         'salarioNeto',
     ];
+
+    //relaciones
+
+    public function nomina(): BelongsTo
+    {
+        return $this->belongsTo(nomina::class, 'nomina_id');
+    }
+
+    public function contrato(): BelongsTo
+    {
+        return $this->belongsTo(contrato::class, 'contrato_id');
+    }
 }

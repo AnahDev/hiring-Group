@@ -25,6 +25,12 @@ class usuario extends Model
         return $this->hasOne(empresa::class, 'usuario_id');
     }
 
+    public function candidato(): HasOne
+    {
+        return $this->hasOne(candidato::class, 'usuario_id');
+    }
+
+
     //Relacion uno a muchos
 
 }

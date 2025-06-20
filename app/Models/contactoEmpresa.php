@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class contactoEmpresa extends Model
 {
@@ -14,4 +15,10 @@ class contactoEmpresa extends Model
         'personaContacto',
         'tlfContacto',
     ];
+
+    // Relacion uno a muchos
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(empresa::class, 'empresa_id');
+    }
 }

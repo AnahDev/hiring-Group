@@ -19,8 +19,6 @@ class empresa extends Model
         'correo',
     ];
 
-
-
     //muchos a uno
 
     //Relaciones uno a uno
@@ -32,12 +30,12 @@ class empresa extends Model
     //Relaciones uno a muchos
     public function sectorEmpresa(): HasMany
     {
-        return $this->hasMany(sectorEmpresa::class, 'sectorEmpresa_id');
+        return $this->hasMany(sectorEmpresa::class, 'empresa_id');
     }
 
     public function contactoEmpresa(): HasMany
     {
-        return $this->hasMany(contactoEmpresa::class, 'contactoEmpresa_id');
+        return $this->hasMany(contactoEmpresa::class, 'empresa_id');
     }
 
     public function nomina(): HasMany
@@ -49,6 +47,5 @@ class empresa extends Model
     {
         return $this->hasMany(ofertaLaboral::class, 'empresa_id');
     }
-
     //Relaciones muchos a muchos
 }

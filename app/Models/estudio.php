@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class estudio extends Model
 {
@@ -16,4 +17,10 @@ class estudio extends Model
         'carrera',
         'fechaEgreso',
     ];
+
+    // Relaciones
+    public function candidato(): BelongsTo
+    {
+        return $this->belongsTo(candidato::class, 'candidato_id');
+    }
 }
