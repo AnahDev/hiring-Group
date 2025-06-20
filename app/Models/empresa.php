@@ -19,10 +19,7 @@ class empresa extends Model
         'correo',
     ];
 
-    public function usuario()
-    {
-        return $this->belongsTo(Usuario::class);
-    }
+
 
     //muchos a uno
 
