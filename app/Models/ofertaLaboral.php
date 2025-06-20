@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class ofertaLaboral extends Model
 {
@@ -19,4 +21,10 @@ class ofertaLaboral extends Model
         'fechaCreacion',
         'ubicacion',
     ];
+
+    //muchos a uno
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(empresa::class, 'empresa_id');
+    }
 }

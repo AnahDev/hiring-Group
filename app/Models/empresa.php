@@ -45,5 +45,10 @@ class empresa extends Model
         return $this->hasMany(nomina::class, 'empresa_id');
     }
 
+    public function ofertaLaboral(): HasMany
+    {
+        return $this->hasMany(ofertaLaboral::class, 'empresa_id');
+    }
+
     //Relaciones muchos a muchos
 }
