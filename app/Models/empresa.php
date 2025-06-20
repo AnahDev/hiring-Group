@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Usuario;
-
 
 class empresa extends Model
 {
@@ -23,4 +25,28 @@ class empresa extends Model
     }
 
     //muchos a uno
+
+    //Relaciones uno a uno
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(usuario::class, 'usuario_id');
+    }
+
+    //Relaciones uno a muchos
+    public function sectorEmpresa(): HasMany
+    {
+        return $this->hasMany(sectorEmpresa::class, 'sectorEmpresa_id');
+    }
+
+    public function contactoEmpresa(): HasMany
+    {
+        return $this->hasMany(contactoEmpresa::class, 'contactoEmpresa_id');
+    }
+
+    public function nomina(): HasMany
+    {
+        return $this->hasMany(nomina::class, 'empresa_id');
+    }
+
+    //Relaciones muchos a muchos
 }
