@@ -120,7 +120,6 @@ Route::prefix('empresa')->group(function () {
     Route::delete('/sectorEmpresa/{id}/eliminar', [sectorEmpresaController::class, 'eliminar']);
 });
 
-
 // Rutas asociada a oferta laboral
 Route::prefix('ofertaLaboral')->group(function () {
     Route::get('/', [ofertaLaboralController::class, 'index']);

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->id();
             $table->string('correo')->unique();
-            // $table->string('email')->unique();
             $table->string('password');
             $table->enum('tipo', ['admin', 'hiringGroup', 'empresa', 'candidato', 'contratado'])->default('candidato');
             $table->dateTime('fechaRegistro')->nullable();

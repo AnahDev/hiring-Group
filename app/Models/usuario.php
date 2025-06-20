@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 class usuario extends Model
@@ -17,4 +19,13 @@ class usuario extends Model
         'tipo',
         'fechaRegistro',
     ];
+
+    //Relaciones uno a uno
+    public function empresa(): HasOne
+    {
+        return $this->hasOne(empresa::class, 'usuario_id');
+    }
+
+    //Relacion uno a muchos
+
 }
