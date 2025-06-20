@@ -27,13 +27,16 @@ Route::get('/Admin', function () {
 });
 
 //Rutas asociada a usuario
-Route::get('/usuario', [usuarioController::class, 'index']);
-Route::get('/usuario/crear', [usuarioController::class, 'crear']);
-Route::post('/usuario/guardar', [usuarioController::class, 'guardar']);
-Route::get('/usuario/{id}', [usuarioController::class, 'buscar']);
-Route::get('/usuario/{id}/modificar', [usuarioController::class, 'modificar']);
-Route::put('/usuario/{id}/actualizar', [usuarioController::class, 'actualizar']);
-Route::delete('/usuario/{id}/eliminar', [usuarioController::class, 'eliminar']);
+Route::prefix('usuario')->group(function () {
+    Route::get('/', [usuarioController::class, 'index']);
+    Route::get('/crear', [usuarioController::class, 'crear']);
+    Route::post('/guardar', [usuarioController::class, 'guardar']);
+    Route::get('/{id}', [usuarioController::class, 'buscar']);
+    Route::get('/{id}/modificar', [usuarioController::class, 'modificar']);
+    Route::put('/{id}/actualizar', [usuarioController::class, 'actualizar']);
+    Route::delete('/{id}/eliminar', [usuarioController::class, 'eliminar']);
+});
+
 
 //Rutas asociada a candidatos
 Route::get('/candidatos', [CandidatosController::class, 'index']);
