@@ -47,5 +47,4 @@ class empresa extends Model
     {
         return $this->hasMany(ofertaLaboral::class, 'empresa_id');
     }
-    //Relaciones muchos a muchos
 }
