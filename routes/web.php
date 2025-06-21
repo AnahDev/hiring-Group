@@ -177,4 +177,3 @@ PUT: actualiza un recurso existente, reemplaza completamente el recurso.
 PATCH: actualiza parcialmente un recurso existente. **Este se va a usar mas
 DELETE: elimina un recurso existente.
 */
->
