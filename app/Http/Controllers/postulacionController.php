@@ -2,49 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\postulacion;
 use Illuminate\Http\Request;
 
 class postulacionController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del postulacion';
-        // Se va a reemplazar por la vista de postulacion
+        $postulacion = postulacion::all();
+        return view('postulaciones.index', compact('postulacion'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un postulacion';
-        // Se va a reemplazar por la vista de crear postulacion
+        return view('postulaciones.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el postulacion';
-        // Aquí se implementará la lógica para guardar el postulacion
+        // Validar los datos del formulario
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'oferta_laboral_id' => 'required|exists:ofertas,id', // Asegurarse de que la oferta laboral existe
+            'fechaPostulacion' => 'required|date',
+        ]);
+
+        postulacion::create($request->all());
+
+        return redirect()->route('postulaciones.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un postulacionç especifico';
-        // Aquí se implementará la lógica para mostrar un postulacion específico
+        $postulacion = postulacion::findOrFail($id);
+        return view('postulaciones.show', compact('postulacion'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un postulacion';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un postulacion
+        $postulacion = postulacion::findOrFail($id);
+        return view('postulaciones.edit', compact('postulacion'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el postulacion';
-        // Aquí se implementará la lógica para actualizar el postulacion
+        // Validar los datos del formulario
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id',
+            'oferta_laboral_id' => 'required|exists:ofertas,id',
+            'fechaPostulacion' => 'required|date',
+        ]);
+
+        postulacion::findOrFail($id)->update($request->all());
+
+        return redirect()->route('postulaciones.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el postulacion';
-        // Aquí se implementará la lógica para eliminar el postulacion
+        $postulacion = postulacion::findOrFail($id);
+        $postulacion->delete();
+
+        return redirect()->route('postulaciones.index');
     }
 }

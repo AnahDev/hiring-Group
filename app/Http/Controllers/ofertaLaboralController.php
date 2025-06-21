@@ -2,49 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ofertaLaboral;
 use Illuminate\Http\Request;
 
 class ofertaLaboralController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del oferta laboral';
-        // Se va a reemplazar por la vista de oferta laboral
+        $ofertaLaboral = ofertaLaboral::all();
+        return view('ofertasLaborales.index', compact('ofertaLaboral'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un oferta laboral';
-        // Se va a reemplazar por la vista de crear oferta laboral
+        return view('ofertasLaborales.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el oferta laboral';
-        // Aquí se implementará la lógica para guardar el oferta laboral
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
+            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'cargo' => 'required|string|max:255',
+            'descripcion' => 'required|text',
+            'salario' => 'nullable|decimal|min:0',
+            'estado' => 'required|in:activa,inactiva',
+            'fechaCreacion' => 'nullable|date',
+            'ubicacion' => 'nullable|string|max:255',
+        ]);
+
+        ofertaLaboral::create($request->all());
+        return redirect()->route('ofertasLaborales.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un oferta laboral especifico';
-        // Aquí se implementará la lógica para mostrar un oferta laboral específico
+        $ofertaLaboral = ofertaLaboral::findOrFail($id);
+        return view('ofertasLaborales.show', compact('ofertaLaboral'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un oferta laboral';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un oferta laboral
+        $ofertaLaboral = ofertaLaboral::findOrFail($id);
+        return view('ofertasLaborales.edit', compact('ofertaLaboral'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el oferta laboral';
-        // Aquí se implementará la lógica para actualizar el oferta laboral
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id',
+            'candidato_id' => 'required|exists:candidatos,id',
+            'cargo' => 'required|string|max:255',
+            'descripcion' => 'required|text',
+            'salario' => 'nullable|decimal|min:0',
+            'estado' => 'required|in:activa,inactiva',
+            'fechaCreacion' => 'nullable|date',
+            'ubicacion' => 'nullable|string|max:255',
+        ]);
+
+        ofertaLaboral::findOrFail($id)->update($request->all());
+        return redirect()->route('ofertasLaborales.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el oferta laboral';
-        // Aquí se implementará la lógica para eliminar el oferta laboral
+        $ofertaLaboral = ofertaLaboral::findOrFail($id);
+        $ofertaLaboral->delete();
+        return redirect()->route('ofertasLaborales.index');
     }
 }

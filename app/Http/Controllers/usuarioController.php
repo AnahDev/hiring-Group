@@ -2,49 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\usuario;
 use Illuminate\Http\Request;
 
 class usuarioController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del usuario';
-        // Se va a reemplazar por la vista de usuario
+        $usuario = usuario::all();
+        return view('usuarios.index', compact('usuario'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un usuario';
-        // Se va a reemplazar por la vista de crear usuario
+        return view('usuarios.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el usuario';
-        // Aquí se implementará la lógica para guardar el usuario
+        // Validar los datos del formulario
+        $request->validate([
+            'email' => 'required|email|max:255|unique:usuarios,email',
+            'password' => 'required|string|min:6|confirmed',
+            'tipo' => 'required|in:admin,hiringGroup,empresa,candidato,contratado',
+            'fechaRegistro' => 'nullable|date',
+        ]);
+
+        // Crear un nuevo usuario
+        usuario::create([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+            'password' => bcrypt($request->password), // Encriptar la contraseña
+            'tipo' => $request->tipo,
+            'fechaRegistro' => $request->now(),
+        ]);
+
+        return redirect()->route('usuarios.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un usuario especifico';
-        // Aquí se implementará la lógica para mostrar un usuario específico
+        $usuario = usuario::findOrFail($id);
+        return view('usuarios.show', compact('usuario'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un usuario';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un usuario
+        $usuario = usuario::findOrFail($id);
+        return view('usuarios.edit', compact('usuario'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el usuario';
-        // Aquí se implementará la lógica para actualizar el usuario
+        // Validar los datos del formulario
+        $request->validate([
+            'email' => 'required|email|max:255|unique:usuarios,email,' . $id,
+            'password' => 'nullable|string|min:6|confirmed',
+            'tipo' => 'required|in:admin,hiringGroup,empresa,candidato,contratado',
+            'fechaRegistro' => 'nullable|date',
+        ]);
+
+        // Actualizar el usuario
+        $usuario = usuario::findOrFail($id);
+        $usuario->nombre = $request->nombre;
+        $usuario->email = $request->email;
+        if ($request->filled('password')) {
+            $usuario->password = bcrypt($request->password); // Encriptar la contraseña si se proporciona
+        }
+        $usuario->tipo = $request->tipo;
+        $usuario->fechaRegistro = now();
+        $usuario->save();
+
+        return redirect()->route('usuarios.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el usuario';
-        // Aquí se implementará la lógica para eliminar el usuario
+        $usuario = usuario::findOrFail($id);
+        $usuario->delete();
+        return redirect()->route('usuarios.index');
     }
 }

@@ -2,49 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\sectorEmpresa;
 use Illuminate\Http\Request;
 
 class sectorEmpresaController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del sector ';
-        // Se va a reemplazar por la vista de sector 
+        $sectorEmpresa = sectorEmpresa::all();
+        return view('sectores.index', compact('sectorEmpresa'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un sector ';
-        // Se va a reemplazar por la vista de crear sector 
+        return view('sectores.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el sector ';
-        // Aquí se implementará la lógica para guardar el sector 
+        // Validar los datos del formulario
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
+            'descripcion' => 'nullable|string|max:500',
+        ]);
+
+        sectorEmpresa::create($request->all());
+
+        return redirect()->route('sectores.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un sector  especifico';
-        // Aquí se implementará la lógica para mostrar un sector  específico
+        //
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un sector ';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un sector 
+        $sectorEmpresa = sectorEmpresa::findOrFail($id);
+        return view('sectores.edit', compact('sectorEmpresa'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el sector ';
-        // Aquí se implementará la lógica para actualizar el sector 
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
+            'descripcion' => 'nullable|string|max:500',
+        ]);
+
+        sectorEmpresa::findOrFail($id)->update($request->all());
+
+        return redirect()->route('sectores.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el sector ';
-        // Aquí se implementará la lógica para eliminar el sector 
+        $sectorEmpresa = sectorEmpresa::findOrFail($id);
+        $sectorEmpresa->delete();
+        return redirect()->route('sectores.index');
     }
 }

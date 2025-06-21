@@ -31,11 +31,8 @@ class profesionController extends Controller
 
     public function show(string $id)
     {
-        $profesion = profesion::where('id', $id)->first();
-        if (!$profesion) {
-            return response()->json(['message' => 'Banco no encontrado'], 404);
-        }
-        return $profesion;
+        $profesion = profesion::findOrFail($id);
+        return view('profesiones.show', compact('profesion'));
     }
 
     public function edit(string $id)

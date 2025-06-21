@@ -30,7 +30,8 @@ class telefonoController extends Controller
 
     public function show(string $id)
     {
-        //
+        $telefono = telefono::findOrFail($id);
+        return view('telefonos.show', compact('telefono'));
     }
 
     public function edit(string $id)

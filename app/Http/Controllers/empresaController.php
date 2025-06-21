@@ -2,70 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\empresa;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        return 'Aqui se va la vista de empresa';
-        // Se va a reemplazar por la vista de empresa
+        $empresa = empresa::all();
+        return view('empresas.index', compact('empresa'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return 'Aqui se va el formulario para crear una empresa';
-        // Se va a reemplazar por la vista de crear empresa
+        return view('empresas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        return 'Aqui se va a guardar la empresa';
-        // Aquí se implementará la lógica para guardar la empresa
+        // Validar los datos del formulario
+        $request->validate([
+            'usuario_id' => 'required|exists:usuarios,id', // Asegurarse de que el usuario existe
+            'nombre' => 'required|string|min:3|max:255',
+            'email' => 'required|email|max:255|unique:empresas,email',
+        ]);
+
+        // Crear una nueva empresa
+        empresa::create($request->all());
+
+        return redirect()->route('empresas.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        return 'Aqui se va a mostrar una empresa especifica';
-        // Aquí se implementará la lógica para mostrar una empresa específica;
+        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        return 'Aqui se va a mostrar el formulario para modificar una empresa';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de una empresa
+        $empresa = empresa::findOrFail($id);
+        return view('empresas.edit', compact('empresa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        return 'Aqui se va a actualizar la empresa';
-        // Aquí se implementará la lógica para actualizar la empresa
+        // Validar los datos del formulario
+        $request->validate([
+            'usuario_id' => 'required|exists:usuarios,id', // Asegurarse de que el usuario existe
+            'nombre' => 'required|string|min:3|max:255',
+            'email' => 'required|email|max:255|unique:empresas,email,' . $id, // Excluir el ID actual de la validación única
+        ]);
+
+        empresa::findOrFail($id)->update($request->all());
+
+        return redirect()->route('empresas.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        return 'Aqui se va a eliminar la empresa';
-        // Aquí se implementará la lógica para eliminar la empresa
+        $empresa = empresa::findOrFail($id);
+        $empresa->delete();
+        return redirect()->route('empresas.index')->with('success', 'Empresa eliminada correctamente.');
     }
 }
