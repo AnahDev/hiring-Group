@@ -15,13 +15,13 @@ use App\Http\Controllers\detalleNominaController;
 use App\Http\Controllers\experienciaLaboralController;
 use App\Http\Controllers\postulacionController;
 use App\Http\Controllers\usuarioController;
+use App\Http\Controllers\homeController;
 use App\Http\Controllers\bancoController;
 
 
-//Pagina principal y login
-Route::get('/', function () {
-    return view('welcome');
-});
+//Pagina principal y login(home)
+Route::get('/', [homeController::class, '__invoke'])->name('home');
+
 
 Route::get('/Admin', function () {
     return 'Aqui se va la vista del administrador';
