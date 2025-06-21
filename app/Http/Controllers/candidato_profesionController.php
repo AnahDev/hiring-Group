@@ -24,33 +24,30 @@ class candidato_profesionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'candidato_id' => 'required|exists:candidato,id',
+            'profesion_id' => 'required|exists:profesion,id',
         ]);
-        return 'aqui se va a guardar el contacto de la cand_profesion';
-        // Aquí se implementará la lógica para guardar el contacto de la cand_profesion
+        candidato_profesion::create($request->all());
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un contacto de la cand_profesion especifico';
-        // Aquí se implementará la lógica para mostrar un contacto de la cand_profesion específico
+        $candidato_profesion = candidato_profesion::findOrFail($id);
+        return $candidato_profesion;
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un contacto de la cand_profesion';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un contacto de la cand_profesion
+        //no se va a usar, ya que no se va a editar un contacto de la cand_profesion
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el contacto de la cand_profesion';
-        // Aquí se implementará la lógica para actualizar el contacto de la cand_profesion
+        // no se va a usar porque se deberia actualizar automaticamente
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el contacto de la cand_profesion';
-        // Aquí se implementará la lógica para eliminar el contacto de la cand_profesion
+        //
     }
 }

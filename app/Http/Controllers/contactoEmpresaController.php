@@ -35,7 +35,8 @@ class contactoEmpresaController extends Controller
 
     public function show(string $id)
     {
-        //
+        $contactoEmpresa = contactoEmpresa::findOrFail($id);
+        return view('contactosEmpresa.show', compact('contactosEmpresa'));
     }
 
     public function edit(string $id)

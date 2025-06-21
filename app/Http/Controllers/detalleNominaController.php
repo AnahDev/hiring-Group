@@ -2,49 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detalleNomina;
 use Illuminate\Http\Request;
 
 class detalleNominaController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del detalle de la nomina';
-        // Se va a reemplazar por la vista de detalle de la nomina
+        $detalleNomina = detalleNomina::all();
+        return view('detalleNomina.index');
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un detalle de la nomina';
-        // Se va a reemplazar por la vista de crear detalle de la nomina
+        return view('detalleNomina.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el detalle de la nomina';
-        // Aquí se implementará la lógica para guardar el detalle de la nomina
+        $request->validate([
+            'nomina_id' => 'required|exists:nomina,id',
+            'contrato_id' => 'required|exists:contrato,id',
+            'sueldoBruto' => 'required|numeric|min:0',
+            'comisionHg' => 'required|numeric|min:0',
+            'deduccionInces' => 'required|numeric|min:0',
+            'deduccionIvss' => 'required|numeric|min:0',
+            'sueldoNeto' => 'required|numeric|min:0',
+        ]);
+
+        detalleNomina::create($request->all());
+        return redirect()->route('detalleNomina.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un detalle de la nomina especifico';
-        // Aquí se implementará la lógica para mostrar un detalle de la nomina específico
+        $detalleNomina = detalleNomina::findOrFail($id);
+        return view('detalleNomina.show', compact('detalleNomina'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un detalle de la nomina';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un detalle de la nomina
+        $detalleNomina = detalleNomina::findOrFail($id);
+        return view('detalleNomina.edit', compact('detalleNomina'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el detalle de la nomina';
-        // Aquí se implementará la lógica para actualizar el detalle de la nomina
+        $request->validate([
+            'nomina_id' => 'required|exists:nomina,id',
+            'contrato_id' => 'required|exists:contrato,id',
+            'sueldoBruto' => 'required|numeric|min:0',
+            'comisionHg' => 'required|numeric|min:0',
+            'deduccionInces' => 'required|numeric|min:0',
+            'deduccionIvss' => 'required|numeric|min:0',
+            'sueldoNeto' => 'required|numeric|min:0',
+        ]);
+
+        detalleNomina::findOrFail($id)->update($request->all());
+        return redirect()->route('detalleNomina.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el detalle de la nomina';
-        // Aquí se implementará la lógica para eliminar el detalle de la nomina
+        $detalleNomina = detalleNomina::findOrFail($id);
+        $detalleNomina->delete();
+        return redirect()->route('detalleNomina.index');
     }
 }

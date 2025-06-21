@@ -2,49 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\contrato;
 use Illuminate\Http\Request;
 
 class contratoController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del contrato';
-        // Se va a reemplazar por la vista de contrato
+        $contrato = contrato::all();
+        return view('contratos.index', compact('contrato'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un contrato';
-        // Se va a reemplazar por la vista de crear contrato
+        return view('contratos.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el contrato';
-        // Aquí se implementará la lógica para guardar el contrato
+        // Validar los datos del formulario
+        $request->validate([
+            'postulacion_id' => 'required|exists:postulaciones,id', // Asegurarse de que la postulacion existe
+            'banco_id' => 'required|exists:bancos,id', // Asegurarse de que el banco existe
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+            'tipoContrato' => 'required|string|max:255',
+            'duracion' => 'required|in:1 Mes,6 Meses,1 Año,indefinido',
+            'salarioMensual' => 'required|numeric|min:0',
+            'tipoSangre' => 'required|string|max:10',
+            'tlfEmergencia' => 'required|string|max:15',
+            'contactoEmergencia' => 'required|string|max:100',
+            'cuentaBanco' => 'required|string|max:20',
+        ]);
+
+        contrato::create($request->all());
+        return redirect()->route('contratos.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un contrato especifico';
-        // Aquí se implementará la lógica para mostrar un contrato específico
+        $contrato = contrato::findOrFail($id);
+        return view('contratos.show', compact('contrato'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un contrato';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un contrato
+        $contrato = contrato::findOrFail($id);
+        return view('contratos.edit', compact('contrato'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el contrato';
-        // Aquí se implementará la lógica para actualizar el contrato
+        // Validar los datos del formulario
+        $request->validate([
+            'postulacion_id' => 'required|exists:postulaciones,id',
+            'banco_id' => 'required|exists:bancos,id',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+            'tipoContrato' => 'required|string|max:255',
+            'duracion' => 'required|in:1 Mes,6 Meses,1 Año,indefinido',
+            'salarioMensual' => 'required|numeric|min:0',
+            'tipoSangre' => 'required|string|max:10',
+            'tlfEmergencia' => 'required|string|max:15',
+            'contactoEmergencia' => 'required|string|max:100',
+            'cuentaBanco' => 'required|string|max:20',
+        ]);
+
+        contrato::findOrFail($id)->update($request->all());
+        return redirect()->route('contratos.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el contrato';
-        // Aquí se implementará la lógica para eliminar el contrato
+        $contrato = contrato::findOrFail($id);
+        $contrato->delete();
+        return redirect()->route('contratos.index');
     }
 }

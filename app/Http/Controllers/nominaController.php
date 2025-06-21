@@ -2,49 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\nomina;
 use Illuminate\Http\Request;
 
 class nominaController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del nomina';
-        // Se va a reemplazar por la vista de nomina
+        $nomina = nomina::all();
+        return view('nominas.index', compact('nomina'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un nomina';
-        // Se va a reemplazar por la vista de crear nomina
+        $nomina = nomina::all();
+        return view('nominas.create', compact('nomina'));
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el nomina';
-        // Aquí se implementará la lógica para guardar el nomina
+        // Validar los datos del formulario
+        $request->validate([
+            'empresa_id' => 'required|exists:candidatos,id', // Asegurarse de que la empresa existe
+            'mes' => 'required|string|max:255',
+            'año' => 'required|integer|min:2000|max:2100',
+            'fechaGeneracion' => 'required|date',
+        ]);
+
+        nomina::create($request->all());
+
+        return redirect()->route('nominas.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un nomina especifico';
-        // Aquí se implementará la lógica para mostrar un nomina específico
+        $nomina = nomina::findOrFail($id);
+        return view('nominas.show', compact('nomina'));
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un nomina';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un nomina
+        $nomina = nomina::findOrFail($id);
+        return view('nominas.edit', compact('nomina'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el nomina';
-        // Aquí se implementará la lógica para actualizar el nomina
+        // Validar los datos del formulario
+        $request->validate([
+            'empresa_id' => 'required|exists:candidatos,id', // Asegurarse de que la empresa existe
+            'mes' => 'required|string|max:255',
+            'año' => 'required|integer|min:2000|max:2100',
+            'fechaGeneracion' => 'required|date',
+        ]);
+
+        nomina::findOrFail($id)->update($request->all());
+        return redirect()->route('nominas.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el nomina';
-        // Aquí se implementará la lógica para eliminar el nomina
+        $nomina = nomina::findOrFail($id);
+        $nomina->delete();
+        return redirect()->route('nominas.index');
     }
 }

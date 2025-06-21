@@ -36,7 +36,10 @@ class experienciaLaboralController extends Controller
 
     public function show(string $id)
     {
-        //
+        $experienciaLaboral = experienciaLaboral::findOrFail($id);
+        return view('experiencias.show', compact('experienciaLaboral'));
+
+        //implementar para que busque por otros campos como empresa, cargo, fechaInicio, fechaFin
     }
 
     public function edit(string $id)

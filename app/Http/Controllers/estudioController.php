@@ -14,12 +14,10 @@ class estudioController extends Controller
         return view('estudios.index', compact('estudio')); // falta la vista 'estudios.index'
     }
 
-
     public function create()
     {
         return view('estudios.create'); // falta la vista 'estudios.create'
     }
-
 
     public function store(Request $request)
     {
@@ -32,17 +30,14 @@ class estudioController extends Controller
         ]);
         // Crear un nuevo registro de estudio
         estudio::create($request->all());
-
-        // Redirigir a la lista de estudios después de guardar
         return redirect()->route('estudios.index');
     }
 
-
     public function show(string $id)
     {
-        // 
+        $estudio = estudio::findOrFail($id);
+        return view('estudios.show', compact('estudio'));
     }
-
 
     public function edit(string $id)
     {

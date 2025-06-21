@@ -38,7 +38,8 @@ class EmpresaController extends Controller
 
     public function show(string $id)
     {
-        //
+        $empresa = empresa::findOrFail($id);
+        return view('empresa.show', compact('empresa'));
     }
 
     public function edit(string $id)
