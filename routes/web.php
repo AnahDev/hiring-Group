@@ -19,6 +19,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\bancoController;
 
 
+
 //Pagina principal y login(home)
 Route::get('/', [homeController::class, '__invoke'])->name('home');
 
@@ -171,7 +172,7 @@ Route::prefix('detalleNomina')->group(function () {
 });
 
 
-<?php
+// Ruta banco
 Route::prefix('banco')->group(function () {
     Route::get('/', [bancoController::class, 'index']);
     Route::get('/crear', [bancoController::class, 'crear']);
@@ -182,7 +183,7 @@ Route::prefix('banco')->group(function () {
     Route::delete('/{id}/eliminar', [bancoController::class, 'eliminar']);
 });
 
-
+// Ruta Experiecia Laboral
 Route::prefix('experienciaLaboral')->group(function () {
     Route::get('/', [experienciaLaboralController::class, 'index']);
     Route::get('/crear', [experienciaLaboralController::class, 'crear']);
@@ -190,7 +191,19 @@ Route::prefix('experienciaLaboral')->group(function () {
     Route::get('/{id}', [experienciaLaboralController::class, 'buscar']);
     Route::get('/{id}/modificar', [experienciaLaboralController::class, 'modificar']);
     Route::put('/{id}/actualizar', [experienciaLaboralController::class, 'actualizar']);
-    Route::delete('/{id}/eliminar', [experienciaLaboralController::class, 'eliminar']);});
+    Route::delete('/{id}/eliminar', [experienciaLaboralController::class, 'eliminar']);
+});
+
+//rutas asociada a candidatoTelefono
+Route::prefix('candidatoTelefono')->group(function () {
+    Route::get('/', [telefonoController::class, 'index']);
+    Route::get('/crear', [telefonoController::class, 'crear']);
+    Route::post('/guardar', [telefonoController::class, 'guardar']);
+    Route::get('/{id}', [telefonoController::class, 'buscar']);
+    Route::get('/{id}/modificar', [telefonoController::class, 'modificar']);
+    Route::put('/{id}/actualizar', [telefonoController::class, 'actualizar']);
+    Route::delete('/{id}/eliminar', [telefonoController::class, 'eliminar']);
+});
 /*
 GET: solicita datos, no modifica el estado del recurso.
 POST: crea un nuevo recurso, puede modificar el estado del recurso.
