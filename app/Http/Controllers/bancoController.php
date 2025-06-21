@@ -15,9 +15,8 @@ class bancoController extends Controller
 
     public function create()
     {
-
         // Muestra el formulario para crear un banco
-        return view('bancos.crear'); //falta el archivo de vista
+        return view('bancos.create'); //falta el archivo de vista
     }
 
     public function store(Request $request)
@@ -45,7 +44,7 @@ class bancoController extends Controller
     {
         //Muestra el formulario para modificar un banco
         $banco = banco::findOrFail($id); // Verifica si el banco existe, si no, lanza una excepción
-        return view('bancos.editar', compact('banco'));      //falta el archivo de vista
+        return view('bancos.edit', compact('banco'));      //falta el archivo de vista
     }
 
     public function update(Request $request, string $id)
