@@ -16,7 +16,7 @@ class CandidatosController extends Controller
         //Se va a reemplazar por la vista de candidatos
     }
 
-    public function crear()
+    public function create()
     {
         return 'aqui se va el formulario para crear un candidato';
         //Se va a reemplazar por la vista de crear candidato
@@ -25,7 +25,7 @@ class CandidatosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function guardar(Request $request)
+    public function store(Request $request)
     {
         return 'aqui se va a guardar el candidato';
         /*       Validación de los datos del formulario. hacer que funcione
@@ -40,29 +40,20 @@ class CandidatosController extends Controller
         */
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function buscar(Candidato $candidato)
+    public function show(Candidato $candidato)
     {
         return 'aqui se va a mostrar un candidato espeficico';
         //return view('candidatos.show', compact('candidato'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function modificar(string $id)
+    public function edit(string $id)
     {
         return 'aqui se va a mostrar el formulario para modificar un candidato';
         //$candidato = Candidato::findOrFail($id);
         //return view('candidatos.edit', compact('candidato'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function actualizar(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         return 'aqui se va a modificar el candidato';
 
@@ -77,10 +68,7 @@ class CandidatosController extends Controller
         return redirect()->route('candidatos.index')->with('success', 'Candidato actualizado exitosamente.');*/
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function eliminar(string $id)
+    public function destroy(string $id)
     {
         return 'aqui se va a eliminar el candidato';
 

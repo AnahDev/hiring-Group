@@ -10,45 +10,28 @@ class bancoController extends Controller
     public function index()
     {
         $bancos = banco::all();
-        if ($bancos->isEmpty()) {
-            return response()->json(['message' => 'No hay bancos disponibles'], 404);
-        }
-        return $bancos;
-        //return 'aqui va la vista de bancos';
+        return view('bancos.index', compact('bancos')); //falta el archivo de vista
     }
 
-    public function crear()
+    public function create()
     {
-        $banco = new banco;
-        $banco->nombreBanco = 'Banco de Prueba 1';
-        $banco->save();
-        return $banco;
-        //return 'aqui va el formulario para crear un banco';
+
+        // Muestra el formulario para crear un banco
+        return view('bancos.crear'); //falta el archivo de vista
     }
 
-    public function guardar(Request $request)
+    public function store(Request $request)
     {
+        // guardar campo creado por el usuario
         $request->validate([
-            'nombreBanco' => 'required|string|max:255',
+            'nombreBanco' => 'required|string|min:10|max:255',
         ]);
-        $banco = new banco;
-        $banco->nombreBanco = $request->input('nombreBanco');
-        $banco->save();
-        return response()->json(['message' => 'Banco creado exitosamente', 'banco' => $banco], 201);
-        return 'aqui se va a guardar el banco';
+        banco::create($request->all());
+
+        return redirect()->route('bancos.index'); // Redirige a la lista de bancos después de guardar
     }
 
-    public function buscarID(string $id)
-    {
-        $banco = banco::find($id);
-        if (!$banco) {
-            return response()->json(['message' => 'Banco no encontrado'], 404);
-        }
-        return $banco;
-        //return 'aqui se va a mostrar un banco especifico';
-    }
-
-    public function buscar(string $nombre)
+    public function show(string $nombre)
     {
         $banco = banco::where('nombreBanco', $nombre)->first();
         if (!$banco) {
@@ -58,32 +41,30 @@ class bancoController extends Controller
         // Aquí se implementará la lógica para buscar un banco por nombre
     }
 
-    public function modificar(string $nombre)
+    public function edit(string $id)
     {
-        $banco = banco::where('nombreBanco', $nombre)->first();
-        if (!$banco) {
-            return response()->json(['message' => 'Banco no encontrado'], 404);
-        }
-        $banco->nombreBanco = $nombre;
-        $banco->save();
-        return $banco;
-        //return 'aqui se va a mostrar el formulario para modificar un banco';
+        //Muestra el formulario para modificar un banco
+        $banco = banco::findOrFail($id); // Verifica si el banco existe, si no, lanza una excepción
+        return view('bancos.editar', compact('banco'));      //falta el archivo de vista
     }
 
-    public function actualizar(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el banco';
-        // Aquí se implementará la lógica para actualizar el banco
+        //Guarda los cambios realizados en el banco
+
+        $request->validate([
+            'nombreBanco' => 'required|string|min:10|max:255',
+        ]);
+        banco::findOrFail($id)->update($request->all()); //Busca el banco por ID y actualiza sus datos
+        // Si el banco no existe, findOrFail lanzará una excepción y se manejará automáticamente
+        return redirect()->route('bancos.index'); // Redirige a la lista de bancos después de guardar
+
     }
 
-    public function eliminar(string $nombre)
+    public function destroy(string $id)
     {
-        $banco = banco::find($nombre);
-        if (!$banco) {
-            return response()->json(['message' => 'Banco no encontrado'], 404);
-        }
+        $banco = banco::findOrFail($id);
         $banco->delete();
-        return response()->json(['message' => 'Banco eliminado exitosamente'], 200);
-        //return 'aqui se va a eliminar el banco';
+        return redirect()->route('bancos.index'); // Redirige a la lista de bancos después de eliminar
     }
 }

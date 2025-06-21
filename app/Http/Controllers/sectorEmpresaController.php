@@ -12,37 +12,37 @@ class sectorEmpresaController extends Controller
         // Se va a reemplazar por la vista de sector 
     }
 
-    public function crear()
+    public function create()
     {
         return 'aqui va el formulario para crear un sector ';
         // Se va a reemplazar por la vista de crear sector 
     }
 
-    public function guardar(Request $request)
+    public function store(Request $request)
     {
         return 'aqui se va a guardar el sector ';
         // Aquí se implementará la lógica para guardar el sector 
     }
 
-    public function buscar(string $id)
+    public function show(string $id)
     {
         return 'aqui se va a mostrar un sector  especifico';
         // Aquí se implementará la lógica para mostrar un sector  específico
     }
 
-    public function modificar(string $id)
+    public function edit(string $id)
     {
         return 'aqui se va a mostrar el formulario para modificar un sector ';
         // Aquí se implementará la lógica para mostrar el formulario de edición de un sector 
     }
 
-    public function actualizar(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         return 'aqui se va a actualizar el sector ';
         // Aquí se implementará la lógica para actualizar el sector 
     }
 
-    public function eliminar(string $id)
+    public function destroy(string $id)
     {
         return 'aqui se va a eliminar el sector ';
         // Aquí se implementará la lógica para eliminar el sector 
