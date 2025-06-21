@@ -18,7 +18,7 @@ class EmpresaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function crear()
+    public function create()
     {
         return 'Aqui se va el formulario para crear una empresa';
         // Se va a reemplazar por la vista de crear empresa
@@ -27,7 +27,7 @@ class EmpresaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function guardar(Request $request)
+    public function store(Request $request)
     {
         return 'Aqui se va a guardar la empresa';
         // Aquí se implementará la lógica para guardar la empresa
@@ -36,7 +36,7 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function buscar(string $id)
+    public function show(string $id)
     {
         return 'Aqui se va a mostrar una empresa especifica';
         // Aquí se implementará la lógica para mostrar una empresa específica;
@@ -45,7 +45,7 @@ class EmpresaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function modificar(string $id)
+    public function edit(string $id)
     {
         return 'Aqui se va a mostrar el formulario para modificar una empresa';
         // Aquí se implementará la lógica para mostrar el formulario de edición de una empresa
@@ -54,7 +54,7 @@ class EmpresaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function actualizar(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         return 'Aqui se va a actualizar la empresa';
         // Aquí se implementará la lógica para actualizar la empresa
@@ -63,7 +63,7 @@ class EmpresaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function eliminar(string $id)
+    public function destroy(string $id)
     {
         return 'Aqui se va a eliminar la empresa';
         // Aquí se implementará la lógica para eliminar la empresa

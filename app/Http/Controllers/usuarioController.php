@@ -12,37 +12,37 @@ class usuarioController extends Controller
         // Se va a reemplazar por la vista de usuario
     }
 
-    public function crear()
+    public function create()
     {
         return 'aqui va el formulario para crear un usuario';
         // Se va a reemplazar por la vista de crear usuario
     }
 
-    public function guardar(Request $request)
+    public function store(Request $request)
     {
         return 'aqui se va a guardar el usuario';
         // Aquí se implementará la lógica para guardar el usuario
     }
 
-    public function buscar(string $id)
+    public function show(string $id)
     {
         return 'aqui se va a mostrar un usuario especifico';
         // Aquí se implementará la lógica para mostrar un usuario específico
     }
 
-    public function modificar(string $id)
+    public function edit(string $id)
     {
         return 'aqui se va a mostrar el formulario para modificar un usuario';
         // Aquí se implementará la lógica para mostrar el formulario de edición de un usuario
     }
 
-    public function actualizar(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         return 'aqui se va a actualizar el usuario';
         // Aquí se implementará la lógica para actualizar el usuario
     }
 
-    public function eliminar(string $id)
+    public function destroy(string $id)
     {
         return 'aqui se va a eliminar el usuario';
         // Aquí se implementará la lógica para eliminar el usuario
