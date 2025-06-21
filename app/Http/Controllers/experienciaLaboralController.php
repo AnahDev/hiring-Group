@@ -2,49 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\experienciaLaboral;
 use Illuminate\Http\Request;
 
 class experienciaLaboralController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista de la experiencia laboral';
-        // Se va a reemplazar por la vista de experiencia laboral
+        $experienciaLaboral = experienciaLaboral::all();
+        return view('experiencias.index', compact('experienciaLaboral'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear una experiencia laboral';
-        // Se va a reemplazar por la vista de crear experiencia laboral
+        return view('experiencias.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar la experiencia laboral';
-        // Aquí se implementará la lógica para guardar el experiencia laboral
+        // Validar los datos del formulario
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'empresa' => 'required|string|min:3|max:255',
+            'cargo' => 'required|string|min:3|max:255',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+        ]);
+
+        experienciaLaboral::create($request->all());
+
+        return redirect()->route('experiencias.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar una experiencia laboral especifico';
-        // Aquí se implementará la lógica para mostrar un experiencia laboral específico
+        //
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un experiencia laboral';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un experiencia laboral
+        $experienciaLaboral = experienciaLaboral::findOrFail($id); // Verifica si la experiencia laboral existe, si no, lanza una excepción
+        return view('experiencias.edit', compact('experienciaLaboral')); // Muestra el formulario para modificar una experiencia laboral
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el experiencia laboral';
-        // Aquí se implementará la lógica para actualizar el experiencia laboral
+        // Validar los datos del formulario
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'empresa' => 'required|string|min:3|max:255',
+            'cargo' => 'required|string|min:3|max:255',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+        ]);
+
+        experienciaLaboral::findOrFail($id)->update($request->all());
+
+        return redirect()->route('experiencias.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el experiencia laboral';
-        // Aquí se implementará la lógica para eliminar el experiencia laboral
+        $experienciaLaboral = experienciaLaboral::findOrFail($id);
+        $experienciaLaboral->delete();
+        return redirect()->route('experiencias.index');
     }
 }

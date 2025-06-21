@@ -37,7 +37,6 @@ class bancoController extends Controller
             return response()->json(['message' => 'Banco no encontrado'], 404);
         }
         return $banco;
-        // Aquí se implementará la lógica para buscar un banco por nombre
     }
 
     public function edit(string $id)
@@ -55,7 +54,7 @@ class bancoController extends Controller
             'nombreBanco' => 'required|string|min:10|max:255',
         ]);
         banco::findOrFail($id)->update($request->all()); //Busca el banco por ID y actualiza sus datos
-        // Si el banco no existe, findOrFail lanzará una excepción y se manejará automáticamente
+        // Si no se encuentra el banco, lanza una excepción
         return redirect()->route('bancos.index'); // Redirige a la lista de bancos después de guardar
 
     }

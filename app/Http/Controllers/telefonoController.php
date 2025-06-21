@@ -2,49 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\telefono;
 use Illuminate\Http\Request;
 
 class telefonoController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del contacto de la telefono';
-        // Se va a reemplazar por la vista de contacto de la telefono
+        $telefono = telefono::all();
+        return view('telefonos.index', compact('telefono'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un contacto de la telefono';
-        // Se va a reemplazar por la vista de crear contacto de la telefono
+        return view('telefonos.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el contacto de la telefono';
-        // Aquí se implementará la lógica para guardar el contacto de la telefono
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'numero' => 'required|string|min:10|max:15',
+        ]);
+        telefono::create($request->all());
+        return redirect()->route('telefonos.index');
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un contacto de la telefono especifico';
-        // Aquí se implementará la lógica para mostrar un contacto de la telefono específico
+        //
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un contacto de la telefono';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un contacto de la telefono
+        $telefono = telefono::findOrFail($id);
+        return view('telefonos.edit', compact('telefono'));
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el contacto de la telefono';
-        // Aquí se implementará la lógica para actualizar el contacto de la telefono
+        $request->validate([
+            'candidato_id' => 'required|exists:candidatos,id',
+            'numero' => 'required|string|min:10|max:15',
+        ]);
+        telefono::findOrFail($id)->update($request->all());
+        return redirect()->route('telefonos.index');
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el contacto de la telefono';
-        // Aquí se implementará la lógica para eliminar el contacto de la telefono
+        $telefono = telefono::findOrFail($id);
+        $telefono->delete();
+        return redirect()->route('telefonos.index');
     }
 }

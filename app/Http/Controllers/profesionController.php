@@ -2,49 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\profesion;
 use Illuminate\Http\Request;
 
 class profesionController extends Controller
 {
     public function index()
     {
-        return 'aqui va la vista del de la profesion';
-        // Se va a reemplazar por la vista de la profesion
+        $profesion = profesion::all();
+        return view('profesiones.index', compact('profesion'));
     }
 
     public function create()
     {
-        return 'aqui va el formulario para crear un  de la profesion';
-        // Se va a reemplazar por la vista de crear  de la profesion
+        return view('profesiones.create');
     }
 
     public function store(Request $request)
     {
-        return 'aqui se va a guardar el  de la profesion';
-        // Aquí se implementará la lógica para guardar la profesion
+        // guardar campo creado por el usuario
+        $request->validate([
+            'nombre' => 'required|string|min:10|max:255',
+        ]);
+        profesion::create($request->all());
+
+        return redirect()->route('profesion.index'); // Redirige a la lista de bancos después de guardar
     }
 
     public function show(string $id)
     {
-        return 'aqui se va a mostrar un  de la profesion especifico';
-        // Aquí se implementará la lógica para mostrar un de la profesion específico
+        $profesion = profesion::where('id', $id)->first();
+        if (!$profesion) {
+            return response()->json(['message' => 'Banco no encontrado'], 404);
+        }
+        return $profesion;
     }
 
     public function edit(string $id)
     {
-        return 'aqui se va a mostrar el formulario para modificar un  de la profesion';
-        // Aquí se implementará la lógica para mostrar el formulario de edición de un  de la profesion
+        $profesion = profesion::findOrFail($id); // Verifica si la profesion existe, si no, lanza una excepción
+        return view('profesiones.edit', compact('profesion')); // Muestra el formulario para modificar una profesion
     }
 
     public function update(Request $request, string $id)
     {
-        return 'aqui se va a actualizar el  de la profesion';
-        // Aquí se implementará la lógica para actualizar el  de la profesion
+        // guardar campo creado por el usuario
+        $request->validate([
+            'nombre' => 'required|string|min:10|max:255',
+        ]);
+        profesion::findOrFail($id)->update($request->all()); // Busca la profesion por ID y actualiza sus datos
+
+        return redirect()->route('profesion.index'); // Redirige a la lista de bancos después de guardar
     }
 
     public function destroy(string $id)
     {
-        return 'aqui se va a eliminar el  de la profesion';
-        // Aquí se implementará la lógica para eliminar el  de la profesion
+        $profesion = profesion::findOrFail($id);
+        return redirect()->route('profesion.index');
     }
 }
