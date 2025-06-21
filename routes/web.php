@@ -170,6 +170,27 @@ Route::prefix('detalleNomina')->group(function () {
     Route::delete('/{id}/eliminar', [detalleNominaController::class, 'eliminar']);
 });
 
+
+<?php
+Route::prefix('banco')->group(function () {
+    Route::get('/', [bancoController::class, 'index']);
+    Route::get('/crear', [bancoController::class, 'crear']);
+    Route::post('/guardar', [bancoController::class, 'guardar']);
+    Route::get('/{id}', [bancoController::class, 'buscar']);
+    Route::get('/{id}/modificar', [bancoController::class, 'modificar']);
+    Route::put('/{id}/actualizar', [bancoController::class, 'actualizar']);
+    Route::delete('/{id}/eliminar', [bancoController::class, 'eliminar']);
+});
+
+
+Route::prefix('experienciaLaboral')->group(function () {
+    Route::get('/', [experienciaLaboralController::class, 'index']);
+    Route::get('/crear', [experienciaLaboralController::class, 'crear']);
+    Route::post('/guardar', [experienciaLaboralController::class, 'guardar']);
+    Route::get('/{id}', [experienciaLaboralController::class, 'buscar']);
+    Route::get('/{id}/modificar', [experienciaLaboralController::class, 'modificar']);
+    Route::put('/{id}/actualizar', [experienciaLaboralController::class, 'actualizar']);
+    Route::delete('/{id}/eliminar', [experienciaLaboralController::class, 'eliminar']);});
 /*
 GET: solicita datos, no modifica el estado del recurso.
 POST: crea un nuevo recurso, puede modificar el estado del recurso.
