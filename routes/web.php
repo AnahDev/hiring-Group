@@ -17,27 +17,50 @@ use App\Http\Controllers\postulacionController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\bancoController;
-
+use App\Http\Controllers\contratoController;
 
 
 //Pagina principal y login(home)
 Route::get('/', [homeController::class, '__invoke'])->name('home');
 
+//RUTAS CON RESOURCE
 
+Route::resource('usuario', usuarioController::class);
+Route::resource('banco', bancoController::class);
+Route::resource('candidato_profesion', candidato_profesionController::class);
+Route::resource('candidatos', CandidatosController::class);
+Route::resource('contactoEmpresa', contactoEmpresaController::class);
+Route::resource('contrato', contratoController::class);
+Route::resource('detalleNomina', detalleNominaController::class);
+Route::resource('empresa', EmpresaController::class);
+Route::resource('estudio', estudioController::class);
+Route::resource('experienciaLaboral', experienciaLaboralController::class);
+Route::resource('nomina', nominaController::class);
+Route::resource('ofertaLaboral', ofertaLaboralController::class);
+Route::resource('postulacion', postulacionController::class);
+Route::resource('profesion', profesionController::class);
+Route::resource('sectorEmpresa', sectorEmpresaController::class);
+Route::resource('telefono', telefonoController::class);
+
+
+
+
+/*
 Route::get('/Admin', function () {
     return 'Aqui se va la vista del administrador';
 });
 
 //Rutas asociada a usuario
-Route::prefix('usuario')->group(function () {
-    Route::get('/', [usuarioController::class, 'index']);
-    Route::get('/crear', [usuarioController::class, 'crear']);
-    Route::post('/guardar', [usuarioController::class, 'guardar']);
-    Route::get('/{id}', [usuarioController::class, 'buscar']);
-    Route::get('/{id}/modificar', [usuarioController::class, 'modificar']);
-    Route::put('/{id}/actualizar', [usuarioController::class, 'actualizar']);
-    Route::delete('/{id}/eliminar', [usuarioController::class, 'eliminar']);
-});
+// Route::prefix('usuario')->group(function () {
+//     Route::get('/', [usuarioController::class, 'index']);
+//     Route::get('/crear', [usuarioController::class, 'crear']);
+//     Route::post('/guardar', [usuarioController::class, 'guardar']);
+//     Route::get('/{id}', [usuarioController::class, 'buscar']);
+//     Route::get('/{id}/modificar', [usuarioController::class, 'modificar']);
+//     Route::put('/{id}/actualizar', [usuarioController::class, 'actualizar']);
+//     Route::delete('/{id}/eliminar', [usuarioController::class, 'eliminar']);
+// });
+
 
 
 //Rutas asociada a candidatos
@@ -204,6 +227,9 @@ Route::prefix('candidatoTelefono')->group(function () {
     Route::put('/{id}/actualizar', [telefonoController::class, 'actualizar']);
     Route::delete('/{id}/eliminar', [telefonoController::class, 'eliminar']);
 });
+
+*/ 
+
 /*
 GET: solicita datos, no modifica el estado del recurso.
 POST: crea un nuevo recurso, puede modificar el estado del recurso.
