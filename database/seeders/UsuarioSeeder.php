@@ -11,12 +11,39 @@ class UsuarioSeeder extends Seeder
 {
     public function run(): void
     {
-        $usuario = new usuario();
+        usuario::create([
+            'correo' => 'Admin@demo.com',
+            'password' => Hash::make('admin333'),
+            'tipo' => 'admin',
+            'fechaRegistro' => "2025/01/11",
+        ]);
 
-        $usuario->correo = 'Administrador';
-        $usuario->password = Hash::make('admin333');
-        $usuario->tipo = 'admin';
-        $usuario->fechaRegistro = "2025/01/11";
-        $usuario->save();
+        usuario::create([
+            'correo' => 'Candidato@demo.com',
+            'password' => Hash::make('candidato123'),
+            'tipo' => 'candidato',
+            'fechaRegistro' => "2025/01/11",
+        ]);
+
+        usuario::create([
+            'correo' => 'Hiring@demo.com',
+            'password' => Hash::make('hiring123'),
+            'tipo' => 'hiringGroup',
+            'fechaRegistro' => "2025/01/11",
+        ]);
+
+        usuario::create([
+            'correo' => 'Contratado@demo.com',
+            'password' => Hash::make('contratado123'),
+            'tipo' => 'contratado',
+            'fechaRegistro' => "2025/01/11",
+        ]);
+
+        usuario::create([
+            'correo' => 'Empresa@demo.com',
+            'password' => Hash::make('empresa123'),
+            'tipo' => 'empresa',
+            'fechaRegistro' => "2025/01/11",
+        ]);
     }
 }
