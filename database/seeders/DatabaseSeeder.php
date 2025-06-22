@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\empresa;
 use App\Models\User;
+use Database\Factories\EmpresaFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,9 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         $this->call([
             UsuarioSeeder::class,
-            EmpresaSeeder::class,
         ]);
+        Empresa::factory(5)->create();
     }
 }
