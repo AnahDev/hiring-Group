@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class UsuariosFactory extends Factory
+class usuarioFactory extends Factory
 {
 
     public function definition(): array
     {
         return [
-            //Hacer las factories
+            //
         ];
     }
 }
