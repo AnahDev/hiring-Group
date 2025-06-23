@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ExperienciaLaboralSeeder::class);
         $this->call(TelefonoSeeder::class);
         $this->call(EstudioSeeder::class);
+
+        //Hacer las que faltan
     }
 }
