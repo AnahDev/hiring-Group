@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class sectorEmpresa extends Model
 {
     use HasFactory;
-    protected $table = 'sector_empresa';
+    protected $table = 'sectorEmpresa';
     protected $fillable = [
         'empresa_id',
         'descripcion',
