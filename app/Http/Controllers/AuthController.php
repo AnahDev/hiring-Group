@@ -21,6 +21,20 @@ class AuthController extends Controller
         $credentials = $request->only('correo', 'password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            if (Auth::user()->tipo === 'admin') {
+                return redirect()->intended('/admin'); // Redirige al panel de administración
+            } elseif (Auth::user()->tipo === 'hiringGroup') {
+                return redirect()->intended('/hiringGroup'); // Redirige al panel de hiringGroup
+            } elseif (Auth::user()->tipo === 'empresa') {
+                return redirect()->intended('/empresa'); // Redirige al panel de empresa
+            } elseif (Auth::user()->tipo === 'candidato') {
+                return redirect()->intended('/candidato'); // Redirige al panel de candidato
+            } elseif (Auth::user()->tipo === 'contratado') {
+                return redirect()->intended('/contratado'); // Redirige al panel de contratado
+            }
+
+
             return redirect()->intended('/home'); // Redirige a la página de inicio
         }
         return back()->withErrors([

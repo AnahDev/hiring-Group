@@ -38,6 +38,9 @@ Route::get('/home', function () {
 })->middleware('auth'); // Asegura que el usuario esté autenticado para acceder a esta ruta 
 
 
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware('auth');
 
 
 

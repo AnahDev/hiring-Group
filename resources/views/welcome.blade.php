@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    @if (Route::has('login'))
+    {{-- @if (Route::has('login'))
         <div class="flex justify-end p-4">
             @auth
                 <a href="{{ url('/dashboard') }}">Dashboard</a>
@@ -31,7 +31,7 @@
                 @endif
             @endauth
         </div>
-    @endif
+    @endif --}}
 
 </body>
 
