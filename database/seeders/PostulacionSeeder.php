@@ -13,21 +13,21 @@ class PostulacionSeeder extends Seeder
     public function run(): void
     {
         //IDs del candidato
-        $postulacionCand1 = candidato::where('id', '1')->first;
-        $postulacionCand2 = candidato::where('id', '2')->first;
-        $postulacionCand3 = candidato::where('id', '3')->first;
-        $postulacionCand4 = candidato::where('id', '4')->first;
-        $postulacionCand5 = candidato::where('id', '5')->first;
-        $postulacionCand6 = candidato::where('id', '6')->first;
+        $postulacionCand1 = candidato::where('id', '1')->first();
+        $postulacionCand2 = candidato::where('id', '2')->first();
+        $postulacionCand3 = candidato::where('id', '3')->first();
+        $postulacionCand4 = candidato::where('id', '4')->first();
+        $postulacionCand5 = candidato::where('id', '5')->first();
+        $postulacionCand6 = candidato::where('id', '6')->first();
 
         //IDs de las ofertas laborales
 
-        $ofertasPostulacion1 = ofertaLaboral::where('id', '1')->first;
-        $ofertasPostulacion2 = ofertaLaboral::where('id', '2')->first;
-        $ofertasPostulacion3 = ofertaLaboral::where('id', '3')->first;
-        $ofertasPostulacion4 = ofertaLaboral::where('id', '4')->first;
-        $ofertasPostulacion5 = ofertaLaboral::where('id', '5')->first;
-        $ofertasPostulacion6 = ofertaLaboral::where('id', '6')->first;
+        $ofertasPostulacion1 = ofertaLaboral::where('id', '1')->first();
+        $ofertasPostulacion2 = ofertaLaboral::where('id', '2')->first();
+        $ofertasPostulacion3 = ofertaLaboral::where('id', '3')->first();
+        $ofertasPostulacion4 = ofertaLaboral::where('id', '4')->first();
+        $ofertasPostulacion5 = ofertaLaboral::where('id', '5')->first();
+        $ofertasPostulacion6 = ofertaLaboral::where('id', '6')->first();
 
         if ($postulacionCand1 && $ofertasPostulacion1) {
             postulacion::create([

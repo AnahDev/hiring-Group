@@ -11,11 +11,11 @@ class NominaSeeder extends Seeder
 {
     public function run(): void
     {
-        $empresaNomina1 = empresa::where('id', '1')->firts;
-        $empresaNomina2 = empresa::where('id', '2')->firts;
-        $empresaNomina3 = empresa::where('id', '3')->firts;
-        $empresaNomina4 = empresa::where('id', '4')->firts;
-        $empresaNomina5 = empresa::where('id', '5')->firts;
+        $empresaNomina1 = empresa::where('id', '1')->first();
+        $empresaNomina2 = empresa::where('id', '2')->first();
+        $empresaNomina3 = empresa::where('id', '3')->first();
+        $empresaNomina4 = empresa::where('id', '4')->first();
+        $empresaNomina5 = empresa::where('id', '5')->first();
 
         if ($empresaNomina1) {
             nomina::create([

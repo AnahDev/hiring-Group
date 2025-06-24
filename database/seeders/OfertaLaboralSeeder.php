@@ -14,18 +14,18 @@ class OfertaLaboralSeeder extends Seeder
     public function run(): void
     {
         //IDs empresas
-        $empresaOferta1 = empresa::where('id', '1')->firts;
-        $empresaOferta2 = empresa::where('id', '2')->firts;
-        $empresaOferta3 = empresa::where('id', '3')->firts;
-        $empresaOferta4 = empresa::where('id', '4')->firts;
-        $empresaOferta5 = empresa::where('id', '5')->firts;
+        $empresaOferta1 = empresa::where('id', '1')->first();
+        $empresaOferta2 = empresa::where('id', '2')->first();
+        $empresaOferta3 = empresa::where('id', '3')->first();
+        $empresaOferta4 = empresa::where('id', '4')->first();
+        $empresaOferta5 = empresa::where('id', '5')->first();
 
         //IDs profesiones
-        $profesionOferta1 = profesion::where('id', '1')->firts;
-        $profesionOferta2 = profesion::where('id', '2')->firts;
-        $profesionOferta3 = profesion::where('id', '3')->firts;
-        $profesionOferta4 = profesion::where('id', '4')->firts;
-        $profesionOferta5 = profesion::where('id', '5')->firts;
+        $profesionOferta1 = profesion::where('id', '1')->first();
+        $profesionOferta2 = profesion::where('id', '2')->first();
+        $profesionOferta3 = profesion::where('id', '3')->first();
+        $profesionOferta4 = profesion::where('id', '4')->first();
+        $profesionOferta5 = profesion::where('id', '5')->first();
 
         if ($empresaOferta1 && $profesionOferta1) {
             ofertaLaboral::create([

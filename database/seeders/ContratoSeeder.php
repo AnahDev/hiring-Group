@@ -13,18 +13,18 @@ class ContratoSeeder extends Seeder
     public function run(): void
     {
         //IDs contrato
-        $postContrato1 = postulacion::where('id', '1')->firts();
-        $postContrato2 = postulacion::where('id', '2')->firts();
-        $postContrato3 = postulacion::where('id', '3')->firts();
-        $postContrato4 = postulacion::where('id', '4')->firts();
-        $postContrato5 = postulacion::where('id', '5')->firts();
+        $postContrato1 = postulacion::where('id', '1')->first();
+        $postContrato2 = postulacion::where('id', '2')->first();
+        $postContrato3 = postulacion::where('id', '3')->first();
+        $postContrato4 = postulacion::where('id', '4')->first();
+        $postContrato5 = postulacion::where('id', '5')->first();
 
         //IDs bancos
-        $bancoContrato1 = banco::where('id', '1')->firts();
-        $bancoContrato2 = banco::where('id', '2')->firts();
-        $bancoContrato3 = banco::where('id', '3')->firts();
-        $bancoContrato4 = banco::where('id', '4')->firts();
-        $bancoContrato5 = banco::where('id', '5')->firts();
+        $bancoContrato1 = banco::where('id', '1')->first();
+        $bancoContrato2 = banco::where('id', '2')->first();
+        $bancoContrato3 = banco::where('id', '3')->first();
+        $bancoContrato4 = banco::where('id', '4')->first();
+        $bancoContrato5 = banco::where('id', '5')->first();
 
         if ($postContrato1 && $bancoContrato1) {
             contrato::create([
@@ -48,7 +48,7 @@ class ContratoSeeder extends Seeder
                 'banco_id' => $bancoContrato2->id,
                 'fechaInicio' => now(),
                 'fechaFin' => null,
-                'duracion' => '6 mes',
+                'duracion' => '6 meses',
                 'salarioMensual' => '10.2',
                 'tipoSangre' => 'O+',
                 'tlfEmergencia' => '000-00-00',
