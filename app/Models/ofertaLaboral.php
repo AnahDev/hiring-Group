@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ofertaLaboral extends Model
 {
     use HasFactory;
-    protected $table = 'ofertas_laborales';
+    protected $table = 'oferta_laboral';
     protected $fillable = [
         'empresa_id',
         'profesion_id',
