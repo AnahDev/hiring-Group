@@ -18,10 +18,28 @@ use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\bancoController;
 use App\Http\Controllers\contratoController;
-
+use App\Http\Controllers\AuthController;
+use Illuminate\Container\Attributes\Auth;
 
 //Pagina principal y login(home)
-Route::get('/', [homeController::class, '__invoke'])->name('home');
+// Route::get('/', [homeController::class, '__invoke'])->name('home');
+
+Route::get('/', function () {
+    return view('welcome'); // Aquí puedes cambiar 'welcome' por la vista que desees mostrar
+});
+
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::get('/home', function () {
+    return 'Aqui se va la vista del administrador';
+})->middleware('auth'); // Asegura que el usuario esté autenticado para acceder a esta ruta 
+
+
+
+
 
 //RUTAS CON RESOURCE
 
