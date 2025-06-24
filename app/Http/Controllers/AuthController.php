@@ -21,7 +21,7 @@ class AuthController extends Controller
         $credentials = $request->only('correo', 'password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('home'); // Redirige a la página de inicio
+            return redirect()->intended('/home'); // Redirige a la página de inicio
         }
         return back()->withErrors([
             'correo' => 'Las credenciales proporcionadas no son válidas.',

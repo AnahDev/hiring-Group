@@ -22,18 +22,20 @@
 
         </div>
 
-        <form class="formulario">
+        <form class="formulario" method="POST" action="{{ route('login') }}">
+
+            @csrf
             <div class="texto-formulario">
                 <h2>Hiring Group C.A</h2>
                 <p>Inicia sesión con tu cuenta</p>
             </div>
             <div class="input">
                 <label for="usuario">Correo</label>
-                <input placeholder="Ingresa tu correo" type="text" id="usuario">
+                <input placeholder="Ingresa tu correo" type="text" id="correo" name="correo">
             </div>
             <div class="input">
                 <label for="contraseña">Contraseña</label>
-                <input placeholder="Ingresa tu contraseña" type="password" id="contraseña">
+                <input placeholder="Ingresa tu contraseña" type="password" id="password" name="password">
             </div>
             {{-- <div class="password-olvidada">
                 <a href="#">¿Olvidaste tu contraseña?</a>
