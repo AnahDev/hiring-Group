@@ -43,25 +43,38 @@ Route::get('/admin', function () {
 })->middleware('auth');
 
 
+// HIRING GROUP
+
+Route::get('/hiringGroup', function () {
+    return view('hiring.dashboard');
+})->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hiringGroup/postulaciones', [App\Http\Controllers\PostulacionController::class, 'index'])->name('hiringGroup.postulaciones');
+});
+
+
+
+
 
 //RUTAS CON RESOURCE
 
-Route::resource('usuario', usuarioController::class);
-Route::resource('banco', bancoController::class);
-Route::resource('candidato_profesion', candidato_profesionController::class);
-Route::resource('candidatos', CandidatosController::class);
-Route::resource('contactoEmpresa', contactoEmpresaController::class);
-Route::resource('contrato', contratoController::class);
-Route::resource('detalleNomina', detalleNominaController::class);
-Route::resource('empresa', EmpresaController::class);
-Route::resource('estudio', estudioController::class);
-Route::resource('experienciaLaboral', experienciaLaboralController::class);
-Route::resource('nomina', nominaController::class);
-Route::resource('ofertaLaboral', ofertaLaboralController::class);
-Route::resource('postulacion', postulacionController::class);
-Route::resource('profesion', profesionController::class);
-Route::resource('sectorEmpresa', sectorEmpresaController::class);
-Route::resource('telefono', telefonoController::class);
+// Route::resource('usuario', usuarioController::class);
+// Route::resource('banco', bancoController::class);
+// Route::resource('candidato_profesion', candidato_profesionController::class);
+// Route::resource('candidatos', CandidatosController::class);
+// Route::resource('contactoEmpresa', contactoEmpresaController::class);
+// Route::resource('contrato', contratoController::class);
+// Route::resource('detalleNomina', detalleNominaController::class);
+// Route::resource('empresa', EmpresaController::class);
+// Route::resource('estudio', estudioController::class);
+// Route::resource('experienciaLaboral', experienciaLaboralController::class);
+// Route::resource('nomina', nominaController::class);
+// Route::resource('ofertaLaboral', ofertaLaboralController::class);
+// Route::resource('postulacion', postulacionController::class);
+// Route::resource('profesion', profesionController::class);
+// Route::resource('sectorEmpresa', sectorEmpresaController::class);
+// Route::resource('telefono', telefonoController::class);
 
 
 
