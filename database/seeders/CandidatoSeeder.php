@@ -35,14 +35,7 @@ class CandidatoSeeder extends Seeder
                 'direccion' => 'San felix',
             ]);
         }
-        if ($usCandidato3) {
-            candidato::create([
-                'usuario_id' => $usCandidato2->id,
-                'nombre' => 'Candidato 2',
-                'apellido' => 'Generico',
-                'direccion' => 'Caracas',
-            ]);
-        }
+
         if ($usCandidato3) {
             candidato::create([
                 'usuario_id' => $usCandidato3->id,
