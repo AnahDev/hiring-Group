@@ -19,6 +19,8 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\bancoController;
 use App\Http\Controllers\contratoController;
 use App\Http\Controllers\AuthController;
+use App\Models\empresa;
+use App\Models\ofertaLaboral;
 use Illuminate\Container\Attributes\Auth;
 
 //Pagina principal y login(home)
@@ -50,36 +52,26 @@ Route::get('/hiringGroup', function () {
 })->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/hiringGroup/postulaciones', [App\Http\Controllers\PostulacionController::class, 'index']);
+    Route::get('/hiringGroup/postulaciones', [PostulacionController::class, 'index']);
 });
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/hiringGroup/ofertas', [App\Http\Controllers\PostulacionController::class, 'index']);
+    Route::get('/hiringGroup/ofertas', [PostulacionController::class, 'index']);
 });
 
 
-//RUTAS CON RESOURCE
 
-// Route::resource('usuario', usuarioController::class);
-// Route::resource('banco', bancoController::class);
-// Route::resource('candidato_profesion', candidato_profesionController::class);
-// Route::resource('candidatos', CandidatosController::class);
-// Route::resource('contactoEmpresa', contactoEmpresaController::class);
-// Route::resource('contrato', contratoController::class);
-// Route::resource('detalleNomina', detalleNominaController::class);
-// Route::resource('empresa', EmpresaController::class);
-// Route::resource('estudio', estudioController::class);
-// Route::resource('experienciaLaboral', experienciaLaboralController::class);
-// Route::resource('nomina', nominaController::class);
-// Route::resource('ofertaLaboral', ofertaLaboralController::class);
-// Route::resource('postulacion', postulacionController::class);
-// Route::resource('profesion', profesionController::class);
-// Route::resource('sectorEmpresa', sectorEmpresaController::class);
-// Route::resource('telefono', telefonoController::class);
+// Rutas Empresa
+Route::get('/empresa', function () {
+    return view('empresa.dashboard');
+})->middleware('auth');
 
-
-
+Route::middleware(['auth'])->group(function () {
+    //Route::get('/empresa/ofertas', [ofertaLaboralController::class, 'index'])->name('empresa.ofertas');
+    Route::resource('empresa/ofertas', ofertaLaboralController::class)->names('empresa.ofertas');
+    Route::post('/empresa/ofertas/{ofertaLaboral}/toggle-status', [ofertaLaboralController::class, 'toggleStatus'])->name('empresa.ofertas.toggleStatus');
+});
 
 /*
 Route::get('/Admin', function () {
