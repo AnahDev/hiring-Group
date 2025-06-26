@@ -50,11 +50,13 @@ Route::get('/hiringGroup', function () {
 })->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/hiringGroup/postulaciones', [App\Http\Controllers\PostulacionController::class, 'index'])->name('hiringGroup.postulaciones');
+    Route::get('/hiringGroup/postulaciones', [App\Http\Controllers\PostulacionController::class, 'index']);
 });
 
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hiringGroup/ofertas', [App\Http\Controllers\PostulacionController::class, 'index']);
+});
 
 
 //RUTAS CON RESOURCE
