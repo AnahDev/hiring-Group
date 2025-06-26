@@ -16,7 +16,7 @@
             @foreach ($postulaciones as $postulacion)
                 <tr>
                     <td>{{ $postulacion->candidato->nombre ?? '-' }}</td>
-                    <td>{{ $postulacion->ofertaLaboral->profesion->nombre ?? '-' }}</td>
+                    <td>{{ $postulacion->ofertaLaboral->profesion->descripcion ?? '-' }}</td>
                     <td>{{ $postulacion->ofertaLaboral->cargo ?? '-' }}</td>
                     <td>{{ $postulacion->ofertaLaboral->empresa->nombre ?? '-' }}</td>
                     <td>{{ $postulacion->fechaPostulacion ?? '-' }}</td>
