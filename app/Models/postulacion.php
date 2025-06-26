@@ -26,9 +26,9 @@ class postulacion extends Model
         return $this->belongsTo(contrato::class, 'contrato_id');
     }
 
-    public function candidato(): HasMany
+    public function candidato(): BelongsTo
     {
-        return $this->hasMany(candidato::class, 'candidato_id');
+        return $this->belongsTo(candidato::class, 'candidato_id');
     }
 
     public function ofertaLaboral(): BelongsTo
