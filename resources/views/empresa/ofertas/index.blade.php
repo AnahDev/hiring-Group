@@ -26,23 +26,25 @@
                     <th>Profesión</th>
                     <th>Cargo Vacante</th>
                     <th>Salario Ofrecido</th>
-                    <th>Estatus</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
              <tbody>
             @foreach ($ofertasLaborales as $oferta)
                 <tr>
-                    <>{{ $oferta->id}}
+                    <td>{{ $oferta->id}}</td>
                     <td>{{ $oferta->profesion->descripcion ?? 'N/A' }}</td>
                     <td>{{ $oferta->cargo }}</td>
                     <td>${{ number_format($oferta->salario, 2, ',', '.') }}</td>
+                    <th>{{ $oferta->ubicacion}} </th>
                     <td>{{ $oferta->estado}}</td>
                     <td>
                     <form action="{{ route('empresa.ofertas.toggleStatus', $oferta) }}" method="POST" style="display:inline-block;">
                                 @csrf
-                                <button type="submit" class="btn btn-sm {{ $oferta->estatus ? 'btn-warning' : 'btn-success' }}">
-                                    {{ $oferta->estatus ? 'Desactivar' : 'Activar' }}
+                                <button type="submit" class="btn btn-sm {{ $oferta->estado ? 'btn-warning' : 'btn-success' }}">
+                                    {{ $oferta->estado ? 'Activar' : 'Desactivar' }}
                                 </button>
                             </form>
                     </td>

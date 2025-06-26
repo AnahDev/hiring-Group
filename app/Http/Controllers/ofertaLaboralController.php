@@ -40,26 +40,25 @@ class ofertaLaboralController extends Controller
         }
 
         $request->validate([
-            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
-            'candidato_id' => 'required|exists:candidatos,id', // Asegurarse de que el candidato existe
+            'profesion_id' => 'required|exists:profesion,id',
             'cargo' => 'required|string|max:255',
-            'descripcion' => 'required|text',
-            'salario' => 'nullable|decimal|min:0',
-            'estado' => 'required|in:activa,inactiva',
-            'fechaCreacion' => 'nullable|date',
+            'descripcion' => 'required|string',
+            'salario' => 'nullable|decimal:2',
             'ubicacion' => 'nullable|string|max:255',
+            // No validamos empresa_id, candidato_id ni estado aquí
         ]);
 
-        $empresa->ofertasLaborales()->create([
+        $empresa->ofertaLaboral()->create([
             'profesion_id' => $request->profesion_id,
             'cargo' => $request->cargo,
             'descripcion' => $request->descripcion,
             'salario' => $request->salario,
-            'estado' => $request->has('estado') ? (bool)$request->estatus : true,
+            'estado' => $request->has('estado') ? 'activa' : 'inactiva',
             'ubicacion' => $request->ubicacion,
+            'fechaCreacion' => now(),
         ]);
 
-        return redirect()->route('ofertasLaborales.index')->with('success', 'Oferta creada exitosamente!');
+        return redirect()->route('empresa.ofertas.index')->with('success', 'Oferta creada exitosamente!');
     }
 
     public function show(ofertaLaboral $ofertaLaboral)
@@ -89,8 +88,8 @@ class ofertaLaboralController extends Controller
             'empresa_id' => 'required|exists:empresas,id',
             'candidato_id' => 'required|exists:candidatos,id',
             'cargo' => 'required|string|max:255',
-            'descripcion' => 'required|text',
-            'salario' => 'nullable|decimal|min:0',
+            'descripcion' => 'required|string',
+            'salario' => 'nullable|decimal:2',
             'estado' => 'required|in:activa,inactiva',
             'ubicacion' => 'nullable|string|max:255',
         ]);
@@ -117,7 +116,7 @@ class ofertaLaboralController extends Controller
         }
 
         // Cambia el estado de 'activo' a 'inactivo' y viceversa
-        $ofertaLaboral->estado = $ofertaLaboral->estado === 'activo' ? 'inactivo' : 'activo';
+        $ofertaLaboral->estado = $ofertaLaboral->estado === 'activa' ? 'inactiva' : 'activa';
         $ofertaLaboral->save();
 
         return redirect()->back()->with('success', 'Estatus de la oferta actualizado a: ' . $ofertaLaboral->estado);

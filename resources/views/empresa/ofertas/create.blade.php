@@ -30,24 +30,30 @@
             </div>
 
             <div class="mb-3">
-                <label for="cargo_vacante" class="form-label">Cargo Vacante:</label>
-                <input type="text" class="form-control" id="cargo_vacante" name="cargo_vacante" value="{{ old('cargo_vacante') }}" required>
+                <label for="cargo" class="form-label">Cargo Vacante:</label>
+                <input type="text" class="form-control" id="cargo_vacante" name="cargo" value="{{ old('cargo') }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="descripcion_perfil" class="form-label">Descripción del Perfil:</label>
-                <textarea class="form-control" id="descripcion_perfil" name="descripcion_perfil" rows="5" required>{{ old('descripcion_perfil') }}</textarea>
+                <label for="descripcion class="form-label">Descripción del Perfil:</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="5" required>{{ old('descripcion') }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label for="salario_ofrecido" class="form-label">Salario Ofrecido:</label>
-                <input type="number" step="0.01" class="form-control" id="salario_ofrecido" name="salario_ofrecido" value="{{ old('salario_ofrecido') }}" required>
+                <label for="salario" class="form-label">Salario Ofrecido:   </label>
+                <input type="number" step="0.01" class="form-control" id="salario_ofrecido" name="salario" value="{{ old('salario') }}" required>
             </div>
 
+            <div class="mb-3">
+                <label for="ubicacion" class="form-label">Ubicación:</label>
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{ old('ubicacion') }}">
+            </div>
+            
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="estatus" name="estatus" value="1" {{ old('estatus', true) ? 'checked' : '' }}>
-                <label class="form-check-label" for="estatus">Activa</label>
+                <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1" {{ old('estado', true) ? 'checked' : '' }}>
+                <label class="form-check-label" for="estado">Activa</label>
             </div>
+
 
             <button type="submit" class="btn btn-primary">Crear Oferta</button>
             <a href="{{ route('empresa.ofertas.index') }}" class="btn btn-secondary">Cancelar</a>
