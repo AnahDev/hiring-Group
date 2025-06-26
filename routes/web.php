@@ -69,6 +69,10 @@ Route::get('/empresa', function () {
 
 Route::middleware(['auth'])->group(function () {
     //Route::get('/empresa/ofertas', [ofertaLaboralController::class, 'index'])->name('empresa.ofertas');
+    Route::get('empresa/ofertas/activas', [ofertaLaboralController::class, 'activas'])->name('empresa.ofertas.activas');
+    Route::get('empresa/ofertas/inactivas', [ofertaLaboralController::class, 'inactivas'])->name('empresa.ofertas.inactivas');
+
+    //PILAAAAAA Los metodos resources tinene que ir al final para que no de problemas
     Route::resource('empresa/ofertas', ofertaLaboralController::class)->names('empresa.ofertas');
     Route::post('/empresa/ofertas/{ofertaLaboral}/toggle-status', [ofertaLaboralController::class, 'toggleStatus'])->name('empresa.ofertas.toggleStatus');
 });

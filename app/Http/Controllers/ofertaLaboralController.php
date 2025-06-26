@@ -108,6 +108,7 @@ class ofertaLaboralController extends Controller
         return redirect()->route('empresa.ofertas.index')->with('success', 'Oferta eliminada correctamente.');
     }
 
+    //Metodos extras
     //Acción para cambiar el estatus de una oferta (solo de activa a inactiva y viceversa).
     public function toggleStatus(OfertaLaboral $ofertaLaboral)
     {
@@ -120,5 +121,33 @@ class ofertaLaboralController extends Controller
         $ofertaLaboral->save();
 
         return redirect()->back()->with('success', 'Estatus de la oferta actualizado a: ' . $ofertaLaboral->estado);
+    }
+
+    public function activas()
+    {
+        $usuario = Auth::user();
+        $empresa = $usuario->empresa;
+
+        if (!$empresa) {
+            return redirect('/empresa')->with('Error', 'No tienes una empresa asociada.');
+        }
+
+        $ofertasLaborales = $empresa->ofertaLaboral()->where('estado', 'activa')->with('profesion')->get();
+
+        return view('empresa.ofertas.index', compact('ofertasLaborales'));
+    }
+
+    public function inactivas()
+    {
+        $usuario = Auth::user();
+        $empresa = $usuario->empresa;
+
+        if (!$empresa) {
+            return redirect('/empresa')->with('Error', 'No tienes una empresa asociada.');
+        }
+
+        $ofertasLaborales = $empresa->ofertaLaboral()->where('estado', 'inactiva')->with('profesion')->get();
+
+        return view('empresa.ofertas.index', compact('ofertasLaborales'));
     }
 }
