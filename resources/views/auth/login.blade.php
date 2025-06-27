@@ -37,6 +37,10 @@
                 <label for="contraseña">Contraseña</label>
                 <input placeholder="Ingresa tu contraseña" type="password" id="password" name="password">
             </div>
+            {{-- Crear un nuevo usuario --}}
+            <div class="crear-cuenta">
+                <p>¿No tienes una cuenta? <a href="{{ route('registrar') }}">Crea una cuenta</a></p>
+            </div>
             {{-- <div class="password-olvidada">
                 <a href="#">¿Olvidaste tu contraseña?</a>
             </div> --}}

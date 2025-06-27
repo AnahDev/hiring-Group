@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,40 @@ class AuthController extends Controller
             'correo' => 'Las credenciales proporcionadas no son válidas.',
         ]);
     }
+
+    public function registrarUsuario()
+    {
+        return view('auth.registrar');
+    }
+
+    public function registrar(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'correo' => 'required|email|unique:usuario,correo',
+            'password' => 'required|min:6|confirmed',
+        ]);
+        // Crear un nuevo usuario
+        $usuario = new usuario();
+        $usuario->correo = $request->input('correo');
+        $usuario->password = bcrypt($request->input('password')); // Encriptar la contraseña
+        $usuario->tipo = $request->input('tipo', 'candidato'); // Asignar el tipo de usuario, por defecto 'candidato' 
+        $usuario->fechaRegistro = now();
+        $usuario->save(); // Guardar el usuario en la base de datos
+
+        // Iniciar sesión automáticamente después del registro
+        Auth::login($usuario);
+        if ($usuario->tipo === 'empresa') {
+            return redirect('/empresa')->with('success', 'Cuenta creada exitosamente.');
+        } elseif ($usuario->tipo === 'candidato') {
+            return redirect('/candidato')->with('success', 'Cuenta creada exitosamente.');
+        } elseif ($usuario->tipo === 'contratado') {
+            return redirect('/contratado')->with('success', 'Cuenta creada exitosamente.');
+        }
+        return redirect('/home')->with('success', 'Cuenta creada exitosamente.');
+    }
+
+
     // Maneja el cierre de sesión del usuario
     // Redirige al usuario a la página de inicio después de cerrar sesión
     public function logout(Request $request)

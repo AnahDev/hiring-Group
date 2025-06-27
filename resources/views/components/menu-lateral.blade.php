@@ -68,7 +68,7 @@
                 ['href' => '/candidato/aplicadas', 'label' => 'Mis Postulaciones'],
             ]" :open="true" />
             <x-menu-group title="Curriculum" :items="[
-                ['href' => '/candidato/perfil', 'label' => 'Editar Perfil'],
+                ['href' => '/candidato/perfil/create', 'label' => 'Editar Perfil'],
                 ['href' => '/candidato/profesiones', 'label' => 'Gestionar Profesiones'],
                 ['href' => '/candidato/experiencias', 'label' => 'Gestionar Experiencias Laborales'],
             ]" />
