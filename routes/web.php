@@ -52,14 +52,17 @@ Route::get('/hiringGroup', function () {
 })->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/hiringGroup/postulaciones', [PostulacionController::class, 'index']);
+    Route::get('/hiringGroup/postulaciones', [PostulacionController::class, 'index'])->name('postulaciones');
 });
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/hiringGroup/ofertas', [PostulacionController::class, 'index']);
+    Route::get('/hiringGroup/ofertas', [ofertaLaboralController::class, 'indexAll'])->name('ofertas');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hiringGroup/reportes', [ofertaLaboralController::class, 'reporteOfertasPorProfesion'])->name('reportes');
+});
 
 
 // Rutas Empresa

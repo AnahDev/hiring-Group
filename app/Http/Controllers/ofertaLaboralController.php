@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class ofertaLaboralController extends Controller
 {
 
+    //muestra la oferta laboral asociada una empresa
     public function index()
     {
         $empresa = Auth::user()->empresa;
@@ -21,6 +22,16 @@ class ofertaLaboralController extends Controller
         $ofertasLaborales = $empresa->ofertaLaboral()->with('profesion')->get();
 
         return view('empresa.ofertas.index', compact('ofertasLaborales'));
+    }
+
+    // Muestra todas las ofertas laborales
+    public function indexAll()
+    {
+        // Obtiene todas las ofertas laborales con su empresa y profesión asociada
+        $ofertasLaborales = \App\Models\ofertaLaboral::with(['empresa', 'profesion'])->get();
+
+        // Retorna la vista para el panel de hiring group
+        return view('hiring.ofertas', compact('ofertasLaborales'));
     }
 
     public function create()
@@ -157,5 +168,14 @@ class ofertaLaboralController extends Controller
         $ofertasLaborales = $empresa->ofertaLaboral()->where('estado', 'inactiva')->with('profesion')->get();
 
         return view('empresa.ofertas.index', compact('ofertasLaborales'));
+    }
+
+    public function reporteOfertasPorProfesion()
+    {
+        $reporte = profesion::with(['ofertas.empresa'])
+            ->withCount('ofertas')
+            ->get();
+
+        return view('hiring.reportes', compact('reporte'));
     }
 }

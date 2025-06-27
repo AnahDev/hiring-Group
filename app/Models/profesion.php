@@ -23,4 +23,10 @@ class profesion extends Model
     {
         return $this->hasMany(ofertaLaboral::class, 'profesion_id');
     }
+
+
+    public function ofertas(): HasMany
+    {
+        return $this->hasMany(ofertaLaboral::class, 'profesion_id');
+    }
 }
