@@ -55,7 +55,7 @@
         @elseif ($tipo === 'empresa')
             <x-menu-group title="Ofertas Laborales" :items="[
                 ['href' => '/empresa/ofertas', 'label' => 'Gestionar Ofertas', 'highlight' => true],
-                ['href' => '/empresa/ofertas/crear', 'label' => 'Crear Nueva Oferta'],
+                ['href' => '/empresa/ofertas/create', 'label' => 'Crear Nueva Oferta'],
                 ['href' => '/empresa/ofertas/activas', 'label' => 'Ofertas Activas'],
                 ['href' => '/empresa/ofertas/inactivas', 'label' => 'Ofertas Inactivas'],
             ]" :open="true" />

@@ -15,10 +15,6 @@ class OfertaLaboralSeeder extends Seeder
     {
         //IDs empresas
         $empresaOferta1 = empresa::where('id', '1')->first();
-        $empresaOferta2 = empresa::where('id', '2')->first();
-        $empresaOferta3 = empresa::where('id', '3')->first();
-        $empresaOferta4 = empresa::where('id', '4')->first();
-        $empresaOferta5 = empresa::where('id', '5')->first();
 
         //IDs profesiones
         $profesionOferta1 = profesion::where('id', '1')->first();
@@ -38,10 +34,8 @@ class OfertaLaboralSeeder extends Seeder
                 'fechaCreacion' => now(),
                 'ubicacion' => 'Los raudales',
             ]);
-        }
-        if ($empresaOferta2 && $profesionOferta2) {
             ofertaLaboral::create([
-                'empresa_id' => $empresaOferta2->id,
+                'empresa_id' => $empresaOferta1->id,
                 'profesion_id' => $profesionOferta2->id,
                 'cargo' => 'Analista de compras',
                 'descripcion' => 'Hace cosas',
@@ -50,10 +44,8 @@ class OfertaLaboralSeeder extends Seeder
                 'fechaCreacion' => now(),
                 'ubicacion' => 'Los pueblos',
             ]);
-        }
-        if ($empresaOferta3 && $profesionOferta3) {
             ofertaLaboral::create([
-                'empresa_id' => $empresaOferta3->id,
+                'empresa_id' => $empresaOferta1->id,
                 'profesion_id' => $profesionOferta3->id,
                 'cargo' => 'Analista de ventas',
                 'descripcion' => 'Hace cosas ',
@@ -62,10 +54,9 @@ class OfertaLaboralSeeder extends Seeder
                 'fechaCreacion' => now(),
                 'ubicacion' => 'San felix',
             ]);
-        }
-        if ($empresaOferta4 && $profesionOferta4) {
+
             ofertaLaboral::create([
-                'empresa_id' => $empresaOferta4->id,
+                'empresa_id' => $empresaOferta1->id,
                 'profesion_id' => $profesionOferta4->id,
                 'cargo' => 'Analista de datos',
                 'descripcion' => 'Hace cosas de analita de datos',
@@ -74,10 +65,8 @@ class OfertaLaboralSeeder extends Seeder
                 'fechaCreacion' => now(),
                 'ubicacion' => 'Puerto Ordaz',
             ]);
-        }
-        if ($empresaOferta5 && $profesionOferta5) {
             ofertaLaboral::create([
-                'empresa_id' => $empresaOferta5->id,
+                'empresa_id' => $empresaOferta1->id,
                 'profesion_id' => $profesionOferta5->id,
                 'cargo' => 'Supervisor',
                 'descripcion' => 'Supervisa obviamente',

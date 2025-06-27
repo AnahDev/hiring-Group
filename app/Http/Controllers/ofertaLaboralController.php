@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ofertaLaboralController extends Controller
 {
+
     public function index()
     {
-        $usuario = Auth::user();
-        $empresa = $usuario->empresa;
+        $empresa = Auth::user()->empresa;
 
         if (!$empresa) {
             return redirect('/empresa')->with('error', 'No tienes una empresa asociada para gestionar ofertas.');
@@ -26,15 +26,17 @@ class ofertaLaboralController extends Controller
 
     public function create()
     {
+        $empresa = Auth::user()->empresa;
+        if (!$empresa) {
+            abort(403, 'Acceso no autorizado para crear ofertas.');
+        }
         $profesiones = profesion::all();
         return view('empresa.ofertas.create', compact('profesiones'));
     }
 
     public function store(Request $request)
     {
-        $usuario = Auth::user();
-        $empresa = $usuario->empresa;
-
+        $empresa = Auth::user()->empresa;
         if (!$empresa) {
             return redirect()->back()->with('error', 'Debes tener una empresa asociada para crear ofertas.');
         }
@@ -71,9 +73,18 @@ class ofertaLaboralController extends Controller
 
     public function edit(ofertaLaboral $ofertaLaboral)
     {
-        if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
+        $empresa = Auth::user()->empresa;
+        if (!$empresa || $ofertaLaboral->empresa_id !== $empresa->id) {
+
+            dd([
+                'Oferta Empresa ID' => $ofertaLaboral->empresa_id,
+                'Usuario Empresa ID' => $empresa ? $empresa->id : 'No Empresa', // Manejo si $empresa es null
+                'Oferta ID' => $ofertaLaboral->id,
+                'Usuario ID' => Auth::id(),
+            ]);
             abort(403, 'Acceso no autorizado para editar esta oferta.');
         }
+
         $profesiones = Profesion::all();
         return view('empresa.ofertas.edit', compact('ofertaLaboral', 'profesiones'));
     }
@@ -85,12 +96,10 @@ class ofertaLaboralController extends Controller
         }
 
         $request->validate([
-            'empresa_id' => 'required|exists:empresas,id',
-            'candidato_id' => 'required|exists:candidatos,id',
+            'profesion_id' => 'required|exists:profesion,id',
             'cargo' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'salario' => 'nullable|decimal:2',
-            'estado' => 'required|in:activa,inactiva',
             'ubicacion' => 'nullable|string|max:255',
         ]);
 
