@@ -95,8 +95,10 @@ class EmpresaController extends Controller
         // Actualiza la contraseña
         $user->password = bcrypt($request->new_password);
 
-        if (method_exists($user, 'save')) {
+        if ($user && method_exists($user, 'save')) {
+            $user->password = bcrypt($request->new_password);
             $user->save();
+
             return back()->with('success', '¡Contraseña actualizada correctamente!');
         } else {
             return back()->with('error', 'No se pudo actualizar la contraseña. El usuario autenticado no es un modelo válido.');
