@@ -27,6 +27,7 @@ class usuario extends Authenticatable
     //     return $this->clave;
     // }
 
+
     // Relaciones uno a uno
     public function empresa(): HasOne
     {
