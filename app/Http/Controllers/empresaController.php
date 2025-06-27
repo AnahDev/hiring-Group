@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class EmpresaController extends Controller
 {
@@ -67,5 +69,37 @@ class EmpresaController extends Controller
         $empresa = empresa::findOrFail($id);
         $empresa->delete();
         return redirect()->route('empresas.index')->with('success', 'Empresa eliminada correctamente.');
+    }
+
+    public function showPasswordForm()
+    {
+        return view('empresa.password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ], [
+            'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
+            'new_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.',
+        ]);
+
+        $user = Auth::user();
+        // Verifica la contraseña actual
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'La contraseña actual no es correcta.');
+        }
+
+        // Actualiza la contraseña
+        $user->password = bcrypt($request->new_password);
+
+        if (method_exists($user, 'save')) {
+            $user->save();
+            return back()->with('success', '¡Contraseña actualizada correctamente!');
+        } else {
+            return back()->with('error', 'No se pudo actualizar la contraseña. El usuario autenticado no es un modelo válido.');
+        }
     }
 }

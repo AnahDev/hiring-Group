@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\empresa;
 use App\Models\ofertaLaboral;
 use App\Models\profesion;
 use Illuminate\Http\Request;

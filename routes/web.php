@@ -72,6 +72,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('empresa/ofertas/activas', [ofertaLaboralController::class, 'activas'])->name('empresa.ofertas.activas');
     Route::get('empresa/ofertas/inactivas', [ofertaLaboralController::class, 'inactivas'])->name('empresa.ofertas.inactivas');
 
+    Route::get('empresa/password', [EmpresaController::class, 'showPasswordForm'])->name('empresa.password')->middleware('auth');
+    Route::post('empresa/password/update', [EmpresaController::class, 'updatePassword'])->name('empresa.password.update');
+
     //PILAAAAAA Los metodos resources tinene que ir al final para que no de problemas
     Route::post('/empresa/ofertas/{ofertaLaboral}/toggle-status', [ofertaLaboralController::class, 'toggleStatus'])->name('empresa.ofertas.toggleStatus');
     Route::resource('empresa/ofertas', ofertaLaboralController::class)->parameters(['ofertas' => 'ofertaLaboral'])->names('empresa.ofertas');
