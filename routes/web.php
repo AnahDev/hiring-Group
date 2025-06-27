@@ -33,6 +33,8 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'registrarUsuario'])->name('registrar');
+Route::post('/register', [AuthController::class, 'registrar']);
 
 
 Route::get('/home', function () {
@@ -80,6 +82,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('empresa/ofertas', ofertaLaboralController::class)->parameters(['ofertas' => 'ofertaLaboral'])->names('empresa.ofertas');
     //->parameters(['ofertas' => 'ofertaLaboral']) mapear {ofertas} a {ofertaLaboral} 
 });
+
+
+// Rutas candidato
+Route::get('/candidato', function () {
+    return view('candidato.dashboard');
+})->middleware('auth');
+
+
+
 
 /*
 Route::get('/Admin', function () {
