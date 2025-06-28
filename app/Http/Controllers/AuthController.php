@@ -24,17 +24,16 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->tipo === 'admin') {
-                return redirect()->intended('/admin'); // Redirige al panel de administración
+                return redirect()->intended(route('admin.dashboard'));
             } elseif (Auth::user()->tipo === 'hiringGroup') {
-                return redirect()->intended('/hiringGroup'); // Redirige al panel de hiringGroup
+                return redirect()->intended(route('hiringGroup.dashboard'));
             } elseif (Auth::user()->tipo === 'empresa') {
-                return redirect()->intended('/empresa'); // Redirige al panel de empresa
+                return redirect()->intended(route('empresa.dashboard'));
             } elseif (Auth::user()->tipo === 'candidato') {
-                return redirect()->intended('/candidato'); // Redirige al panel de candidato
+                return redirect()->intended(route('candidato.dashboard'));
             } elseif (Auth::user()->tipo === 'contratado') {
-                return redirect()->intended('/contratado'); // Redirige al panel de contratado
+                return redirect()->intended(route('contratado.dashboard')); // Asegúrate de definir esta ruta
             }
-
 
             return redirect()->intended('/home'); // Redirige a la página de inicio
         }
@@ -66,11 +65,11 @@ class AuthController extends Controller
         // Iniciar sesión automáticamente después del registro
         Auth::login($usuario);
         if ($usuario->tipo === 'empresa') {
-            return redirect('/empresa')->with('success', 'Cuenta creada exitosamente.');
+            return redirect()->route('empresa.dashboard')->with('success', 'Cuenta creada exitosamente.');
         } elseif ($usuario->tipo === 'candidato') {
-            return redirect('/candidato')->with('success', 'Cuenta creada exitosamente.');
+            return redirect()->route('candidato.dashboard')->with('success', 'Cuenta creada exitosamente.');
         } elseif ($usuario->tipo === 'contratado') {
-            return redirect('/contratado')->with('success', 'Cuenta creada exitosamente.');
+            return redirect()->route('contratado.dashboard')->with('success', 'Cuenta creada exitosamente.'); // Asegúrate de definir esta ruta
         }
         return redirect('/home')->with('success', 'Cuenta creada exitosamente.');
     }

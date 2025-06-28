@@ -16,34 +16,35 @@ class empresa extends Model
     protected $fillable = [
         'usuario_id',
         'nombre',
-        'correo',
+        // 'correo',
+        'email',
     ];
 
     //muchos a uno
 
-    //Relaciones uno a uno
+    //Relacion uno a uno
     public function usuario(): BelongsTo
     {
         return $this->belongsTo(usuario::class, 'usuario_id');
     }
 
     //Relaciones uno a muchos
-    public function sectorEmpresa(): HasMany
+    public function sectores(): HasMany
     {
         return $this->hasMany(sectorEmpresa::class, 'empresa_id');
     }
 
-    public function contactoEmpresa(): HasMany
+    public function contactos(): HasMany
     {
         return $this->hasMany(contactoEmpresa::class, 'empresa_id');
     }
 
-    public function nomina(): HasMany
+    public function nominas(): HasMany
     {
         return $this->hasMany(nomina::class, 'empresa_id');
     }
 
-    public function ofertaLaboral(): HasMany
+    public function ofertasLaboral(): HasMany
     {
         return $this->hasMany(ofertaLaboral::class, 'empresa_id');
     }

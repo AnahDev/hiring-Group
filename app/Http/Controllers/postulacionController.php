@@ -17,7 +17,7 @@ class postulacionController extends Controller
             'ofertaLaboral.empresa'
         ])->get();
 
-        return view('hiring/postulaciones', compact('postulaciones'));
+        return view('postulaciones.index', compact('postulaciones'));
     }
 
     public function create()

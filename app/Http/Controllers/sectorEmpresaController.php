@@ -2,62 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\empresa;
 use App\Models\sectorEmpresa;
 use Illuminate\Http\Request;
 
 class sectorEmpresaController extends Controller
 {
-    public function index()
+    public function index(empresa $empresa)
     {
-        $sectorEmpresa = sectorEmpresa::all();
-        return view('sectores.index', compact('sectorEmpresa'));
+        $sectoresEmpresa = $empresa->sectores;
+        return view('sectores.index', compact('empresa', 'sectoresEmpresa'));
     }
 
-    public function create()
+    public function create(empresa $empresa)
     {
-        return view('sectores.create');
+        return view('sectores.create', compact('empresa'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, empresa $empresa)
     {
         // Validar los datos del formulario
         $request->validate([
-            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
             'descripcion' => 'nullable|string|max:500',
         ]);
 
-        sectorEmpresa::create($request->all());
+        $empresa->sectores()->create($request->all());
 
-        return redirect()->route('sectores.index');
+        return redirect()->route('hiringGroup.empresas.sectores.index', $empresa)
+            ->with('success', 'Sector creado exitosamente.');
     }
 
-    public function show(string $id)
+    public function show(empresa $empresa, sectorEmpresa $sectorEmpresa)
     {
-        //
+        return view('sectores.show', compact('empresa', 'sectorEmpresa'));
     }
 
-    public function edit(string $id)
+    public function edit(empresa $empresa, sectorEmpresa $sectorEmpresa)
     {
-        $sectorEmpresa = sectorEmpresa::findOrFail($id);
-        return view('sectores.edit', compact('sectorEmpresa'));
+        return view('sectores.edit', compact('empresa', 'sectorEmpresa'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, empresa $empresa, sectorEmpresa $sectorEmpresa)
     {
         $request->validate([
-            'empresa_id' => 'required|exists:empresas,id', // Asegurarse de que la empresa existe
             'descripcion' => 'nullable|string|max:500',
         ]);
 
-        sectorEmpresa::findOrFail($id)->update($request->all());
+        $sectorEmpresa->update($request->all());
 
-        return redirect()->route('sectores.index');
+        return redirect()->route('hiringGroup.empresas.sectores.index', $empresa)
+            ->with('success', 'Sector actualizado exitosamente.');
     }
 
-    public function destroy(string $id)
+    public function destroy(empresa $empresa, sectorEmpresa $sectorEmpresa)
     {
-        $sectorEmpresa = sectorEmpresa::findOrFail($id);
         $sectorEmpresa->delete();
-        return redirect()->route('sectores.index');
+        return redirect()->route('hiringGroup.empresas.sectores.index', $empresa)
+            ->with('success', 'Sector eliminado exitosamente.');
     }
 }

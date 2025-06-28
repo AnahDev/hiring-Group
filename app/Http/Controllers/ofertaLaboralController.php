@@ -31,7 +31,7 @@ class ofertaLaboralController extends Controller
         $ofertasLaborales = \App\Models\ofertaLaboral::with(['empresa', 'profesion'])->get();
 
         // Retorna la vista para el panel de hiring group
-        return view('hiring.ofertas', compact('ofertasLaborales'));
+        return view('ofertas.index', compact('ofertasLaborales'));
     }
 
     public function create()
