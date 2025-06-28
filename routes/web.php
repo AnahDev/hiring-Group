@@ -99,7 +99,27 @@ Route::middleware(['auth'])->prefix('empresa')->name('empresa.')->group(function
 });
 
 
-// Rutas candidato
-Route::get('/candidato', function () {
-    return view('candidato.dashboard');
-})->middleware('auth');
+#############
+// CANDIDATO
+#############
+Route::middleware(['auth'])->prefix('candidato')->name('candidato.')->group(function () {
+    Route::get('/', function () {
+        return view('candidato.dashboard');
+    })->name('dashboard');
+
+
+    //revisa bien si las rutas correctas
+    Route::get('/ofertas', [ofertaLaboralController::class, 'index'])->name('ofertas.index');
+    Route::get('/ofertas/{ofertaLaboral}/postular', [postulacionController::class, 'create'])->name('ofertas.postular');
+    Route::post('/ofertas/{ofertaLaboral}/postular', [postulacionController::class, 'store'])->name('ofertas.storePostulacion');
+
+    Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
+    Route::get('/perfil/edit', [CandidatosController::class, 'editProfile'])->name('perfil.edit');
+    Route::put('/perfil/update', [CandidatosController::class, 'updateProfile'])->name('perfil.update');
+
+    Route::resource('estudios', estudioController::class)->parameters(['estudios' => 'estudio']);
+    Route::resource('telefonos', telefonoController::class)->parameters(['telefonos' => 'telefono']);
+    Route::resource('profesiones', profesionController::class)->parameters(['profesiones' => 'profesion']);
+    Route::resource('candidato_profesiones', candidato_profesionController::class)->parameters(['candidato_profesiones' => 'candidatoProfesion']);
+    Route::resource('experiencias_laborales', experienciaLaboralController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']);
+});

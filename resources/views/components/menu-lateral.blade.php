@@ -65,13 +65,13 @@
         @elseif ($tipo === 'candidato')
             {{-- Nota: Las rutas de 'candidato' deben ser definidas en web.php --}}
             <x-menu-group title="Ofertas de Empleo" :items="[
-                ['href' => '#', 'label' => 'Buscar y Filtrar Ofertas', 'highlight' => true], {{-- TODO: route('candidato.ofertas.index') --}}
-                ['href' => '#', 'label' => 'Mis Postulaciones'], {{-- TODO: route('candidato.postulaciones.index') --}}
+                ['href' => route('candidato.ofertas.index'), 'label' => 'Buscar y Filtrar Ofertas', 'highlight' => true], {{-- TODO: route('candidato.ofertas.index') --}}
+                ['href' => route('candidato.postulacion.index') , 'label' => 'Mis Postulaciones'], {{-- TODO: route('candidato.postulaciones.index') --}}
             ]" :open="true" />
             <x-menu-group title="Curriculum" :items="[
-                ['href' => '#', 'label' => 'Editar Perfil'], {{-- TODO: route('candidato.perfil.edit') --}}
-                ['href' => '#', 'label' => 'Gestionar Profesiones'], {{-- TODO: route('candidato.profesiones.index') --}}
-                ['href' => '#', 'label' => 'Gestionar Experiencias Laborales'], {{-- TODO: route('candidato.experiencias.index') --}}
+                ['href' => route('candidato.perfil.edit'), 'label' => 'Editar Perfil'], {{-- TODO: route('candidato.perfil.edit') --}}
+                ['href' => route('candidato.profesiones.index'), 'label' => 'Gestionar Profesiones'], {{-- TODO: route('candidato.profesiones.index') --}}
+                ['href' => route('candidato.experiencias.index'), 'label' => 'Gestionar Experiencias Laborales'], {{-- TODO: route('candidato.experiencias.index') --}}
             ]" />
 
             {{-- CONTRATADO --}}

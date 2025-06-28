@@ -18,7 +18,6 @@ class CheckUserRole
      * @param  string  ...$roles Los roles permitidos para acceder a la ruta.
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, Closure $next): Response
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         return $next($request);
@@ -31,4 +30,3 @@ class CheckUserRole
         return $next($request);
     }
 }
-

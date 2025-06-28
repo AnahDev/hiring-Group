@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ofertaLaboral;
 use App\Models\profesion;
+use App\Policies\OfertaLaboralPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,16 +76,19 @@ class ofertaLaboralController extends Controller
 
     public function show(ofertaLaboral $ofertaLaboral)
     {
-        if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
+        $this->authorize('view', $ofertaLaboral);
+        /* if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
             abort(403, 'Acceso no autorizado a esta oferta.');
-        }
+        } */
         return view('empresa.ofertas.show', compact('ofertaLaboral'));
     }
 
     public function edit(ofertaLaboral $ofertaLaboral)
     {
         $empresa = Auth::user()->empresa;
-        if (!$empresa || $ofertaLaboral->empresa_id !== $empresa->id) {
+        $this->authorize('update', $ofertaLaboral);
+        //verifica si el usuario tiene permiso para editar la oferta
+        /*        if (!$empresa || $ofertaLaboral->empresa_id !== $empresa->id) {
 
             dd([
                 'Oferta Empresa ID' => $ofertaLaboral->empresa_id,
@@ -93,7 +97,7 @@ class ofertaLaboralController extends Controller
                 'Usuario ID' => Auth::id(),
             ]);
             abort(403, 'Acceso no autorizado para editar esta oferta.');
-        }
+        } */
 
         $profesiones = Profesion::all();
         return view('empresa.ofertas.edit', compact('ofertaLaboral', 'profesiones'));
@@ -101,9 +105,9 @@ class ofertaLaboralController extends Controller
 
     public function update(Request $request, ofertaLaboral $ofertaLaboral)
     {
-        if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
-            abort(403, 'Acceso no autorizado para actualizar esta oferta.');
-        }
+        $this->authorize('update', $ofertaLaboral);
+        //verifica si el usuario tiene permiso para actualizar la oferta
+
 
         $request->validate([
             'profesion_id' => 'required|exists:profesion,id',
@@ -119,9 +123,11 @@ class ofertaLaboralController extends Controller
 
     public function destroy(ofertaLaboral $ofertaLaboral)
     {
-        if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
+        $this->authorize('delete', $ofertaLaboral); // Verifica si el usuario tiene permiso para eliminar la oferta
+
+        /* if ($ofertaLaboral->empresa_id !== Auth::user()->empresa->id) {
             abort(403, 'Acceso no autorizado para eliminar esta oferta.');
-        }
+        } */
 
         $ofertaLaboral->delete();
         return redirect()->route('empresa.ofertas.index')->with('success', 'Oferta eliminada correctamente.');
