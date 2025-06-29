@@ -12,7 +12,7 @@
         {{-- Sectores de la empresa --}}
         <p><strong>Sectores de la Empresa:</strong> </p>
         <ul>
-            @forelse (auth()->user()->empresa->sectorEmpresa as $sector)
+            @forelse ((auth()->user()->empresa->sectorEmpresa ?? []) as $sector)
                 <li>{{ $sector->descripcion ?? 'Sin descripcion' }} </li>
             @empty
                 <li>No disponible</li>
@@ -21,7 +21,7 @@
         {{-- Contactos de la empresa --}}
         <p><strong>Contactos de la empresa</strong></p>
         <ul>
-            @forelse (auth()->user()->empresa->contactoEmpresa as $contacto)
+            @forelse ((auth()->user()->empresa->contactoEmpresa ?? []) as $contacto)
                 Persona: {{ $contacto->personaContacto ?? 'No disponible' }},
                 Telefono: {{ $contacto->tlfContacto ?? 'No disponible' }}
             @empty
@@ -31,7 +31,7 @@
 
         <p><strong>Nóminas de la Empresa:</strong></p>
         <ul>
-            @forelse(auth()->user()->empresa->nomina as $nomina)
+            @forelse((auth()->user()->empresa->nomina ?? []) as $nomina)
                 <li>
                     ID Nómina: {{ $nomina->id }},
                     Fecha: {{ $nomina->fecha ?? 'No disponible' }}

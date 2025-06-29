@@ -94,8 +94,8 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
         return view('empresa.dashboard');
     })->name('dashboard');
 
-    Route::get('/ofertas/activas', [ofertaLaboralController::class, 'activas'])->name('ofertas.activas');
-    Route::get('/ofertas/inactivas', [ofertaLaboralController::class, 'inactivas'])->name('ofertas.inactivas');
+    Route::get('/ofertas/activas', [EmpresaOfertaController::class, 'activas'])->name('ofertas.activas');
+    Route::get('/ofertas/inactivas', [EmpresaOfertaController::class, 'inactivas'])->name('ofertas.inactivas');
 
     Route::get('/password', [EmpresaController::class, 'showPasswordForm'])->name('password');
     Route::post('/password/update', [EmpresaController::class, 'updatePassword'])->name('password.update');

@@ -44,7 +44,7 @@ class empresa extends Model
         return $this->hasMany(nomina::class, 'empresa_id');
     }
 
-    public function ofertasLaboral(): HasMany
+    public function ofertaLaboral(): HasMany
     {
         return $this->hasMany(ofertaLaboral::class, 'empresa_id');
     }
