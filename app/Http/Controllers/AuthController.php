@@ -22,20 +22,17 @@ class AuthController extends Controller
         $credentials = $request->only('correo', 'password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            if (Auth::user()->tipo === 'admin') {
-                return redirect()->intended(route('admin.dashboard'));
-            } elseif (Auth::user()->tipo === 'hiringGroup') {
-                return redirect()->intended(route('hiringGroup.dashboard'));
-            } elseif (Auth::user()->tipo === 'empresa') {
-                return redirect()->intended(route('empresa.dashboard'));
-            } elseif (Auth::user()->tipo === 'candidato') {
-                return redirect()->intended(route('candidato.dashboard'));
-            } elseif (Auth::user()->tipo === 'contratado') {
-                return redirect()->intended(route('contratado.dashboard')); // Asegúrate de definir esta ruta
-            }
-
-            return redirect()->intended('/home'); // Redirige a la página de inicio
+            $tipoUsuario = Auth::user()->tipo;
+            //forma de redirigir al usuario según su tipo
+            $ruta = match ($tipoUsuario) {
+                'admin' => route('admin.dashboard'),
+                'hiringGroup' => route('hiringGroup.dashboard'),
+                'empresa' => route('empresa.dashboard'),
+                'candidato' => route('candidato.dashboard'),
+                'contratado' => route('contratado.dashboard'),
+                default => '/home',
+            };
+            return redirect()->intended($ruta); // Redirige a la página de inicio
         }
         return back()->withErrors([
             'correo' => 'Las credenciales proporcionadas no son válidas.',

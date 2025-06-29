@@ -6,6 +6,15 @@ use App\Http\Controllers\ofertaLaboralController;
 use App\Http\Controllers\estudioController;
 use App\Http\Controllers\telefonoController;
 use App\Http\Controllers\profesionController;
+
+use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaController; //Alias
+use App\Http\Controllers\Candidato\perfilController as CandidatoPerfilController;
+use App\Http\Controllers\Candidato\postulacionesController as CandidatoPostulacionesController;
+use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienciasController;;
+
+use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
+use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
+
 use App\Http\Controllers\candidato_profesionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\contactoEmpresaController;
@@ -54,14 +63,14 @@ Route::get('/admin', function () {
 })->middleware('auth');
 
 
-Route::middleware(['auth'])->prefix('hiringGroup')->name('hiringGroup.')->group(function () {
+Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hiringGroup.')->group(function () {
     Route::get('/', function () {
         return view('hiring.dashboard');
     })->name('dashboard');
 
     Route::get('/postulaciones', [PostulacionController::class, 'index'])->name('postulaciones.index');
-    Route::get('/ofertas', [ofertaLaboralController::class, 'indexAll'])->name('ofertas.index');
-    Route::get('/reportes', [ofertaLaboralController::class, 'reporteOfertasPorProfesion'])->name('reportes.index');
+    Route::get('/ofertas', [HiringOfertaController::class, 'index'])->name('ofertas.index');
+    Route::get('/reportes', [HiringOfertaController::class, 'reporteOfertasPorProfesion'])->name('reportes.index');
 
     // CRUD para Empresas
     // Esto genera rutas como: /hiringGroup/empresas, /hiringGroup/empresas/create, etc.
@@ -76,14 +85,11 @@ Route::middleware(['auth'])->prefix('hiringGroup')->name('hiringGroup.')->group(
 });
 
 
-
-
-
 #############
 // EMPRESA
 #############
 
-Route::middleware(['auth'])->prefix('empresa')->name('empresa.')->group(function () {
+Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')->group(function () {
     Route::get('/', function () {
         return view('empresa.dashboard');
     })->name('dashboard');
@@ -94,24 +100,26 @@ Route::middleware(['auth'])->prefix('empresa')->name('empresa.')->group(function
     Route::get('/password', [EmpresaController::class, 'showPasswordForm'])->name('password');
     Route::post('/password/update', [EmpresaController::class, 'updatePassword'])->name('password.update');
 
-    Route::post('/ofertas/{ofertaLaboral}/toggle-status', [ofertaLaboralController::class, 'toggleStatus'])->name('ofertas.toggleStatus');
-    Route::resource('ofertas', ofertaLaboralController::class)->parameters(['ofertas' => 'ofertaLaboral']);
+    // REEMPLAZA EL CONTROLADOR GENÉRICO POR EL ESPECIALIZADO
+    Route::post('/ofertas/{ofertaLaboral}/toggle-status', [EmpresaOfertaController::class, 'toggleStatus'])->name('ofertas.toggleStatus');
+    Route::resource('ofertas', EmpresaOfertaController::class)->parameters(['ofertas' => 'ofertaLaboral']);
 });
 
 
 #############
 // CANDIDATO
 #############
-Route::middleware(['auth'])->prefix('candidato')->name('candidato.')->group(function () {
+Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
         return view('candidato.dashboard');
     })->name('dashboard');
 
 
     //revisa bien si las rutas correctas
-    Route::get('/ofertas', [ofertaLaboralController::class, 'index'])->name('ofertas.index');
-    Route::get('/ofertas/{ofertaLaboral}/postular', [postulacionController::class, 'create'])->name('ofertas.postular');
-    Route::post('/ofertas/{ofertaLaboral}/postular', [postulacionController::class, 'store'])->name('ofertas.storePostulacion');
+    Route::get('ofertas', [CandidatoOfertaController::class, 'index'])->name('ofertas.index');
+    Route::get('ofertas/{ofertaLaboral}', [CandidatoOfertaController::class, 'show'])->name('ofertas.show');
+    // Para la postulación (si es una acción POST desde el show de la oferta)
+    //Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.storePostulacion');
 
     Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
     Route::get('/perfil/edit', [CandidatosController::class, 'editProfile'])->name('perfil.edit');

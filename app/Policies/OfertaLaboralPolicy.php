@@ -8,62 +8,64 @@ use Illuminate\Auth\Access\Response;
 
 class OfertaLaboralPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+
+    //Permitir a admin y hiringGroup hacer cualquier cosa
+    public function before(usuario $usuario, string $ability): ?bool
+    {
+        if ($usuario->tipo === 'admin' || $usuario->tipo === 'hiringGroup') {
+            return true;
+        }
+        return null; // Dejar que otros métodos decidan
+    }
+
+    // Quién puede ver una lista de ofertas (la suya o todas)
     public function viewAny(usuario $usuario): bool
     {
-        return false;
+        return $usuario->tipo === 'empresa' || $usuario->tipo === 'candidato';
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+    // Quién puede ver UNA oferta específica
     public function view(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
     {
-        return $usuario->empresa && $ofertaLaboral->empresa_id === $usuario->empresa->id;
-        // esta funcion verifica si el usuario tiene una empresa asociada y si la oferta laboral pertenece a esa empresa
-    }
-
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(usuario $usuario): bool
-    {
+        // Una empresa puede ver su propia oferta
+        if ($usuario->empresa && $ofertaLaboral->empresa_id === $usuario->empresa->id) {
+            return true;
+        }
+        // Un candidato puede ver cualquier oferta activa (lógica para el futuro controlador de candidato)
+        if ($usuario->tipo === 'candidato' && $ofertaLaboral->estado === 'activa') {
+            return true;
+        }
         return false;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
+    // Quién puede crear ofertas
+    public function create(usuario $usuario): bool
+    {
+        return $usuario->tipo === 'empresa' && $usuario->empresa !== null;
+    }
+
+    // Quién puede actualizar una oferta
     public function update(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
     {
         return $usuario->empresa && $ofertaLaboral->empresa_id === $usuario->empresa->id;
         // esta funcion verifica si el usuario tiene una empresa asociada y si la oferta laboral pertenece a esa empresa
-        // si el usuario es una empresa y la oferta laboral pertenece a esa empresa, entonces puede actualizarla
+        // si se cumple, entonces puede actualizarla
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
+    // Quién puede eliminar una oferta
     public function delete(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
     {
         return $usuario->empresa && $ofertaLaboral->empresa_id === $usuario->empresa->id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
+    /* public function restore(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
     {
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
+
     public function forceDelete(usuario $usuario, ofertaLaboral $ofertaLaboral): bool
     {
         return false;
-    }
+    }*/
 }

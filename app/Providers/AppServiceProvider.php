@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ofertaLaboral;
+use App\Policies\OfertaLaboralPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //LÍNEA PARA REGISTRAR TU POLICY
+        Gate::policy(ofertaLaboral::class, OfertaLaboralPolicy::class);
     }
 }

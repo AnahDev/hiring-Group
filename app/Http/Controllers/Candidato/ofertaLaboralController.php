@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ofertaLaboralController extends Controller
 {
-    /*  public function __construct()
-    {
-        $this->middleware('auth');
-        // $this->middleware('role:candidato'); // O un middleware más específico
-    } */
 
     //muestra la oferta laboral asociada una empresa
     public function index(Request $request)

@@ -20,14 +20,6 @@ class usuario extends Authenticatable
         'tipo',
         'fechaRegistro',
     ];
-
-    // Indica a Laravel que el campo de contraseña es 'clave'
-    // public function getAuthPassword()
-    // {
-    //     return $this->clave;
-    // }
-
-
     // Relaciones uno a uno
     public function empresa(): HasOne
     {
