@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <form action="{{ route('hiringGroup.empresa.store') }}" method="POST"
+        <form action="{{ route('hiringGroup.empresas.store') }}" method="POST"
             class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="mb-4">
@@ -75,7 +75,7 @@
                     type="submit">
                     Guardar Empresa
                 </button>
-                <a href="{{ route('hiringGroup.empresa.index') }}"
+                <a href="{{ route('hiringGroup.empresas.index') }}"
                     class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                     Cancelar
                 </a>

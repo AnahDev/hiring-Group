@@ -9,9 +9,6 @@ class postulacionController extends Controller
 {
     public function index()
     {
-        // $postulacion = postulacion::all();
-        // return view('postulaciones.index', compact('postulacion'));
-
         $postulaciones = postulacion::with([
             'candidato',
             'ofertaLaboral.empresa'

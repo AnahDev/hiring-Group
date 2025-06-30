@@ -54,7 +54,7 @@ class EmpresaController extends Controller
             ]);
         });
 
-        return redirect()->route('hiringGroup.empresa.index')->with('success', 'Empresa y usuario creados exitosamente.');
+        return redirect()->route('hiringGroup.empresas.index')->with('success', 'Empresa y usuario creados exitosamente.');
     }
 
     public function show(empresa $empresa)
@@ -83,7 +83,7 @@ class EmpresaController extends Controller
     public function destroy(empresa $empresa)
     {
         $empresa->delete();
-        return redirect()->route('hiringGroup.empresa.index')->with('success', 'Empresa eliminada correctamente.');
+        return redirect()->route('hiringGroup.empresas.index')->with('success', 'Empresa eliminada correctamente.');
     }
 
     public function showPasswordForm()
