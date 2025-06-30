@@ -20,6 +20,11 @@ class usuario extends Authenticatable
         'tipo',
         'fechaRegistro',
     ];
+
+    protected $casts = [
+        'fechaRegistro' => 'datetime',
+    ];
+
     // Relaciones uno a uno
     public function empresa(): HasOne
     {

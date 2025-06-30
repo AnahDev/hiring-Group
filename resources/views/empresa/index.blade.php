@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ $empresa->id }}</td>
                             <td>{{ $empresa->nombre }}</td>
-                            <td>{{ $empresa->correo }}</td>
+                            <td>{{ $empresa->email }}</td>
                             <td>{{ $empresa->telefono }}</td>
                             <td>
                                 <a href="{{ route('hiringGroup.empresas.show', $empresa->id) }}"
