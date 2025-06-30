@@ -17,13 +17,13 @@ class EmpresaController extends Controller
         // Usamos 'with' para cargar la relación y evitar problemas de N+1.
         // Usamos el nombre de variable en plural '$empresas' para la colección.
         $empresas = empresa::with('usuario')->get();
-        return view('empresas.index', compact('empresas'));
+        return view('empresa.index', compact('empresas'));
     }
 
 
     public function create()
     {
-        return view('empresas.create');
+        return view('empresa.create');
     }
 
 
@@ -54,17 +54,17 @@ class EmpresaController extends Controller
             ]);
         });
 
-        return redirect()->route('hiringGroup.empresas.index')->with('success', 'Empresa y usuario creados exitosamente.');
+        return redirect()->route('hiringGroup.empresa.index')->with('success', 'Empresa y usuario creados exitosamente.');
     }
 
     public function show(empresa $empresa)
     {
-        return view('empresas.show', compact('empresa')); // Asegúrate que esta vista exista
+        return view('empresa.show', compact('empresa')); // Asegúrate que esta vista exista
     }
 
     public function edit(empresa $empresa)
     {
-        return view('empresas.edit', compact('empresa'));
+        return view('empresa.edit', compact('empresa'));
     }
 
     public function update(Request $request, empresa $empresa)
@@ -83,7 +83,7 @@ class EmpresaController extends Controller
     public function destroy(empresa $empresa)
     {
         $empresa->delete();
-        return redirect()->route('hiringGroup.empresas.index')->with('success', 'Empresa eliminada correctamente.');
+        return redirect()->route('hiringGroup.empresa.index')->with('success', 'Empresa eliminada correctamente.');
     }
 
     public function showPasswordForm()

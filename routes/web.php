@@ -119,7 +119,7 @@ Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candid
     Route::get('ofertas', [CandidatoOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('ofertas/{ofertaLaboral}', [CandidatoOfertaController::class, 'show'])->name('ofertas.show');
     // Para la postulación (si es una acción POST desde el show de la oferta)
-    //Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.storePostulacion');
+    Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.storePostulacion');
 
     Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
     Route::get('/perfil/edit', [CandidatosController::class, 'editProfile'])->name('perfil.edit');
