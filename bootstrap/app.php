@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\CheckUserRole;
-use Illuminate\Auth\Middleware\Authenticate;
+use App\Http\Middleware\CheckProfileCompletion;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // LÍNEA PARA REGISTRAR EL ALIAS 'role'
         $middleware->alias([
             'role' => CheckUserRole::class,
+            'perfil.complete' => CheckProfileCompletion::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

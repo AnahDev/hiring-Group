@@ -1,64 +1,70 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Candidato;
 
+use App\Http\Controllers\Controller;
+use App\Models\estudio;
+use App\Models\ofertaLaboral;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class experienciasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'empresa' => 'required|string|max:255',
+            'cargo' => 'required|string|max:255',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+        ]);
+
+        $candidato = Auth::user()->candidato;
+        $candidato->experienciasLaborales()->create($request->all());
+
+        return redirect()->route('candidato.perfil.edit')->with('success', 'Experiencia laboral añadida.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ofertaLaboral $ofertaLaboral)
     {
-        //
-    }
+        $this->authorize('update', $ofertaLaboral); // Usamos la Policy que creamos
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+        $request->validate([
+            'empresa' => 'required|string|max:255',
+            'cargo' => 'required|string|max:255',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+        ]);
+
+        $ofertaLaboral->update($request->all());
+        return redirect()->route('candidato.perfil.edit')->with('success', 'Oferta laboral actualizada.');
+    }
+    public function destroy(ofertaLaboral $ofertaLaboral)
     {
-        //
+        $this->authorize('delete', $ofertaLaboral); // Usamos la Policy
+        $ofertaLaboral->delete();
+        return redirect()->route('candidato.perfil.edit')->with('success', 'Experiencia Laboral eliminada.');
     }
 }

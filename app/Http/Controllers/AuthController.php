@@ -59,6 +59,7 @@ class AuthController extends Controller
         $usuario->fechaRegistro = now();
         $usuario->save(); // Guardar el usuario en la base de datos
 
+        /*
         // Iniciar sesión automáticamente después del registro
         Auth::login($usuario);
         if ($usuario->tipo === 'empresa') {
@@ -68,7 +69,10 @@ class AuthController extends Controller
         } elseif ($usuario->tipo === 'contratado') {
             return redirect()->route('contratado.dashboard')->with('success', 'Cuenta creada exitosamente.'); // Asegúrate de definir esta ruta
         }
-        return redirect('/home')->with('success', 'Cuenta creada exitosamente.');
+        return redirect('/home')->with('success', 'Cuenta creada exitosamente.'); */
+
+        // CAMBIO: En lugar de iniciar sesión, redirigimos al login.
+        return redirect()->route('login')->with('success', '¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.');
     }
 
 

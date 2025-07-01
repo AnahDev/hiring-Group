@@ -7,10 +7,12 @@ use App\Http\Controllers\estudioController;
 use App\Http\Controllers\telefonoController;
 use App\Http\Controllers\profesionController;
 
-use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaController; //Alias
+use App\Http\Controllers\Candidato\EstudioController as CandidatoEstudioController; //Alias
+use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienciasController;
+use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaController;
 use App\Http\Controllers\Candidato\perfilController as CandidatoPerfilController;
 use App\Http\Controllers\Candidato\postulacionesController as CandidatoPostulacionesController;
-use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienciasController;;
+use App\Http\Controllers\Candidato\profesionesController as candidatoProfesionController;
 
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
 use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
@@ -109,25 +111,28 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
 #############
 // CANDIDATO
 #############
-Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
+Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
         return view('candidato.dashboard');
     })->name('dashboard');
 
-
-    //revisa bien si las rutas correctas
     Route::get('ofertas', [CandidatoOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('ofertas/{ofertaLaboral}', [CandidatoOfertaController::class, 'show'])->name('ofertas.show');
-    // Para la postulación (si es una acción POST desde el show de la oferta)
     Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.storePostulacion');
 
     Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
     Route::get('/perfil/edit', [CandidatosController::class, 'editProfile'])->name('perfil.edit');
     Route::put('/perfil/update', [CandidatosController::class, 'updateProfile'])->name('perfil.update');
 
-    Route::resource('estudios', estudioController::class)->parameters(['estudios' => 'estudio']);
+    Route::resource('estudios', CandidatoEstudioController::class)->parameters(['estudios' => 'estudio']);
     Route::resource('telefonos', telefonoController::class)->parameters(['telefonos' => 'telefono']);
-    Route::resource('profesiones', profesionController::class)->parameters(['profesiones' => 'profesion']);
+    Route::resource('profesiones', candidatoProfesionController::class)->parameters(['profesiones' => 'profesion']);
     Route::resource('candidato_profesiones', candidato_profesionController::class)->parameters(['candidato_profesiones' => 'candidatoProfesion']);
-    Route::resource('experiencias_laborales', experienciaLaboralController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']);
+    Route::resource('experiencias_laborales', CandidatoExperienciasController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']);
+});
+
+// RUTAS PARA COMPLETAR EL PERFIL (van separadas para más claridad)
+Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
+    Route::get('/perfil/crear', [CandidatoPerfilController::class, 'create'])->name('perfil.crear');
+    Route::post('/perfil/store', [CandidatoPerfilController::class, 'store'])->name('perfil.store');
 });

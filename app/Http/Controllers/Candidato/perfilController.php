@@ -1,33 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Candidato;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class perfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    //Muestra el formulario para que el candidato complete su perfil.
     public function create()
     {
-        //
+        return view('candidato.perfil.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Guarda los datos básicos del perfil del candidato.
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
+        ]);
+
+        $usuario = Auth::user()->candidato;
+
+        // Verificar que no tenga ya un perfil para evitar duplicados
+        if ($usuario) {
+            return redirect()->route('candidato.dashboard')->with('error', 'Ya tienes un perfil completo.');
+        }
+
+        // Crear el perfil del candidato asociado al usuario autenticado
+        $usuario->candidato()->create($request->all());
+
+        return redirect()->route('candidato.dashboard')->with('success', '¡Perfil completado exitosamente!');
     }
 
     /**
