@@ -24,6 +24,11 @@ class CheckUserRole
         if (!Auth::check() || !in_array(Auth::user()->tipo, $roles)) {
             // Si el usuario no está autenticado o su rol no está en la lista de roles permitidos,
             // se le deniega el acceso.
+            /*             dd([
+                'ruta' => $request->path(),
+                'roles_permitidos' => $roles,
+                'usuario' => Auth::user()
+            ]); */
             abort(403, 'Acceso no autorizado.');
         }
         return $next($request);

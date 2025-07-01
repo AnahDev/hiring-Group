@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidato;
 
 use App\Http\Controllers\Controller;
 use App\Models\estudio;
+use App\Models\experienciaLaboral;
 use App\Models\ofertaLaboral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,9 +44,11 @@ class experienciasController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(experienciaLaboral $experienciaLaboral)
     {
-        //
+        $experienciaLaboral = Auth::user()->candidato;
+        $this->authorize('update', $experienciaLaboral);
+        return view('candidato.perfil.edit', compact('candidato'));
     }
 
     public function update(Request $request, ofertaLaboral $ofertaLaboral)

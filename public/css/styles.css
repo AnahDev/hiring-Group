@@ -43,7 +43,7 @@
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: white;
+    color: rgb(62, 20, 97);
     border: none;
 }
 
@@ -53,7 +53,7 @@
 
 /* Tarjetas */
 .card {
-    background-color: white;
+    background-color: rgb(255, 139, 139);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     padding: 1.5rem;

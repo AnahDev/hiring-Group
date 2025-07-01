@@ -34,6 +34,7 @@ class perfilController extends Controller
 
         // Crear el perfil del candidato asociado al usuario autenticado
         $usuario->candidato()->create($request->all());
+        $usuario->save();
 
         return redirect()->route('candidato.dashboard')->with('success', '¡Perfil completado exitosamente!');
     }
