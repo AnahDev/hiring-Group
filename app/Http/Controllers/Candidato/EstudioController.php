@@ -39,6 +39,16 @@ class EstudioController extends Controller
     // Modificar una formación académica.
     public function show(Request $request, estudio $estudio)
     {
+        //
+    }
+
+    public function edit(Estudio $estudio)
+    {
+        //
+    }
+
+    public function update(Request $request, Estudio $estudio)
+    {
         $this->authorize('update', $estudio); // Usamos la Policy que creamos
 
         $request->validate([
@@ -50,16 +60,6 @@ class EstudioController extends Controller
         $estudio->update($request->all());
 
         return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica actualizada.');
-    }
-
-    public function edit(Estudio $estudio)
-    {
-        //
-    }
-
-    public function update(Request $request, Estudio $estudio)
-    {
-        //
     }
 
     //Eliminar una formación académica.

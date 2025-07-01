@@ -20,8 +20,13 @@ class postulacionesController extends Controller
         return view('candidato.postulaciones.index', compact('postulaciones'));
     }
 
-    // Aplicar a una oferta de empleo.
     public function create(ofertaLaboral $ofertaLaboral)
+    {
+        //
+    }
+
+    // Aplicar a una oferta de empleo.
+    public function store(ofertaLaboral $ofertaLaboral)
     {
         $candidato = Auth::user()->candidato;
 
@@ -42,11 +47,6 @@ class postulacionesController extends Controller
         ]);
         return redirect()->route('candidato.ofertas.show', $ofertaLaboral)->with('success', '¡Has aplicado a la oferta exitosamente!');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidato;
 
 use App\Http\Controllers\Controller;
+use App\Models\candidato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,20 +46,36 @@ class perfilController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function edit(candidato $candidato)
     {
-        //
+        $usuario = Auth::user()->candidato;
+
+        if (!$usuario) {
+            return redirect()->route('candidato.dashboard')->with('error', 'Perfil no encontrado.');
+        }
+
+        return view('candidato.perfil.edit', compact('candidato'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'direccion' => 'nullable|string|max:255',
+        ]);
+
+        $usuario = Auth::user()->candidato;
+
+        if (!$usuario) {
+            return redirect()->route('candidato.dashboard')->with('error', 'Perfil no encontrado.');
+        }
+
+        $usuario->update($request->only(['nombre', 'apellido', 'direccion']));
+
+        return redirect()->route('candidato.dashboard')->with('success', 'Perfil actualizado correctamente.');
     }
 
     /**

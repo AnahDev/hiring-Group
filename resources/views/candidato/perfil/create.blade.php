@@ -1,8 +1,8 @@
-@extends('layouts')
+@extends('layouts.app')
 @section('content')
     <div class="container">
         <h2>Crear Perfil de Candidato</h2>
-        <form method="POST" action="{{ route('candidato.store') }}">
+        <form method="POST" action="{{ route('candidato.perfil.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>

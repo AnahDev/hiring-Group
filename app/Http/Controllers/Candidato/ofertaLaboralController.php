@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ofertaLaboralController extends Controller
 {
-
-    //muestra la oferta laboral asociada una empresa
+    //Filtrar por área de conocimiento (profesion) y estado del país (ubicacion)
     public function index(Request $request)
     {
-        //PROBAR ESTA SI NO FUNCIONA LA OTRA
         $query = ofertaLaboral::where('estado', 'activa');
 
         // Filtrado condicional por profesión

@@ -1,9 +1,9 @@
-@extends('layouts')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
         <h2>Editar Perfil de Candidato</h2>
-        <form method="POST" action="{{ route('candidato.update', $candidato->id) }}">
+        <form method="POST" action="{{ route('candidato.perfil.update', $candidato->id) }}">
             @csrf
             @method('PUT')
             <div class="mb-3">

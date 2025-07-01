@@ -129,7 +129,7 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     // Ver ofertas y postularse
     Route::get('ofertas', [CandidatoOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('ofertas/{ofertaLaboral}', [CandidatoOfertaController::class, 'show'])->name('ofertas.show');
-    Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.postular');
+    Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'store'])->name('ofertas.postular');
 
     // Ver mis postulaciones, mis profesiones y mis experiencias previas
     Route::get('postulaciones', [CandidatoPostulacionesController::class, 'index'])->name('postulaciones.index');
