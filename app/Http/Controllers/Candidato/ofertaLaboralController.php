@@ -14,26 +14,7 @@ class ofertaLaboralController extends Controller
     //muestra la oferta laboral asociada una empresa
     public function index(Request $request)
     {
-        $query = ofertaLaboral::with(['empresa', 'profesion']);
-
-        // Lógica de filtrado por profesión y ubicación
-        if ($request->has('profesion_id') && $request->profesion_id) {
-            $query->where('profesion_id', $request->profesion_id);
-        }
-        if ($request->has('ubicacion') && $request->ubicacion) {
-            $query->where('ubicacion', 'like', '%' . $request->ubicacion . '%');
-        }
-
-        // Mostrar solo ofertas activas para candidatos
-        $query->where('estado', 'activa');
-
-        $ofertasLaborales = $query->get();
-        $profesiones = Profesion::all(); // Para el filtro de profesiones en la vista
-
-        return view('candidato.ofertas.index', compact('ofertasLaborales', 'profesiones'));
-
-
-        /*  PROBAR ESTA SI NO FUNCIONA LA OTRA
+        //PROBAR ESTA SI NO FUNCIONA LA OTRA
         $query = ofertaLaboral::where('estado', 'activa');
 
         // Filtrado condicional por profesión
@@ -47,9 +28,9 @@ class ofertaLaboralController extends Controller
         });
 
         $ofertas = $query->with('profesion', 'empresa')->latest()->paginate(10);
-        
+
         // Faltarían las vistas, pero la lógica está lista
-        return view('candidato.ofertas.index', compact('ofertas'));} */
+        return view('candidato.ofertas.index', compact('ofertas'));
     }
 
     public function store(Request $request)

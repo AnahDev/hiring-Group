@@ -66,7 +66,7 @@
             {{-- Nota: Las rutas de 'candidato' deben ser definidas en web.php --}}
             <x-menu-group title="Ofertas de Empleo" :items="[
                 ['href' => route('candidato.ofertas.index'), 'label' => 'Buscar y Filtrar Ofertas', 'highlight' => true], {{-- TODO: route('candidato.ofertas.index') --}}
-                ['href' => route('candidato.postulacion.index') , 'label' => 'Mis Postulaciones'], {{-- TODO: route('candidato.postulaciones.index') --}}
+                ['href' => route('candidato.postulaciones.index') , 'label' => 'Mis Postulaciones'], {{-- TODO: route('candidato.postulaciones.index') --}}
             ]" :open="true" />
             <x-menu-group title="Curriculum" :items="[
                 ['href' => route('candidato.perfil.edit'), 'label' => 'Editar Perfil'], {{-- TODO: route('candidato.perfil.edit') --}}

@@ -13,13 +13,14 @@ class experienciasController extends Controller
 
     public function index()
     {
-        //
+        $candidato = Auth::user()->candidato;
+        $experiencias = $candidato->experienciasLaborales()->orderBy('fechaInicio', 'desc')->paginate(10);
+        return view('candidato.experiencias.index', compact('experiencias'));
     }
-
 
     public function create()
     {
-        //
+        return view('candidato.experiencias.create');
     }
 
     public function store(Request $request)

@@ -12,7 +12,7 @@ use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienci
 use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaController;
 use App\Http\Controllers\Candidato\perfilController as CandidatoPerfilController;
 use App\Http\Controllers\Candidato\postulacionesController as CandidatoPostulacionesController;
-use App\Http\Controllers\Candidato\profesionesController as candidatoProfesionController;
+use App\Http\Controllers\Candidato\profesionesController as candidatoProfesionesController;
 
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
 use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
@@ -111,28 +111,44 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
 #############
 // CANDIDATO
 #############
+
+// Grupo 1: Rutas para la creación inicial del perfil. RUTAS PARA COMPLETAR EL PERFIL 
+// No usa el middleware 'profile.complete' para permitir el acceso a este formulario.
+Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
+    Route::get('/perfil/crear', [CandidatoPerfilController::class, 'create'])->name('perfil.crear');
+    Route::post('/perfil/store', [CandidatoPerfilController::class, 'store'])->name('perfil.store');
+});
+
+// Grupo 2: Rutas principales del dashboard del candidato.
+// Requiere que el perfil esté completo gracias al middleware 'profile.complete'.
 Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
         return view('candidato.dashboard');
     })->name('dashboard');
 
+    // Ver ofertas y postularse
     Route::get('ofertas', [CandidatoOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('ofertas/{ofertaLaboral}', [CandidatoOfertaController::class, 'show'])->name('ofertas.show');
-    Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.storePostulacion');
+    Route::post('ofertas/{ofertaLaboral}/postular', [CandidatoPostulacionesController::class, 'show'])->name('ofertas.postular');
 
+    // Ver mis postulaciones, mis profesiones y mis experiencias previas
+    Route::get('postulaciones', [CandidatoPostulacionesController::class, 'index'])->name('postulaciones.index');
+    Route::get('profesiones', [candidatoProfesionesController::class, 'index'])->name('profesiones.index');
+    Route::get('experiencias', [CandidatoExperienciasController::class, 'index'])->name('experiencias.index');
+
+    // Editar perfil (datos básicos)    
+    Route::get('/perfil/edit', [CandidatoPerfilController::class, 'edit'])->name('perfil.edit');
+    Route::put('/perfil/update', [CandidatoPerfilController::class, 'update'])->name('perfil.update');
+
+    // CRUD para el currículum (Experiencias, Estudios)
+    Route::resource('estudios', CandidatoEstudioController::class)->except(['index', 'show']);
+    Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show']);
+
+    /* Route::get('postulacion', [CandidatoPostulacionesController::class, 'index'])->name('postulacion.index');
     Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
-    Route::get('/perfil/edit', [CandidatosController::class, 'editProfile'])->name('perfil.edit');
-    Route::put('/perfil/update', [CandidatosController::class, 'updateProfile'])->name('perfil.update');
 
     Route::resource('estudios', CandidatoEstudioController::class)->parameters(['estudios' => 'estudio']);
     Route::resource('telefonos', telefonoController::class)->parameters(['telefonos' => 'telefono']);
-    Route::resource('profesiones', candidatoProfesionController::class)->parameters(['profesiones' => 'profesion']);
     Route::resource('candidato_profesiones', candidato_profesionController::class)->parameters(['candidato_profesiones' => 'candidatoProfesion']);
-    Route::resource('experiencias_laborales', CandidatoExperienciasController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']);
-});
-
-// RUTAS PARA COMPLETAR EL PERFIL (van separadas para más claridad)
-Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
-    Route::get('/perfil/crear', [CandidatoPerfilController::class, 'create'])->name('perfil.crear');
-    Route::post('/perfil/store', [CandidatoPerfilController::class, 'store'])->name('perfil.store');
+    Route::resource('experiencias_laborales', CandidatoExperienciasController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']); */
 });

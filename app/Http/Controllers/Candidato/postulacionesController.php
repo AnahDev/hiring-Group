@@ -17,7 +17,7 @@ class postulacionesController extends Controller
         $postulaciones = postulacion::where('candidato_id', $candidato->id)
             ->with('ofertaLaboral.empresa', 'ofertaLaboral.profesion') // Cargar relaciones para mostrar info útil
             ->paginate(15);
-        return view('candidato.postulciones.index', compact('postulaciones'));
+        return view('candidato.postulaciones.index', compact('postulaciones'));
     }
 
     // Aplicar a una oferta de empleo.
@@ -46,17 +46,15 @@ class postulacionesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(postulacion $postulacion)
     {
-        //
+
+        return redirect()->route('candidato.postulaciones.index');
     }
 
     /**

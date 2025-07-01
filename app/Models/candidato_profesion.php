@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class candidato_profesion extends Model
 {
@@ -15,11 +16,11 @@ class candidato_profesion extends Model
     ];
 
     // Relacion uno a muchos
-    public function candidato()
+    public function candidato(): BelongsTo
     {
         return $this->belongsTo(candidato::class, 'candidato_id');
     }
-    public function profesion()
+    public function profesion(): BelongsTo
     {
         return $this->belongsTo(profesion::class, 'profesion_id');
     }
