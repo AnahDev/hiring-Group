@@ -60,6 +60,10 @@ class EmpresaController extends Controller
     public function show(empresa $empresa)
     {
         return view('empresa.show', compact('empresa')); // Asegúrate que esta vista exista
+
+        // $empresas = Empresa::with(['contactos'])->get();
+
+        // return view('empresa.show', compact('empresas'));
     }
 
     public function edit(empresa $empresa)

@@ -26,7 +26,12 @@
                             <td>{{ $empresa->id }}</td>
                             <td>{{ $empresa->nombre }}</td>
                             <td>{{ $empresa->email }}</td>
-                            <td>{{ $empresa->telefono }}</td>
+                            {{-- <td>{{ $empresa->$contactos->tlfContacto }}</td> --}}
+                            <td>
+                                @foreach ($empresa->contactos as $contacto)
+                                    {{ $contacto->tlfContacto }}<br>
+                                @endforeach
+                            </td>
                             <td>
                                 <a href="{{ route('hiringGroup.empresas.show', $empresa->id) }}"
                                     class="btn btn-info btn-sm">Ver</a>
