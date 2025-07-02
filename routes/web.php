@@ -13,11 +13,11 @@ use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaCon
 use App\Http\Controllers\Candidato\perfilController as CandidatoPerfilController;
 use App\Http\Controllers\Candidato\postulacionesController as CandidatoPostulacionesController;
 use App\Http\Controllers\Candidato\profesionesController as candidatoProfesionesController;
-
+use App\Http\Controllers\Candidato\telefonoController as CandidatoTelefonoController;
+use App\Http\Controllers\Candidato\candidato_profesionController;
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
 use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
 
-use App\Http\Controllers\candidato_profesionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\contactoEmpresaController;
 use App\Http\Controllers\sectorEmpresaController;
@@ -33,7 +33,7 @@ use App\Http\Controllers\AuthController;
 use App\Models\empresa;
 use App\Models\ofertaLaboral;
 use Illuminate\Container\Attributes\Auth;
-
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 Route::get('/', function () {
     return view('welcome'); // Aquí puedes cambiar 'welcome' por la vista que desees mostrar
@@ -123,7 +123,8 @@ Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candid
 // Requiere que el perfil esté completo gracias al middleware 'profile.complete'.
 Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
-        return view('candidato.dashboard');
+        $candidato = FacadesAuth::user()->candidato;
+        return view('candidato.dashboard', compact('candidato'));
     })->name('dashboard');
 
     // Ver ofertas y postularse
@@ -143,9 +144,11 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     // CRUD para el currículum (Experiencias, Estudios)
     Route::resource('estudios', CandidatoEstudioController::class)->except(['index', 'show']);
     Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show']);
+    Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show']);
+    Route::resource('candidato_profesiones', candidato_profesionController::class)->except(['index', 'show']);
 
-    /* Route::get('postulacion', [CandidatoPostulacionesController::class, 'index'])->name('postulacion.index');
-    Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
+    Route::get('postulacion', [CandidatoPostulacionesController::class, 'index'])->name('postulacion.index');
+    /*Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
 
     Route::resource('estudios', CandidatoEstudioController::class)->parameters(['estudios' => 'estudio']);
     Route::resource('telefonos', telefonoController::class)->parameters(['telefonos' => 'telefono']);

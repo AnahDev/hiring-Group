@@ -7,18 +7,39 @@
                 <h4 class="card-title">Información Personal</h4>
                 <p><strong>Nombre:</strong> {{ $candidato->nombre ?? '-' }}</p>
                 <p><strong>Apellido:</strong> {{ $candidato->apellido ?? '-' }}</p>
-                <p><strong>Correo:</strong> {{ auth()->user()->email }}</p>
+                <p><strong>Correo:</strong> {{ $candidato->usuario->correo ?? '-' }}</p>
                 <p><strong>Dirección:</strong> {{ $candidato->direccion ?? '-' }}</p>
+                <p><strong>Teléfono:</strong></p>
+                <ul>
+                    @if (isset($candidato->telefonos) && $candidato->telefonos->count())
+                        @foreach ($candidato->telefonos as $telefono)
+                            <li>{{ $telefono->numero }}</li>
+                        @endforeach
+                    @else
+                        <li>No hay teléfonos registrados.</li>
+                    @endif
+                </ul>
+                <p><strong>Estudios realizados:</strong></p>
+                <ul>
+                    @if (isset($candidato->estudios) && $candidato->estudios->count())
+                        @foreach ($candidato->estudios as $estudio)
+                            <li>{{ $estudio->carrera }} en {{ $estudio->nombreUni }} egresado en el
+                                {{ $estudio->fechaEgreso ?? 'Actual' }}</li>
+                        @endforeach
+                    @else
+                        <li>No hay estudios registrados.</li>
+                    @endif
+                </ul>
             </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-body">
                 <h4 class="card-title">Profesiones</h4>
-                @if (isset($candidato->profesiones) && $candidato->profesiones->count())
+                @if (isset($candidato->candidatoProfesiones) && $candidato->candidatoProfesiones->count())
                     <ul>
-                        @foreach ($candidato->profesiones as $profesion)
-                            <li>{{ $profesion->nombre }}</li>
+                        @foreach ($candidato->candidatoProfesiones as $profesion)
+                            <li>{{ $profesion->profesion_id->descripcion }}</li>
                         @endforeach
                     </ul>
                 @else
@@ -30,12 +51,12 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h4 class="card-title">Experiencias Laborales</h4>
-                @if (isset($candidato->experiencias) && $candidato->experiencias->count())
+                @if (isset($candidato->experienciasLaborales) && $candidato->experienciasLaborales->count())
                     <ul>
-                        @foreach ($candidato->experiencias as $exp)
+                        @foreach ($candidato->experienciasLaborales as $exp)
                             <li>
-                                {{ $exp->puesto }} en {{ $exp->empresa }}
-                                ({{ $exp->fecha_inicio }} - {{ $exp->fecha_fin ?? 'Actual' }})
+                                {{ $exp->cargo }} en {{ $exp->empresa }}
+                                ({{ $exp->fechaInicio }} - {{ $exp->fechaFin ?? 'Actual' }})
                             </li>
                         @endforeach
                     </ul>
