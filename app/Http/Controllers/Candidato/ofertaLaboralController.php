@@ -20,6 +20,11 @@ class ofertaLaboralController extends Controller
             return $q->where('profesion_id', $profesion_id);
         });
 
+        // Filtrado condicional por cargo
+        $query->when($request->cargo, function ($q, $cargo) {
+            return $q->where('cargo', $cargo);
+        });
+
         // Filtrado condicional por ubicación
         $query->when($request->ubicacion, function ($q, $ubicacion) {
             return $q->where('ubicacion', 'like', "%{$ubicacion}%");
@@ -27,8 +32,10 @@ class ofertaLaboralController extends Controller
 
         $ofertas = $query->with('profesion', 'empresa')->latest()->paginate(10);
 
-        // Faltarían las vistas, pero la lógica está lista
-        return view('candidato.ofertas.index', compact('ofertas'));
+        // Traer todos los cargos únicos para el combobox
+        $cargos = ofertaLaboral::select('cargo')->distinct()->pluck('cargo');
+
+        return view('candidato.ofertas.index', compact('ofertas', 'cargos'));
     }
 
     public function store(Request $request)

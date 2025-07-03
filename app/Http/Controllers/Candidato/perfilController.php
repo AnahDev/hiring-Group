@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidato;
 
 use App\Http\Controllers\Controller;
 use App\Models\candidato;
+use App\Models\profesion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,12 +52,13 @@ class perfilController extends Controller
     public function edit(candidato $candidato)
     {
         $usuario = Auth::user()->candidato;
+        $profesiones = profesion::all();
 
         if (!$usuario) {
             return redirect()->route('candidato.dashboard')->with('error', 'Perfil no encontrado.');
         }
 
-        return view('candidato.perfil.edit', compact('candidato'));
+        return view('candidato.perfil.edit', compact('candidato', 'profesiones'));
     }
 
 

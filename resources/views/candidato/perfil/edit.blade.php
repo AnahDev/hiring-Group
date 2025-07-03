@@ -53,7 +53,7 @@
         <hr>
 
         {{-- Agregar Experiencia Laboral --}}
-        <h4>Agregar Experiencia Laboral</h4>
+        {{--  <h4>Agregar Experiencia Laboral</h4>
         <form method="POST" action="{{ route('candidato.experiencias.store') }}">
             @csrf
             <input type="hidden" name="candidato_id" value="{{ $candidato->id }}">
@@ -75,7 +75,7 @@
                 <small class="form-text text-muted">Dejar vacío si aún trabaja aquí.</small>
             </div>
             <button type="submit" class="btn btn-primary">Agregar Experiencia</button>
-        </form>
+        </form> --}}
 
         <hr>
         {{-- Agregar Estudio Universitario --}}
@@ -102,7 +102,7 @@
         <hr>
 
         {{-- Agregar Profesión --}}
-        <h4>Agregar Profesión</h4>
+        {{--  <h4>Agregar Profesión</h4>
         <form method="POST" action="{{ route('candidato.candidato_profesiones.store') }}">
             @csrf
             <input type="hidden" name="candidato_id" value="{{ $candidato->id }}">
@@ -110,12 +110,12 @@
                 <label for="profesion_id" class="form-label">Profesión</label>
                 <select class="form-control" id="profesion_id" name="profesion_id" required>
                     <option value="">Seleccione una profesión</option>
-                    @foreach ($candidato->candidatoProfesiones as $profesion)
-                        <option value="{{ $profesion->profesion->id }}">{{ $profesion->descripcion }}</option>
+                    @foreach ($profesiones as $profesion)
+                        <option value="{{ $profesion->id }}">{{ $profesion->descripcion }}</option>
                     @endforeach
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Agregar Profesión</button>
-        </form>
+        </form> --}}
     </div>
 @endsection

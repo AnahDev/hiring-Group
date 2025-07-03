@@ -16,7 +16,7 @@ class OfertaLaboralController extends Controller
         // La autorización ahora se puede hacer al principio o en la ruta
         $this->authorize('viewAny', ofertaLaboral::class);
         $empresa = Auth::user()->empresa;
-        $ofertasLaborales = $empresa->ofertaLaboral()->with('profesion')->get(); // Corregida la relación a 'ofertaLaboral'
+        $ofertasLaborales = $empresa->ofertaLaboral()->with('profesion')->get();
         return view('empresa.ofertas.index', compact('ofertasLaborales'));
     }
 

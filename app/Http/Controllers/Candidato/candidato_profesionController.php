@@ -35,8 +35,8 @@ class candidato_profesionController extends Controller
 
         $candidato = Auth::user()->candidato;
         $profesiones = profesion::all();
-        $candidato->candidato_profesiones()->create($request->all());
-        return redirect()->route('candidato.perfil.edit', $profesiones)->with('success', 'Añadido correctamente.');
+        $candidato->candidatoProfesiones()->create($request->all());
+        return redirect()->route('candidato.perfil.edit', $candidato->id)->with('success', 'Añadido correctamente.');
     }
 
     /**

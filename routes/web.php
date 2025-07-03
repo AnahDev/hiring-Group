@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CandidatosController;
-use App\Http\Controllers\ofertaLaboralController;
-use App\Http\Controllers\estudioController;
-use App\Http\Controllers\telefonoController;
-use App\Http\Controllers\profesionController;
 
 use App\Http\Controllers\Candidato\EstudioController as CandidatoEstudioController; //Alias
 use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienciasController;
@@ -15,24 +10,24 @@ use App\Http\Controllers\Candidato\postulacionesController as CandidatoPostulaci
 use App\Http\Controllers\Candidato\profesionesController as candidatoProfesionesController;
 use App\Http\Controllers\Candidato\telefonoController as CandidatoTelefonoController;
 use App\Http\Controllers\Candidato\candidato_profesionController;
-use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
-use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
 
-use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\Contratado\ReciboController;
+
+use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
+
+use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
+use App\Http\Controllers\HiringGroup\NominaController as HiringNominaController;
+use App\Http\Controllers\HiringGroup\ContratacionController as HiringContratacionController;
+use App\Http\Controllers\HiringGroup\empresaController as HiringEmpresaController;
+use App\Http\Controllers\HiringGroup\postulacionesController as HiringPostulacionController;
+
+use App\Http\Controllers\Empresa\passwordController;
 use App\Http\Controllers\contactoEmpresaController;
 use App\Http\Controllers\sectorEmpresaController;
-use App\Http\Controllers\nominaController;
-use App\Http\Controllers\detalleNominaController;
-use App\Http\Controllers\experienciaLaboralController;
 use App\Http\Controllers\postulacionController;
-use App\Http\Controllers\usuarioController;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\bancoController;
-use App\Http\Controllers\contratoController;
 use App\Http\Controllers\AuthController;
-use App\Models\empresa;
-use App\Models\ofertaLaboral;
-use Illuminate\Container\Attributes\Auth;
+
+
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 Route::get('/', function () {
@@ -70,13 +65,30 @@ Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hi
         return view('hiring.dashboard');
     })->name('dashboard');
 
-    Route::get('/postulaciones', [PostulacionController::class, 'index'])->name('postulaciones.index');
+    Route::get('/postulaciones', [HiringPostulacionController::class, 'index'])->name('postulaciones.index');
     Route::get('/ofertas', [HiringOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('/reportes', [HiringOfertaController::class, 'reporteOfertasPorProfesion'])->name('reportes.index');
 
+    // Muestra la lista de postulantes para una oferta
+    Route::get('/ofertas/{ofertaLaboral}/postulantes', [HiringContratacionController::class, 'showPostulantes'])->name('contratacion.postulantes');
+    // Muestra el formulario para contratar a un candidato específico
+    Route::get('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'createContrato'])->name('contratacion.create');
+    // Almacena el nuevo contrato en la BD
+    Route::post('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'storeContrato'])->name('contratacion.store');
+
+    // Muestra el formulario para preparar la nómina (seleccionar empresa, mes, año)
+    Route::get('/nomina/preparar', [HiringNominaController::class, 'showPreparacionForm'])->name('nomina.preparar.form');
+    // Genera y muestra el reporte de la nómina
+    Route::post('/nomina/preparar', [HiringNominaController::class, 'generarReporte'])->name('nomina.preparar.reporte');
+    // Muestra una vista de confirmación para la corrida de nómina
+    Route::get('/nomina/{nomina}/corrida', [HiringNominaController::class, 'showCorridaForm'])->name('nomina.corrida.form');
+    // Ejecuta la corrida de nómina
+    Route::post('/nomina/{nomina}/corrida', [HiringNominaController::class, 'ejecutarCorrida'])->name('nomina.corrida.ejecutar');
+
     // CRUD para Empresas
     // Esto genera rutas como: /hiringGroup/empresas, /hiringGroup/empresas/create, etc.
-    Route::resource('empresas', EmpresaController::class)->parameters(['empresas' => 'empresa']);
+    //Route::resource('empresas', EmpresaController::class)->parameters(['empresas' => 'empresa']);
+    Route::resource('empresas', HiringEmpresaController::class);
 
     // Rutas anidadas para Contactos y Sectores de una Empresa
     // Genera rutas como: /hiringGroup/empresas/{empresa}/contactos
@@ -99,8 +111,8 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
     Route::get('/ofertas/activas', [EmpresaOfertaController::class, 'activas'])->name('ofertas.activas');
     Route::get('/ofertas/inactivas', [EmpresaOfertaController::class, 'inactivas'])->name('ofertas.inactivas');
 
-    Route::get('/password', [EmpresaController::class, 'showPasswordForm'])->name('password');
-    Route::post('/password/update', [EmpresaController::class, 'updatePassword'])->name('password.update');
+    Route::get('/password', [passwordController::class, 'showPasswordForm'])->name('password');
+    Route::post('/password/update', [passwordController::class, 'updatePassword'])->name('password.update');
 
     // REEMPLAZA EL CONTROLADOR GENÉRICO POR EL ESPECIALIZADO
     Route::post('/ofertas/{ofertaLaboral}/toggle-status', [EmpresaOfertaController::class, 'toggleStatus'])->name('ofertas.toggleStatus');
@@ -113,12 +125,10 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
 #############
 
 // Grupo 1: Rutas para la creación inicial del perfil. RUTAS PARA COMPLETAR EL PERFIL 
-// No usa el middleware 'profile.complete' para permitir el acceso a este formulario.
 Route::middleware(['auth', 'role:candidato'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/perfil/crear', [CandidatoPerfilController::class, 'create'])->name('perfil.crear');
     Route::post('/perfil/store', [CandidatoPerfilController::class, 'store'])->name('perfil.store');
 });
-
 // Grupo 2: Rutas principales del dashboard del candidato.
 // Requiere que el perfil esté completo gracias al middleware 'profile.complete'.
 Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
@@ -154,4 +164,11 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     Route::resource('telefonos', telefonoController::class)->parameters(['telefonos' => 'telefono']);
     Route::resource('candidato_profesiones', candidato_profesionController::class)->parameters(['candidato_profesiones' => 'candidatoProfesion']);
     Route::resource('experiencias_laborales', CandidatoExperienciasController::class)->parameters(['experiencias_laborales' => 'experienciaLaboral']); */
+});
+
+#############
+// CONTRATADO
+#############
+Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
+    Route::get('/recibos', [ReciboController::class, 'index'])->name('recibos.index');
 });

@@ -15,7 +15,7 @@ class OfertaLaboralController extends Controller
         // Aquí podrías agregar una Policy o Gate para asegurar que solo hiringGroup acceda
         $ofertasLaborales = ofertaLaboral::with(['empresa', 'profesion'])->get();
         // Vista para hiringGroup
-        return view('hiring.ofertas', compact('ofertasLaborales'));
+        return view('hiringGroup.ofertas', compact('ofertasLaborales'));
     }
 
     public function reporteOfertasPorProfesion()
@@ -23,6 +23,6 @@ class OfertaLaboralController extends Controller
         $reporte = profesion::with(['ofertas.empresa'])->withCount('ofertas')
             ->get();
 
-        return view('hiring.reportes', compact('reporte'));
+        return view('hiringGroup.reportes', compact('reporte'));
     }
 }

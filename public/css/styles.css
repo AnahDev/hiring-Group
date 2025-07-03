@@ -101,6 +101,13 @@
     height: 300px;
     margin-bottom: 2rem;
 }
+.form-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #8f8f8f;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
