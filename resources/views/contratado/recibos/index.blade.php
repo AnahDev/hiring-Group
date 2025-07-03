@@ -1,1 +1,52 @@
 @extends('layouts.app');
+@section('content')
+    <div class="container">
+        <h2>Mis Recibos de Pago</h2>
+        <form method="GET" class="row g-3 mb-3">
+            <div class="col-md-3">
+                <select name="mes" class="form-select">
+                    <option value="">-- Mes --</option>
+                    @foreach (range(1, 12) as $m)
+                        <option value="{{ $m }}" {{ request('mes') == $m ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::create()->month($m)->format('F') }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="anio" class="form-select">
+                    <option value="">-- Año --</option>
+                    @for ($y = date('Y'); $y >= 2020; $y--)
+                        <option value="{{ $y }}" {{ request('anio') == $y ? 'selected' : '' }}>
+                            {{ $y }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recibos as $recibo)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($recibo->fecha)->format('d/m/Y') }}</td>
+                        <td>${{ number_format($recibo->monto, 2, ',', '.') }}</td>
+                        <td>{{ $recibo->descripcion }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3">No hay recibos para mostrar.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+@endsection

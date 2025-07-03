@@ -12,6 +12,9 @@
                 <th>Fecha de Postulación</th>
             </tr>
         </thead>
+        {{-- Poner filtros para ver por empresas, por profesion o por cargo  --}}
+
+        {{-- Boton para "ver oferta" --}}
         <tbody>
             @foreach ($postulaciones as $postulacion)
                 <tr>
@@ -20,6 +23,9 @@
                     <td>{{ $postulacion->ofertaLaboral->cargo ?? '-' }}</td>
                     <td>{{ $postulacion->ofertaLaboral->empresa->nombre ?? '-' }}</td>
                     <td>{{ $postulacion->fechaPostulacion ?? '-' }}</td>
+                    <td>
+                        <a href="{{ route('hiringGroup.postulaciones.show', $postulacion->id) }}">Ver Oferta</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

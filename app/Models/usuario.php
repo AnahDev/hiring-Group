@@ -4,6 +4,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -34,5 +35,10 @@ class usuario extends Authenticatable
     public function candidato(): HasOne
     {
         return $this->hasOne(candidato::class, 'usuario_id');
+    }
+
+    public function reciboPago(): HasMany
+    {
+        return $this->hasMany(reciboPago::class, 'usuario_id');
     }
 }

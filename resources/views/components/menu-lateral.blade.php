@@ -43,7 +43,7 @@
             ]" :open="true" />
             <x-menu-group title="Empresas y Contrataciones" :items="[
                 ['href' => route('hiringGroup.empresas.index'), 'label' => 'Empresas Clientes (CRUD)'],
-                ['href' => '#', 'label' => 'Contratación de Postulantes'], {{-- TODO: route('hiringGroup.contrataciones.index') --}}
+                ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Contratación de Postulantes'], {{-- TODO: route('hiringGroup.contrataciones.index') --}}
             ]" />
             <x-menu-group title="Nómina" :items="[
                 ['href' => '#', 'label' => 'Preparar Nómina Mensual'], {{-- TODO: route('hiringGroup.nomina.preparacion') --}}
@@ -77,9 +77,15 @@
             {{-- CONTRATADO --}}
         @elseif ($tipo === 'contratado')
             {{-- Nota: Las rutas de 'contratado' deben ser definidas en web.php --}}
-            <x-menu-group title="Recibos de Pago" :items="[['href' => '#', 'label' => 'Ver Recibos de Pago', 'highlight' => true]]" :open="true" /> {{-- TODO: route('contratado.recibos.index') --}}
-            <x-menu-group title="Ofertas Laborales" :items="[['href' => '#', 'label' => 'Visualizar Ofertas']]" /> {{-- TODO: route('contratado.ofertas.index') --}}
-            <x-menu-group title="Constancia de Trabajo" :items="[['href' => '#', 'label' => 'Solicitar Constancia de Trabajo']]" /> {{-- TODO: route('contratado.constancia.create') --}}
+            <x-menu-group title="Recibos de Pago" :items="[
+                ['href' => route('contratado.recibos.index'), 'label' => 'Ver Recibos de Pago', 'highlight' => true]
+            ]" :open="true" />
+            <x-menu-group title="Ofertas Laborales" :items="[
+                ['href' => route('contratado.ofertas'), 'label' => 'Visualizar Ofertas']
+            ]" />
+            <x-menu-group title="Constancia de Trabajo" :items="[
+                ['href' => route('contratado.constancia.create'), 'label' => 'Solicitar Constancia de Trabajo']
+            ]" />
 
             {{-- AMINNISTRADOR --}}
         @elseif ($tipo === 'admin')

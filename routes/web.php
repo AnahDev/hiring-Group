@@ -11,7 +11,9 @@ use App\Http\Controllers\Candidato\profesionesController as candidatoProfesiones
 use App\Http\Controllers\Candidato\telefonoController as CandidatoTelefonoController;
 use App\Http\Controllers\Candidato\candidato_profesionController;
 
-use App\Http\Controllers\Contratado\ReciboController;
+use App\Http\Controllers\Contratado\ReciboPagoController as ContratadoReciboController;
+use App\Http\Controllers\Contratado\ofertaLaboralController as ContratadoOfertaController;
+use App\Http\Controllers\Contratado\ConstanciaController as ContratadoConstanciaController;
 
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
 
@@ -62,19 +64,20 @@ Route::get('/admin', function () {
 
 Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hiringGroup.')->group(function () {
     Route::get('/', function () {
-        return view('hiring.dashboard');
+        return view('hiringGroup.dashboard');
     })->name('dashboard');
 
     Route::get('/postulaciones', [HiringPostulacionController::class, 'index'])->name('postulaciones.index');
     Route::get('/ofertas', [HiringOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('/reportes', [HiringOfertaController::class, 'reporteOfertasPorProfesion'])->name('reportes.index');
+    Route::get('/contrataciones', [HiringContratacionController::class, 'index'])->name('contrataciones.index');
 
     // Muestra la lista de postulantes para una oferta
-    Route::get('/ofertas/{ofertaLaboral}/postulantes', [HiringContratacionController::class, 'showPostulantes'])->name('contratacion.postulantes');
+    Route::get('/ofertas/{ofertaLaboral}/postulantes', [HiringContratacionController::class, 'show'])->name('postulaciones.show');
     // Muestra el formulario para contratar a un candidato específico
-    Route::get('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'createContrato'])->name('contratacion.create');
+    Route::get('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'create'])->name('contratacion.create');
     // Almacena el nuevo contrato en la BD
-    Route::post('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'storeContrato'])->name('contratacion.store');
+    Route::post('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'store'])->name('contratacion.store');
 
     // Muestra el formulario para preparar la nómina (seleccionar empresa, mes, año)
     Route::get('/nomina/preparar', [HiringNominaController::class, 'showPreparacionForm'])->name('nomina.preparar.form');
@@ -157,7 +160,7 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show']);
     Route::resource('candidato_profesiones', candidato_profesionController::class)->except(['index', 'show']);
 
-    Route::get('postulacion', [CandidatoPostulacionesController::class, 'index'])->name('postulacion.index');
+    //Route::post('postulaciones', [CandidatoPostulacionesController::class, 'store'])->name('postulacion.index');
     /*Route::get('/perfil', [CandidatosController::class, 'showProfile'])->name('perfil.show');
 
     Route::resource('estudios', CandidatoEstudioController::class)->parameters(['estudios' => 'estudio']);
@@ -170,5 +173,14 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
 // CONTRATADO
 #############
 Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
-    Route::get('/recibos', [ReciboController::class, 'index'])->name('recibos.index');
+
+    Route::get('/', function () {
+        return view('contratado.dashboard');
+    })->name('dashboard');
+    Route::get('/recibos', [ContratadoReciboController::class, 'index'])->name('recibos.index');
+    Route::get('ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');
+
+    //TODAS LAS VISTAS QUE FALTAn
+    //Route::get('constancia/solicitar', [ContratadoConstanciaController::class, 'create'])->name('constancia.create');
+    //Route::post('constancia/solicitar', [ContratadoConstanciaController::class, 'store'])->name('constancia.store');
 });

@@ -29,9 +29,11 @@
                 </select>
             </div>
 
+            {{-- El cargo debe convertirse en un comboBox y tener e boton de "Agregar cargo" --}}
             <div class="mb-3">
                 <label for="cargo" class="form-label">Cargo Vacante:</label>
-                <input type="text" class="form-control" id="cargo_vacante" name="cargo" value="{{ old('cargo') }}" required>
+                <input type="text" class="form-control" id="cargo_vacante" name="cargo" value="{{ old('cargo') }}"
+                    required>
             </div>
 
             <div class="mb-3">
@@ -40,19 +42,23 @@
             </div>
 
             <div class="mb-3">
-                <label for="salario" class="form-label">Salario Ofrecido:   </label>
-                <input type="number" step="0.01" class="form-control" id="salario_ofrecido" name="salario" value="{{ old('salario') }}" required>
+                <label for="salario" class="form-label">Salario Ofrecido: </label>
+                <input type="number" step="0.01" class="form-control" id="salario_ofrecido" name="salario"
+                    value="{{ old('salario') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="ubicacion" class="form-label">Ubicación:</label>
                 <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{ old('ubicacion') }}">
             </div>
-            
+
+
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1" {{ old('estado', true) ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1"
+                    {{ old('estado', true) ? 'checked' : '' }}>
                 <label class="form-check-label" for="estado">Activa</label>
             </div>
+
 
 
             <button type="submit" class="btn btn-primary">Crear Oferta</button>

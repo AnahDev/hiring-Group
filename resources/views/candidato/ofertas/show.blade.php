@@ -14,6 +14,20 @@
                 <p>{{ $ofertaLaboral->descripcion }}</p>
             </div>
         </div>
+        @can('create', [App\Models\postulacion::class, $ofertaLaboral])
+            @php
+                $yaPostulado = $ofertaLaboral
+                    ->postulaciones()
+                    ->where('candidato_id', auth()->user()->candidato->id)
+                    ->exists();
+            @endphp
+            <form method="POST" action="{{ route('candidato.ofertas.postular', $ofertaLaboral) }}">
+                @csrf
+                <button type="submit" class="btn btn-success mt-3" {{ $yaPostulado ? 'disabled' : '' }}>
+                    {{ $yaPostulado ? 'Ya te postulaste' : 'Aplicar a esta oferta' }}
+                </button>
+            </form>
+        @endcan
         <a href="{{ route('candidato.ofertas.index') }}" class="btn btn-secondary mt-3">Volver al listado</a>
     </div>
 @endsection
