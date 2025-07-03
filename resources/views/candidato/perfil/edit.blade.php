@@ -111,7 +111,7 @@
                 <select class="form-control" id="profesion_id" name="profesion_id" required>
                     <option value="">Seleccione una profesión</option>
                     @foreach ($candidato->candidatoProfesiones as $profesion)
-                        <option value="{{ $profesion->id }}">{{ $profesion->descripcion }}</option>
+                        <option value="{{ $profesion->profesion->id }}">{{ $profesion->descripcion }}</option>
                     @endforeach
                 </select>
             </div>

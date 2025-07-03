@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class detalleNomina extends Model
 {
+    /*Tambien se puede ver como recibos_pago pues cada registro 
+    representa el pago 
+    de un empleado individual para una nómina específica.*/
     use HasFactory;
     protected $table = 'detalle_nomina';
     protected $fillable = [

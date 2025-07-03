@@ -39,7 +39,7 @@
                 @if (isset($candidato->candidatoProfesiones) && $candidato->candidatoProfesiones->count())
                     <ul>
                         @foreach ($candidato->candidatoProfesiones as $profesion)
-                            <li>{{ $profesion->profesion_id->descripcion }}</li>
+                            <li>{{ $profesion->profesion->descripcion }}</li>
                         @endforeach
                     </ul>
                 @else

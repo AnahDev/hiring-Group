@@ -28,7 +28,7 @@ class CandidatosController extends Controller
             'direccion' => 'nullable|string|max:255',
         ]);
         Candidato::create($request->all());
-        return redirect()->route('candidatos.index');
+        return redirect()->route('candidato.dashboard');
     }
 
     public function show(Candidato $candidato)
