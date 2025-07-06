@@ -12,7 +12,7 @@ class detalleNomina extends Model
     representa el pago 
     de un empleado individual para una nómina específica.*/
     use HasFactory;
-    protected $table = 'detalle_nomina';
+    protected $table = 'detalleNomina';
     protected $fillable = [
         'nomina_id',
         'contrato_id',
@@ -33,5 +33,32 @@ class detalleNomina extends Model
     public function contrato(): BelongsTo
     {
         return $this->belongsTo(contrato::class, 'contrato_id');
+    }
+
+
+    // --- ACCESORES PARA CALCULAR TOTALES DINÁMICAMENTE ---
+    public function getSueldoBrutoAttribute(): float
+    {
+        return (float) ($this->attributes['sueldoBruto'] ?? 0);
+    }
+
+    public function getComisionHgAttribute(): float
+    {
+        return (float) ($this->attributes['comisionHg'] ?? 0);
+    }
+
+    public function getDeduccionIncesAttribute(): float
+    {
+        return (float) ($this->attributes['deduccionInces'] ?? 0);
+    }
+
+    public function getDeduccionIvssAttribute(): float
+    {
+        return (float) ($this->attributes['deduccionIvss'] ?? 0);
+    }
+
+    public function getSalarioNetoAttribute(): float
+    {
+        return (float) ($this->attributes['salarioNeto'] ?? 0);
     }
 }

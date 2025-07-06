@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ConstanciaController extends Controller
 {
-    /* public function create()
+    public function create()
     {
         $this->authorize('create', constancia::class);
         return view('contratado.constancia.create');
@@ -25,5 +25,5 @@ class ConstanciaController extends Controller
         ]);
 
         return redirect()->route('contratado.constancia.create')->with('success', 'Solicitud enviada correctamente.');
-    } */
+    }
 }

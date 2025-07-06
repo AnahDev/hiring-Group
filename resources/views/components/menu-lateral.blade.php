@@ -46,8 +46,8 @@
                 ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Contratación de Postulantes'], {{-- TODO: route('hiringGroup.contrataciones.index') --}}
             ]" />
             <x-menu-group title="Nómina" :items="[
-                ['href' => '#', 'label' => 'Preparar Nómina Mensual'], {{-- TODO: route('hiringGroup.nomina.preparacion') --}}
-                ['href' => '#', 'label' => 'Ejecutar Corrida de Nómina'], {{-- TODO: route('hiringGroup.nomina.corrida') --}}
+                ['href' => route('hiringGroup.nomina.preparar'), 'label' => 'Preparar Nómina Mensual'],
+                ['href' => route('hiringGroup.nomina.historial'), 'label' => 'Historial de Nóminas']
             ]" />
             <x-menu-group title="Data Básica" :items="[['href' => '#', 'label' => 'Manejo de Bancos y Data Básica']]" /> {{-- TODO: route('hiringGroup.bancos.index') --}}
 
@@ -76,12 +76,11 @@
 
             {{-- CONTRATADO --}}
         @elseif ($tipo === 'contratado')
-            {{-- Nota: Las rutas de 'contratado' deben ser definidas en web.php --}}
             <x-menu-group title="Recibos de Pago" :items="[
                 ['href' => route('contratado.recibos.index'), 'label' => 'Ver Recibos de Pago', 'highlight' => true]
             ]" :open="true" />
             <x-menu-group title="Ofertas Laborales" :items="[
-                ['href' => route('contratado.ofertas'), 'label' => 'Visualizar Ofertas']
+                ['href' => route('contratado.ofertas.index'), 'label' => 'Visualizar Ofertas']
             ]" />
             <x-menu-group title="Constancia de Trabajo" :items="[
                 ['href' => route('contratado.constancia.create'), 'label' => 'Solicitar Constancia de Trabajo']

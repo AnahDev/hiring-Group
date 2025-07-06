@@ -16,6 +16,6 @@ class ofertaLaboralController extends Controller
             ->where('estado', 'activa')
             ->get();
 
-        return view('contratado.ofertas.index', compact('ofertas'));
+        return view('contratado.ofertas', compact('ofertas'));
     }
 }
