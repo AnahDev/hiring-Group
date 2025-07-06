@@ -17,4 +17,18 @@
         </div>
         <button type="submit" class="btn btn-primary">Agregar Profesión</button>
     </form>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Profesiones</h4>
+            @if (isset($candidato->candidatoProfesiones) && $candidato->candidatoProfesiones->count())
+                <ul>
+                    @foreach ($candidato->candidatoProfesiones as $profesion)
+                        <li>{{ $profesion->profesion->descripcion }}</li>
+                    @endforeach
+                </ul>
+            @else
+                <p>No hay profesiones registradas.</p>
+            @endif
+        </div>
+    </div>
 @endsection

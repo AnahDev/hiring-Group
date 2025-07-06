@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 @section('content')
     <div class="container">
         <h2>Mis Recibos de Pago</h2>

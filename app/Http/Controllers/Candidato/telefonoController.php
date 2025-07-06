@@ -9,18 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class telefonoController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request)
     {
+        Auth::user()->usuario;
+
         $request->validate([
             'candidato_id' => 'required|exists:candidato,id',
             'numero' => 'required|string|max:20',

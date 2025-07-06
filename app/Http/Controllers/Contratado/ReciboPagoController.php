@@ -44,10 +44,10 @@ class ReciboPagoController extends Controller
 
         // 4. Ordenar por el más reciente y paginar los resultados.
         // Se ordena por la fecha de la tabla 'nomina' usando una subconsulta.
-        $recibos = $recibosQuery->join('nomina', 'detalle_nomina.nomina_id', '=', 'nomina.id')
+        $recibos = $recibosQuery->join('nomina', 'detalleNomina.nomina_id', '=', 'nomina.id')
             ->orderBy('nomina.año', 'desc')
             ->orderBy('nomina.mes', 'desc')
-            ->select('detalle_nomina.*') // Aseguramos que solo seleccionamos columnas de detalle_nomina
+            ->select('detalleNomina.*') // Aseguramos que solo seleccionamos columnas de detalle_nomina
             ->paginate(12);
 
         // 5. Devolver la vista con los recibos para que el usuario los vea.

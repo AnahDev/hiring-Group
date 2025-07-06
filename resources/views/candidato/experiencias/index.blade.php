@@ -13,7 +13,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Puesto</th>
+                        <th>Cargo</th>
                         <th>Empresa</th>
                         <th>Fecha de Inicio</th>
                         <th>Fecha de Fin</th>
@@ -23,10 +23,10 @@
                 <tbody>
                     @foreach ($experiencias as $experiencia)
                         <tr>
-                            <td>{{ $experiencia->puesto }}</td>
+                            <td>{{ $experiencia->cargo }}</td>
                             <td>{{ $experiencia->empresa }}</td>
-                            <td>{{ $experiencia->fecha_inicio }}</td>
-                            <td>{{ $experiencia->fecha_fin ?? 'Actual' }}</td>
+                            <td>{{ $experiencia->fechaInicio }}</td>
+                            <td>{{ $experiencia->fechaFin ?? 'Actual' }}</td>
                             <td>
                                 <a href="{{ route('candidato.experiencias.edit', $experiencia->id) }}"
                                     class="btn btn-primary btn-sm">Editar</a>

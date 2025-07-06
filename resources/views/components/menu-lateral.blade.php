@@ -65,13 +65,13 @@
         @elseif ($tipo === 'candidato')
             {{-- Nota: Las rutas de 'candidato' deben ser definidas en web.php --}}
             <x-menu-group title="Ofertas de Empleo" :items="[
-                ['href' => route('candidato.ofertas.index'), 'label' => 'Buscar y Filtrar Ofertas', 'highlight' => true], {{-- TODO: route('candidato.ofertas.index') --}}
-                ['href' => route('candidato.postulaciones.index') , 'label' => 'Mis Postulaciones'], {{-- TODO: route('candidato.postulaciones.index') --}}
+                ['href' => route('candidato.ofertas.index'), 'label' => 'Buscar y Filtrar Ofertas', 'highlight' => true], 
+                ['href' => route('candidato.postulaciones.index') , 'label' => 'Mis Postulaciones'], 
             ]" :open="true" />
             <x-menu-group title="Curriculum" :items="[
-                ['href' => route('candidato.perfil.edit'), 'label' => 'Editar Perfil'], {{-- TODO: route('candidato.perfil.edit') --}}
-                ['href' => route('candidato.profesiones.index'), 'label' => 'Gestionar Profesiones'], {{-- TODO: route('candidato.profesiones.index') --}}
-                ['href' => route('candidato.experiencias.index'), 'label' => 'Gestionar Experiencias Laborales'], {{-- TODO: route('candidato.experiencias.index') --}}
+                ['href' => route('candidato.perfil.edit'), 'label' => 'Editar Perfil'], 
+                ['href' => route('candidato.profesiones.index'), 'label' => 'Gestionar Profesiones'], 
+                ['href' => route('candidato.experiencias.index'), 'label' => 'Gestionar Experiencias Laborales'], 
             ]" />
 
             {{-- CONTRATADO --}}
@@ -84,6 +84,10 @@
             ]" />
             <x-menu-group title="Constancia de Trabajo" :items="[
                 ['href' => route('contratado.constancia.create'), 'label' => 'Solicitar Constancia de Trabajo']
+            ]" />
+            <x-menu-group title="Curriculum" :items="[
+                ['href' => route('contratado.perfil.curriculum'), 'label' => 'Ver Currículum'],
+                ['href' => route('contratado.perfil.edit'), 'label' => 'Editar Perfil'], 
             ]" />
 
             {{-- AMINNISTRADOR --}}

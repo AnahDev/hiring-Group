@@ -13,7 +13,6 @@ class profesionesController extends Controller
     public function index()
     {
         $candidato = Auth::user();
-        // Suponiendo que tienes una relación profesiones en el modelo candidato o usuario
         $profesiones = profesion::all();
 
         return view('candidato.profesiones.index', compact('profesiones', 'candidato'));

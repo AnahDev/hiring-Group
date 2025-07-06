@@ -14,6 +14,7 @@ use App\Http\Controllers\Candidato\candidato_profesionController;
 use App\Http\Controllers\Contratado\ReciboPagoController as ContratadoReciboController;
 use App\Http\Controllers\Contratado\ofertaLaboralController as ContratadoOfertaController;
 use App\Http\Controllers\Contratado\ConstanciaController as ContratadoConstanciaController;
+use App\Http\Controllers\Contratado\perfilController as ContratadoPerfilController;
 
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
 
@@ -183,6 +184,11 @@ Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('cont
     })->name('dashboard');
     Route::get('/recibos', [ContratadoReciboController::class, 'index'])->name('recibos.index');
     Route::get('/ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');
+
+    // Rutas para el perfil del contratado
+    Route::get('/curriculum', [ContratadoPerfilController::class, 'index'])->name('perfil.curriculum');
+    Route::get('/perfil/edit', [ContratadoPerfilController::class, 'edit'])->name('perfil.edit');
+    Route::put('/perfil/update', [ContratadoPerfilController::class, 'update'])->name('perfil.update');
 
     Route::get('constancia/solicitar', [ContratadoConstanciaController::class, 'create'])->name('constancia.create');
     Route::post('constancia/solicitar', [ContratadoConstanciaController::class, 'store'])->name('constancia.store');
