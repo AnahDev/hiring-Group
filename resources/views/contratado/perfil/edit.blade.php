@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Editar Perfil de Candidato</h2>
+        <h2>Editar Curriculum</h2>
         <form method="POST" action="{{ route('candidato.perfil.update', $candidato->id) }}">
             @csrf
             @method('PUT')

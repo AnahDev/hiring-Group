@@ -49,7 +49,7 @@
                 ['href' => route('hiringGroup.nomina.preparar'), 'label' => 'Preparar Nómina Mensual'],
                 ['href' => route('hiringGroup.nomina.historial'), 'label' => 'Historial de Nóminas']
             ]" />
-            <x-menu-group title="Data Básica" :items="[['href' => '#', 'label' => 'Manejo de Bancos y Data Básica']]" /> {{-- TODO: route('hiringGroup.bancos.index') --}}
+            <x-menu-group title="Data Básica" :items="[['href' =>route('hiringGroup.bancos.index'), 'label' => 'Manejo de Bancos y Data Básica']]" />
 
             {{-- EMPRESA --}}
         @elseif ($tipo === 'empresa')
@@ -59,7 +59,10 @@
                 ['href' => route('empresa.ofertas.activas'), 'label' => 'Ofertas Activas'],
                 ['href' => route('empresa.ofertas.inactivas'), 'label' => 'Ofertas Inactivas'],
             ]" :open="true" />
-            <x-menu-group title="Cuenta" :items="[['href' => route('empresa.password'), 'label' => 'Cambiar Contraseña']]" />
+            <x-menu-group title="Cuenta" :items="[
+                ['href' => route('empresa.password'), 'label' => 'Cambiar Contraseña'],
+                ['href' => route('empresa.perfil.edit'), 'label' => 'Editar Informacion']
+            ]" />
 
             {{-- CANDIDATO / POSTULANTE --}}
         @elseif ($tipo === 'candidato')
@@ -115,8 +118,6 @@
                 ['href' => '#', 'label' => 'Bancos y Data Básica'], {{-- TODO: route('admin.bancos.index') --}}
             ]" />
         @endif
-
-        {{-- Puedes agregar más bloques @elseif para otros tipos de usuario --}}
 
         <ul style="list-style: none; padding: 0; margin-top: 20px;">
             <li>

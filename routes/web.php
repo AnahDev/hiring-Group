@@ -17,19 +17,22 @@ use App\Http\Controllers\Contratado\ConstanciaController as ContratadoConstancia
 use App\Http\Controllers\Contratado\perfilController as ContratadoPerfilController;
 
 use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaController;
+use App\Http\Controllers\Empresa\SectorController as EmpresaSectorController;
+use App\Http\Controllers\Empresa\ContactoController as EmpresaContactoController;
+use App\Http\Controllers\Empresa\PerfilController as EmpresaPerfilController;
 
 use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
 use App\Http\Controllers\HiringGroup\NominaController as HiringNominaController;
 use App\Http\Controllers\HiringGroup\ContratacionController as HiringContratacionController;
 use App\Http\Controllers\HiringGroup\empresaController as HiringEmpresaController;
 use App\Http\Controllers\HiringGroup\postulacionesController as HiringPostulacionController;
+use App\Http\Controllers\HiringGroup\bancoController as HiringBancoController;
 
 use App\Http\Controllers\Empresa\passwordController;
 use App\Http\Controllers\contactoEmpresaController;
 use App\Http\Controllers\sectorEmpresaController;
 use App\Http\Controllers\postulacionController;
 use App\Http\Controllers\AuthController;
-
 
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
@@ -92,26 +95,26 @@ Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hi
     // 2. Genera y muestra el reporte de vista previa de la nómina.
     //    Este formulario de preparación POSTeará aquí.
     Route::post('/nomina/reporte', [HiringNominaController::class, 'generarReporte'])->name('nomina.reporte');
-
     // 3. Ejecuta la corrida de nómina (se envía desde el formulario de la vista de reporte).
     Route::post('/nomina/ejecutar', [HiringNominaController::class, 'ejecutarCorrida'])->name('nomina.ejecutar');
-
     //4 Historial de nominas
     Route::get('/nomina/historial', [HiringNominaController::class, 'historial'])->name('nomina.historial');
     Route::get('/nomina/historial/{nomina}', [HiringNominaController::class, 'showHistorial'])->name('nomina.historial.show');
 
 
     // CRUD para Empresas
-    // Esto genera rutas como: /hiringGroup/empresas, /hiringGroup/empresas/create, etc.
     //Route::resource('empresas', EmpresaController::class)->parameters(['empresas' => 'empresa']);
     Route::resource('empresas', HiringEmpresaController::class);
 
-    // Rutas anidadas para Contactos y Sectores de una Empresa
+    //CRUD para bancos
+    Route::resource('bancos', HiringBancoController::class);
+
+    /*     // Rutas anidadas para Contactos y Sectores de una Empresa
     // Genera rutas como: /hiringGroup/empresas/{empresa}/contactos
     Route::resource('empresas.contactos', contactoEmpresaController::class)
         ->scoped()->parameters(['contactos' => 'contactoEmpresa']);
     Route::resource('empresas.sectores', sectorEmpresaController::class)
-        ->scoped()->parameters(['sectores' => 'sectorEmpresa']);
+        ->scoped()->parameters(['sectores' => 'sectorEmpresa']); */
 });
 
 
@@ -133,6 +136,13 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
     // REEMPLAZA EL CONTROLADOR GENÉRICO POR EL ESPECIALIZADO
     Route::post('/ofertas/{ofertaLaboral}/toggle-status', [EmpresaOfertaController::class, 'toggleStatus'])->name('ofertas.toggleStatus');
     Route::resource('ofertas', EmpresaOfertaController::class)->parameters(['ofertas' => 'ofertaLaboral']);
+
+    //Ruta para el perfil 
+
+    Route::get('/perfil', [EmpresaPerfilController::class, 'edit'])->name('perfil.edit');
+    // Rutas para gestionar los sectores y contactos de la empresa
+    Route::resource('sectores', EmpresaSectorController::class)->only(['store', 'destroy']);
+    Route::resource('contactos', EmpresaContactoController::class)->only(['store', 'destroy']);
 });
 
 

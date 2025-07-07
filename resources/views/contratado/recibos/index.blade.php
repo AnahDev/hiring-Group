@@ -31,7 +31,6 @@
                 <tr>
                     <th>Fecha</th>
                     <th>Monto</th>
-                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +38,6 @@
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($recibo->fecha)->format('d/m/Y') }}</td>
                         <td>${{ number_format($recibo->monto, 2, ',', '.') }}</td>
-                        <td>{{ $recibo->descripcion }}</td>
                     </tr>
                 @empty
                     <tr>
