@@ -40,6 +40,9 @@
                 @if ($empresa->sectores->isNotEmpty())
                     <ul class="list-group mb-3">
                         @foreach ($empresa->sectores as $sector)
+                            {{--   
+                            @php dd($sector); @endphp
+                            --}}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ $sector->descripcion }}
                                 <form action="{{ route('empresa.sectores.destroy', $sector->id) }}" method="POST"

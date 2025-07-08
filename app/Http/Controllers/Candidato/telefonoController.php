@@ -15,12 +15,11 @@ class telefonoController extends Controller
         Auth::user()->usuario;
 
         $request->validate([
-            'candidato_id' => 'required|exists:candidato,id',
             'numero' => 'required|string|max:20',
         ]);
 
         $candidato = Auth::user()->candidato;
-        $candidato->telefono()->create($request->all());
+        $candidato->telefonos()->create($request->all());
         return redirect()->route('candidato.perfil.edit')->with('success', 'Telefono añadido correctamente.');
     }
 

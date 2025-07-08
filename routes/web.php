@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Candidato\EstudioController as CandidatoEstudioController; //Alias
+use App\Http\Controllers\Candidato\EstudioController as CandidatoEstudioController;
 use App\Http\Controllers\Candidato\experienciasController as CandidatoExperienciasController;
 use App\Http\Controllers\Candidato\ofertaLaboralController as CandidatoOfertaController;
 use App\Http\Controllers\Candidato\perfilController as CandidatoPerfilController;
@@ -20,6 +20,7 @@ use App\Http\Controllers\Empresa\OfertaLaboralController as EmpresaOfertaControl
 use App\Http\Controllers\Empresa\SectorController as EmpresaSectorController;
 use App\Http\Controllers\Empresa\ContactoController as EmpresaContactoController;
 use App\Http\Controllers\Empresa\PerfilController as EmpresaPerfilController;
+use App\Http\Controllers\Empresa\passwordController;
 
 use App\Http\Controllers\HiringGroup\OfertaLaboralController as HiringOfertaController;
 use App\Http\Controllers\HiringGroup\NominaController as HiringNominaController;
@@ -28,10 +29,7 @@ use App\Http\Controllers\HiringGroup\empresaController as HiringEmpresaControlle
 use App\Http\Controllers\HiringGroup\postulacionesController as HiringPostulacionController;
 use App\Http\Controllers\HiringGroup\bancoController as HiringBancoController;
 
-use App\Http\Controllers\Empresa\passwordController;
-use App\Http\Controllers\contactoEmpresaController;
-use App\Http\Controllers\sectorEmpresaController;
-use App\Http\Controllers\postulacionController;
+
 use App\Http\Controllers\AuthController;
 
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -127,6 +125,14 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
         return view('empresa.dashboard');
     })->name('dashboard');
 
+    //Ruta para el perfil 
+
+    Route::get('/perfil', [EmpresaPerfilController::class, 'edit'])->name('perfil.edit');
+    // Rutas para gestionar los sectores y contactos de la empresa
+
+    Route::resource('sectores', EmpresaSectorController::class)->only(['store', 'destroy'])->parameters(['sectores' => 'sectorEmpresa']);
+    Route::resource('contactos', EmpresaContactoController::class)->only(['store', 'destroy'])->parameters(['contactos' => 'contactoEmpresa']);
+
     Route::get('/ofertas/activas', [EmpresaOfertaController::class, 'activas'])->name('ofertas.activas');
     Route::get('/ofertas/inactivas', [EmpresaOfertaController::class, 'inactivas'])->name('ofertas.inactivas');
 
@@ -136,13 +142,6 @@ Route::middleware(['auth', 'role:empresa'])->prefix('empresa')->name('empresa.')
     // REEMPLAZA EL CONTROLADOR GENÉRICO POR EL ESPECIALIZADO
     Route::post('/ofertas/{ofertaLaboral}/toggle-status', [EmpresaOfertaController::class, 'toggleStatus'])->name('ofertas.toggleStatus');
     Route::resource('ofertas', EmpresaOfertaController::class)->parameters(['ofertas' => 'ofertaLaboral']);
-
-    //Ruta para el perfil 
-
-    Route::get('/perfil', [EmpresaPerfilController::class, 'edit'])->name('perfil.edit');
-    // Rutas para gestionar los sectores y contactos de la empresa
-    Route::resource('sectores', EmpresaSectorController::class)->only(['store', 'destroy']);
-    Route::resource('contactos', EmpresaContactoController::class)->only(['store', 'destroy']);
 });
 
 
@@ -179,9 +178,9 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
 
     // CRUD para el currículum (Experiencias, Estudios)
     Route::resource('estudios', CandidatoEstudioController::class)->except(['index', 'show']);
-    Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show']);
+    Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show'])->parameters(['experiencias' => 'experienciaLaboral']);
     Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show']);
-    Route::resource('candidato_profesiones', candidato_profesionController::class)->except(['index', 'show']);
+    Route::resource('candidato_profesiones', candidato_profesionController::class)->except(['index', 'show'])->parameters(['candidato_profesiones' => 'candidato_profesion']);
 });
 
 #############

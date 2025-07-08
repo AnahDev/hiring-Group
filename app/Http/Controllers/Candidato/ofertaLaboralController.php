@@ -53,7 +53,6 @@ class ofertaLaboralController extends Controller
         return redirect()->route('candidato.perfil.edit')->with('success', 'Experiencia laboral añadida.');
     }
 
-
     public function show(ofertaLaboral $ofertaLaboral)
     {
         // Usamos una policy para asegurar que solo se vean ofertas activas

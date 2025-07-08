@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\sectorEmpresa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class SectorController extends Controller
 {
@@ -28,9 +29,7 @@ class SectorController extends Controller
     public function destroy(sectorEmpresa $sectorEmpresa)
     {
         // 1. Autorización: Verificamos que el sector que se intenta eliminar
-        if ($sectorEmpresa->empresa_id !== Auth::user()->empresa->id) {
-            abort(403, 'ACCIÓN NO AUTORIZADA.');
-        }
+        $this->authorize('delete', $sectorEmpresa);
         // 2. Si la autorización pasa, eliminamos el registro.
         $sectorEmpresa->delete();
         return redirect()->back()->with('success', 'Sector eliminado exitosamente.');

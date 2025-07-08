@@ -9,6 +9,7 @@ use App\Models\experienciaLaboral;
 use App\Models\ofertaLaboral;
 use App\Models\postulacion;
 use App\Models\reciboPago;
+use App\Models\sectorEmpresa;
 use App\Policies\CandidatoPolicy;
 use App\Policies\ContratoPolicy;
 use App\Policies\EstudioPolicy;
@@ -16,6 +17,7 @@ use App\Policies\ExperienciaLaboralPolicy;
 use App\Policies\OfertaLaboralPolicy;
 use App\Policies\PostulacionPolicy;
 use App\Policies\ReciboPagoPolicy;
+use App\Policies\SectorEmpresaPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(contrato::class, ContratoPolicy::class);
         Gate::policy(reciboPago::class, ReciboPagoPolicy::class);
         Gate::policy(candidato::class, CandidatoPolicy::class);
+        Gate::policy(sectorEmpresa::class, SectorEmpresaPolicy::class);
     }
 }

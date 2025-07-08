@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class EstudioController extends Controller
 {
-    public function create()
-    {
-        //
-    }
 
     //Agregar una nueva formación académica
     public function store(Request $request)
@@ -27,11 +23,6 @@ class EstudioController extends Controller
         $candidato->estudios()->create($request->all());
 
         return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica añadida.');
-    }
-
-    public function edit(Estudio $estudio)
-    {
-        //
     }
 
     public function update(Request $request, Estudio $estudio)

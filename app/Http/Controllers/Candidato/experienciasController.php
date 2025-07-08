@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Candidato;
 
 use App\Http\Controllers\Controller;
-use App\Models\estudio;
 use App\Models\experienciaLaboral;
 use App\Models\ofertaLaboral;
 use Illuminate\Http\Request;
@@ -36,24 +35,19 @@ class experienciasController extends Controller
         $candidato = Auth::user()->candidato;
         $candidato->experienciasLaborales()->create($request->all());
 
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Experiencia laboral añadida.');
-    }
-
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('candidato.experiencias.index')->with('success', 'Experiencia laboral añadida.');
     }
 
     public function edit(experienciaLaboral $experienciaLaboral)
     {
-        $experienciaLaboral = Auth::user()->candidato;
+        $candidato = Auth::user()->candidato;
         $this->authorize('update', $experienciaLaboral);
-        return view('candidato.perfil.edit', compact('candidato'));
+        return view('candidato.experiencias.edit', compact('candidato', 'experienciaLaboral'));
     }
 
-    public function update(Request $request, ofertaLaboral $ofertaLaboral)
+    public function update(Request $request, experienciaLaboral $experienciaLaboral)
     {
-        $this->authorize('update', $ofertaLaboral); // Usamos la Policy que creamos
+        $this->authorize('update', $experienciaLaboral); // Usamos la Policy que creamos
 
         $request->validate([
             'empresa' => 'required|string|max:255',
@@ -62,13 +56,13 @@ class experienciasController extends Controller
             'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
         ]);
 
-        $ofertaLaboral->update($request->all());
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Oferta laboral actualizada.');
+        $experienciaLaboral->update($request->all());
+        return redirect()->route('candidato.experiencias.index')->with('success', 'Oferta laboral actualizada.');
     }
-    public function destroy(ofertaLaboral $ofertaLaboral)
+    public function destroy(experienciaLaboral $experienciaLaboral)
     {
-        $this->authorize('delete', $ofertaLaboral); // Usamos la Policy
-        $ofertaLaboral->delete();
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Experiencia Laboral eliminada.');
+        $this->authorize('delete', $experienciaLaboral); // Usamos la Policy
+        $experienciaLaboral->delete();
+        return redirect()->route('candidato.experiencias.index')->with('success', 'Experiencia Laboral eliminada.');
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ofertaLaboralController extends Controller
 {
 
-    //muestra la oferta laboral asociada una empresa
+    /*   //muestra la oferta laboral asociada una empresa
     public function index()
     {
         $empresa = Auth::user()->empresa;
@@ -161,5 +161,5 @@ class ofertaLaboralController extends Controller
             ->get();
 
         return view('hiring.reportes', compact('reporte'));
-    }
+    } */
 }
