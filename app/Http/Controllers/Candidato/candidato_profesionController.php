@@ -13,61 +13,65 @@ class candidato_profesionController extends Controller
 
     public function index()
     {
-        //
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request,)
-    {
-
-        $request->validate([
-            'candidato_id' => 'required|exists:candidato,id',
-            'profesion_id' => 'required|exists:profesion,id',
-        ]);
-
         $candidato = Auth::user()->candidato;
         $profesiones = profesion::all();
-        $candidato->candidatoProfesiones()->create($request->all());
-        return redirect()->route('candidato.perfil.edit', $candidato->id)->with('success', 'Añadido correctamente.');
+
+        $candidatoProfesionesPivot = $candidato->candidatoProfesiones()->with('profesion')->get();
+
+        // Para la vista, es útil tener una colección de los modelos Profesion directamente
+        $profesionesDelCandidato = $candidatoProfesionesPivot->map(function ($pivotRecord) {
+            return $pivotRecord->profesion;
+        });
+
+        return view('candidato.profesiones.index', compact('profesiones', 'candidato', 'profesionesDelCandidato'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(candidato_profesion $candidato_profesion)
+
+    public function store(Request $request)
     {
-        //
+
+        $user = Auth::user();
+        $candidato = $user->candidato;
+
+        $request->validate([
+            'profesion_id' => [
+                'required',
+                'exists:profesion,id',
+                // Regla personalizada para verificar si la combinación Candidato-Profesion ya existe en la tabla pivote
+                function ($attribute, $value, $fail) use ($candidato) {
+                    if (candidato_profesion::where('candidato_id', $candidato->id)
+                        ->where('profesion_id', $value)
+                        ->exists()
+                    ) {
+                        $fail('Esta profesión ya ha sido añadida a tu perfil.');
+                    }
+                },
+            ],
+        ]);
+
+        $profesionId = $request->input('profesion_id');
+
+        // *** AHORA CREAMOS UN NUEVO REGISTRO EN LA TABLA PIVOTE DIRECTAMENTE ***
+        candidato_profesion::create([
+            'candidato_id' => $candidato->id,
+            'profesion_id' => $profesionId,
+        ]);
+        return redirect()->route('candidato.profesiones.index')
+            ->with('success', 'Profesión añadida correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(candidato_profesion $candidato_profesion)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, candidato_profesion $candidato_profesion)
+    public function destroy(profesion $profesion)
     {
-        //
-    }
+        $user = Auth::user();
+        $candidato = $user->candidato;
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(candidato_profesion $candidato_profesion)
-    {
-        //
+        // *** AHORA BUSCAMOS Y ELIMINAMOS EL REGISTRO ESPECÍFICO EN LA TABLA PIVOTE ***
+        candidato_profesion::where('candidato_id', $candidato->id)
+            ->where('profesion_id', $profesion->id)
+            ->delete();
+
+        return redirect()->route('candidato.profesiones.index')
+            ->with('success', 'Profesión eliminada correctamente.');
     }
 }

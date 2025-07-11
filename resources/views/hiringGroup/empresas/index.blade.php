@@ -13,7 +13,6 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Teléfono</th>
@@ -23,10 +22,8 @@
                 <tbody>
                     @foreach ($empresas as $empresa)
                         <tr>
-                            <td>{{ $empresa->id }}</td>
                             <td>{{ $empresa->nombre }}</td>
                             <td>{{ $empresa->email }}</td>
-                            {{-- <td>{{ $empresa->$contactos->tlfContacto }}</td> --}}
                             <td>
                                 @foreach ($empresa->contactos as $contacto)
                                     {{ $contacto->tlfContacto }}<br>

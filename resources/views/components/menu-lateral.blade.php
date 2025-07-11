@@ -37,19 +37,23 @@
 
         @if ($tipo === 'hiringGroup')
             <x-menu-group title="Postulaciones y Ofertas" :items="[
-                ['href' => route('hiringGroup.postulaciones.index'), 'label' => 'Revisar Postulaciones', 'highlight' => true],
+                ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Revisar Postulaciones', 'highlight' => true],
                 ['href' => route('hiringGroup.ofertas.index'), 'label' => 'Ofertas Laborales'],
                 ['href' => route('hiringGroup.reportes.index'), 'label' => 'Reportes de Ofertas y Profesiones'],
             ]" :open="true" />
             <x-menu-group title="Empresas y Contrataciones" :items="[
                 ['href' => route('hiringGroup.empresas.index'), 'label' => 'Empresas Clientes (CRUD)'],
-                ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Contratación de Postulantes'], {{-- TODO: route('hiringGroup.contrataciones.index') --}}
+              /*   ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Contratación de Postulantes'], */
             ]" />
             <x-menu-group title="Nómina" :items="[
                 ['href' => route('hiringGroup.nomina.preparar'), 'label' => 'Preparar Nómina Mensual'],
                 ['href' => route('hiringGroup.nomina.historial'), 'label' => 'Historial de Nóminas']
             ]" />
-            <x-menu-group title="Data Básica" :items="[['href' =>route('hiringGroup.bancos.index'), 'label' => 'Manejo de Bancos y Data Básica']]" />
+            <x-menu-group title="Data Básica" :items="[
+                ['href' =>route('hiringGroup.bancos.index'), 'label' => 'Manejo de Bancos y Data Básica'],
+                ['href' => route('hiringGroup.profesiones.index'), 'label' => 'Gestionar Profesiones']
+            ]" />
+
 
             {{-- EMPRESA --}}
         @elseif ($tipo === 'empresa')

@@ -16,11 +16,11 @@ class ContratacionController extends Controller
 {
     public function index()
     {
-        // Muestra todas las postulaciones con información del candidato y la oferta laboral.
-        $postulaciones = postulacion::with(['candidato', 'ofertaLaboral.empresa'])
-            ->whereHas('candidato.usuario', function ($query) {
-                $query->where('tipo', 'contratado');
-            })->get();
+        // Muestra todas las postulaciones con información de los candidato y la oferta laboral.
+        $postulaciones = postulacion::with([
+            'candidato',
+            'ofertaLaboral.empresa'
+        ])->get();
 
         return view('hiringGroup.contrataciones.index', compact('postulaciones'));
     }
@@ -36,7 +36,7 @@ class ContratacionController extends Controller
     {
         // Recibe una oferta, carga sus postulaciones con la información del candidato y muestra una vista con la lista.
         $postulaciones = $ofertaLaboral->postulaciones()->with('candidato.usuario')->get();
-        return view('hiringGroup.contrataciones.postulantes', compact('ofertaLaboral'));
+        return view('hiringGroup.contrataciones.show', compact('postulaciones', 'ofertaLaboral'));
     }
 
     public function store(Request $request, postulacion $postulacion)

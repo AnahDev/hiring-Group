@@ -16,7 +16,7 @@ class EstudioController extends Controller
         $request->validate([
             'nombreUni' => 'required|string|max:255',
             'carrera' => 'required|string|max:255',
-            'fechaEgreso' => 'required|date',
+            'fechaEgreso' => 'date',
         ]);
 
         $candidato = Auth::user()->candidato;

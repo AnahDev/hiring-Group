@@ -27,7 +27,7 @@ class UsuarioSeeder extends Seeder
             'fechaRegistro' => now(),
         ]);
 
-        //Candidatos
+        /*  //Candidatos
         usuario::create([
             'correo' => 'Candidato1@demo.com',
             'password' => Hash::make('candidato123'),
@@ -122,6 +122,6 @@ class UsuarioSeeder extends Seeder
             'password' => Hash::make('empresa123'),
             'tipo' => 'empresa',
             'fechaRegistro' => now(),
-        ]);
+        ]); */
     }
 }

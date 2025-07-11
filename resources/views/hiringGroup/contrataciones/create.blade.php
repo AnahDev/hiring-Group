@@ -51,7 +51,7 @@
                 <label for="banco_id" class="form-label">Banco</label>
                 <select name="banco_id" class="form-control">
                     @foreach ($bancos as $banco)
-                        <option value="{{ $banco->id }}">{{ $banco->nombre }}</option>
+                        <option value="{{ $banco->id }}">{{ $banco->nombreBanco }}</option>
                     @endforeach
                 </select>
             </div>

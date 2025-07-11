@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsuarioSeeder::class);
 
-        //Seeders relacionadas a Candidatos
+        /* //Seeders relacionadas a Candidatos
         $this->call(CandidatoSeeder::class);
         $this->call(ExperienciaLaboralSeeder::class);
         $this->call(TelefonoSeeder::class);
@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OfertaLaboralSeeder::class);
         $this->call(PostulacionSeeder::class);
         $this->call(ContratoSeeder::class);
-        $this->call(NominaSeeder::class);
+        $this->call(NominaSeeder::class); */
     }
 }

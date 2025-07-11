@@ -26,26 +26,17 @@ class perfilController extends Controller
             'direccion' => 'nullable|string|max:255',
         ]);
 
-        $usuario = Auth::user()->candidato;
+        $usuario = Auth::user();
 
         // Verificar que no tenga ya un perfil para evitar duplicados
-        if ($usuario) {
+        if ($usuario->candidato) {
             return redirect()->route('candidato.dashboard')->with('error', 'Ya tienes un perfil completo.');
         }
 
         // Crear el perfil del candidato asociado al usuario autenticado
         $usuario->candidato()->create($request->all());
-        $usuario->save();
 
         return redirect()->route('candidato.dashboard')->with('success', '¡Perfil completado exitosamente!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
 
@@ -79,13 +70,5 @@ class perfilController extends Controller
         $usuario->update($request->only(['nombre', 'apellido', 'direccion']));
 
         return redirect()->route('candidato.dashboard')->with('success', 'Perfil actualizado correctamente.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -28,6 +28,7 @@ use App\Http\Controllers\HiringGroup\ContratacionController as HiringContratacio
 use App\Http\Controllers\HiringGroup\empresaController as HiringEmpresaController;
 use App\Http\Controllers\HiringGroup\postulacionesController as HiringPostulacionController;
 use App\Http\Controllers\HiringGroup\bancoController as HiringBancoController;
+use App\Http\Controllers\HiringGroup\profesionController as HiringProfesionController;
 
 
 use App\Http\Controllers\AuthController;
@@ -69,13 +70,13 @@ Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hi
         return view('hiringGroup.dashboard');
     })->name('dashboard');
 
-    Route::get('/postulaciones', [HiringPostulacionController::class, 'index'])->name('postulaciones.index');
+    Route::get('/postulaciones', [HiringContratacionController::class, 'index'])->name('contrataciones.index');
     Route::get('/ofertas', [HiringOfertaController::class, 'index'])->name('ofertas.index');
     Route::get('/reportes', [HiringOfertaController::class, 'reporteOfertasPorProfesion'])->name('reportes.index');
-    Route::get('/contrataciones', [HiringContratacionController::class, 'index'])->name('contrataciones.index');
+    //Route::get('/contrataciones', [HiringContratacionController::class, 'index'])->name('contrataciones.index');
 
     // Muestra la lista de postulantes para una oferta
-    Route::get('/ofertas/{ofertaLaboral}/postulantes', [HiringContratacionController::class, 'show'])->name('postulaciones.show');
+    Route::get('/ofertas/{ofertaLaboral}/postulantes', [HiringContratacionController::class, 'show'])->name('contrataciones.show');
     // Muestra el formulario para contratar a un candidato específico
     Route::get('/postulaciones/{postulacion}/contratar', [HiringContratacionController::class, 'create'])->name('contratacion.create');
     // Almacena el nuevo contrato en la BD
@@ -103,16 +104,9 @@ Route::middleware(['auth', 'role:hiringGroup'])->prefix('hiringGroup')->name('hi
     // CRUD para Empresas
     //Route::resource('empresas', EmpresaController::class)->parameters(['empresas' => 'empresa']);
     Route::resource('empresas', HiringEmpresaController::class);
-
     //CRUD para bancos
     Route::resource('bancos', HiringBancoController::class);
-
-    /*     // Rutas anidadas para Contactos y Sectores de una Empresa
-    // Genera rutas como: /hiringGroup/empresas/{empresa}/contactos
-    Route::resource('empresas.contactos', contactoEmpresaController::class)
-        ->scoped()->parameters(['contactos' => 'contactoEmpresa']);
-    Route::resource('empresas.sectores', sectorEmpresaController::class)
-        ->scoped()->parameters(['sectores' => 'sectorEmpresa']); */
+    Route::resource('profesiones', HiringProfesionController::class)->parameters(['profesiones' => 'profesion']);
 });
 
 
@@ -169,7 +163,7 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
 
     // Ver mis postulaciones, mis profesiones y mis experiencias previas
     Route::get('postulaciones', [CandidatoPostulacionesController::class, 'index'])->name('postulaciones.index');
-    Route::get('profesiones', [candidatoProfesionesController::class, 'index'])->name('profesiones.index');
+    //Route::get('profesiones', [candidatoProfesionesController::class, 'index'])->name('profesiones.index');
     Route::get('experiencias', [CandidatoExperienciasController::class, 'index'])->name('experiencias.index');
 
     // Editar perfil (datos básicos)    
@@ -180,7 +174,7 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     Route::resource('estudios', CandidatoEstudioController::class)->except(['index', 'show']);
     Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show'])->parameters(['experiencias' => 'experienciaLaboral']);
     Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show']);
-    Route::resource('candidato_profesiones', candidato_profesionController::class)->except(['index', 'show'])->parameters(['candidato_profesiones' => 'candidato_profesion']);
+    Route::resource('profesiones', candidato_profesionController::class)->only(['index', 'store', 'destroy'])->parameters(['profesiones' => 'profesion']);
 });
 
 #############

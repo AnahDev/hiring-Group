@@ -52,7 +52,6 @@
                     <option value="">Selecciona un tipo</option>
                     <option value="empresa" {{ old('tipo') == 'empresa' ? 'selected' : '' }}>Empresa</option>
                     <option value="candidato" {{ old('tipo') == 'candidato' ? 'selected' : '' }}>Candidato</option>
-                    <option value="contratado" {{ old('tipo') == 'contratado' ? 'selected' : '' }}>Contratado</option>
                 </select>
                 @error('tipo')
                     <span class="text-danger">{{ $message }}</span>

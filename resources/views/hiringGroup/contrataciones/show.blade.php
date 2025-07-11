@@ -11,7 +11,7 @@
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Profesión</th>
-                        <th>Ver Perfil</th>
+                        <th>Perfil</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -24,14 +24,24 @@
                                 @if ($postulacion->candidato->candidatoProfesiones->count())
                                     {{ $postulacion->candidato->candidatoProfesiones->first()->profesion->descripcion }}
                                 @else
-                                    -
                                 @endif
                             </td>
                             <td>
                                 <ul class="list-unstyled mb-0">
                                     <li><strong>Nombre:</strong> {{ $postulacion->candidato->nombre }}
                                         {{ $postulacion->candidato->apellido }}</li>
-                                    <li><strong>Teléfono:</strong> {{ $postulacion->candidato->telefono ?? '-' }}</li>
+                                    <li>
+                                        <strong>Teléfono(s):</strong>
+                                        @if ($postulacion->candidato && $postulacion->candidato->telefonos->isNotEmpty())
+                                            <ul>
+                                                @foreach ($postulacion->candidato->telefonos as $telefono)
+                                                    <li>{{ $telefono->numero }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </li>
                                     <li><strong>Correo:</strong> {{ $postulacion->candidato->usuario->correo ?? '-' }}</li>
                                     <li><strong>Profesión:</strong>
                                         @if ($postulacion->candidato->candidatoProfesiones->count())

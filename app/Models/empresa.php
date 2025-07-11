@@ -20,8 +20,6 @@ class empresa extends Model
         'email',
     ];
 
-    //muchos a uno
-
     //Relacion uno a uno
     public function usuario(): BelongsTo
     {
