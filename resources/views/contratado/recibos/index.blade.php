@@ -37,7 +37,7 @@
                 @forelse($recibos as $recibo)
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($recibo->fecha)->format('d/m/Y') }}</td>
-                        <td>${{ number_format($recibo->monto, 2, ',', '.') }}</td>
+                        <td>${{ number_format($recibo->salarioNeto, 2, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

@@ -41,7 +41,7 @@ class perfilController extends Controller
             return redirect()->route('contratado.dashboard')->with('error', 'Perfil no encontrado.');
         }
 
-        return view('contratado.perfil.edit', compact('candidato', 'profesiones'));
+        return view('candidato.perfil.edit', compact('candidato', 'profesiones'));
     }
 
     public function update(Request $request)

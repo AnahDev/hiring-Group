@@ -71,7 +71,48 @@
             </div>
             <button type="submit" class="btn btn-primary">Agregar Estudio</button>
         </form>
+        <hr>
+        {{-- Agregar Experiencia Laboral --}}
+        <h4>Agregar Experiencia Laboral</h4>
+        <form method="POST" action="{{ route('candidato.experiencias.store') }}">
+            @csrf
+            <input type="hidden" name="candidato_id" value="{{ $candidato->id }}">
+            <div class="mb-3">
+                <label for="empresa" class="form-label">Empresa</label>
+                <input type="text" class="form-control" id="empresa" name="empresa" required>
+            </div>
+            <div class="mb-3">
+                <label for="cargo" class="form-label">Cargo</label>
+                <input type="text" class="form-control" id="cargo" name="cargo" required>
+            </div>
+            <div class="mb-3">
+                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+            </div>
+            <div class="mb-3">
+                <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+                <small class="form-text text-muted">Dejar vacío si aún trabaja aquí.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Experiencia</button>
+        </form>
 
-
+        <hr>
+        {{-- Agregar Profesión --}}
+        <h4>Agregar Profesión</h4>
+        <form method="POST" action="{{ route('candidato.profesiones.store') }}">
+            @csrf
+            <input type="hidden" name="candidato_id" value="{{ $candidato->id }}">
+            <div class="mb-3">
+                <label for="profesion_id" class="form-label">Profesión</label>
+                <select class="form-control" id="profesion_id" name="profesion_id" required>
+                    <option value="">Seleccione una profesión</option>
+                    @foreach ($profesiones as $profesion)
+                        <option value="{{ $profesion->id }}">{{ $profesion->descripcion }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Profesión</button>
+        </form>
     </div>
 @endsection

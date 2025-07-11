@@ -61,14 +61,23 @@ class perfilController extends Controller
             'direccion' => 'nullable|string|max:255',
         ]);
 
-        $usuario = Auth::user()->candidato;
+        $usuario = Auth::user();
+        $candidato = $usuario->candidato;
 
-        if (!$usuario) {
+        if (!$candidato) {
             return redirect()->route('candidato.dashboard')->with('error', 'Perfil no encontrado.');
         }
 
-        $usuario->update($request->only(['nombre', 'apellido', 'direccion']));
+        $candidato->update($request->only(['nombre', 'apellido', 'direccion']));
 
-        return redirect()->route('candidato.dashboard')->with('success', 'Perfil actualizado correctamente.');
+
+        // Lógica de redirección basada en el tipo de usuario 
+        if ($usuario->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de contratado.');
+        } else {
+            return redirect()->route('candidato.dashboard')
+                ->with('success', 'Perfil actualizado correctamente.');
+        }
     }
 }

@@ -22,7 +22,7 @@
             <table class="table table-bordered mt-4">
                 <thead>
                     <tr>
-                        <th>Cédula</th>
+                        {{-- <th>Cédula</th> --}}
                         <th>Nombre Empleado</th>
                         <th>Cargo Contrato</th>
                         <th>Sueldo Bruto Contrato</th>
@@ -42,9 +42,9 @@
                             $salarioNeto = $sueldoBruto - $deduccionInces - $deduccionIvss;
                         @endphp
                         <tr>
-                            <td>{{ $contrato->postulacion->candidato->usuario->cedula ?? 'N/A' }}</td>
-                            <td>{{ $contrato->postulacion->candidato->usuario->name ?? 'N/A' }}</td>
-                            <td>{{ $contrato->cargo }}</td>
+                            {{-- <td>{{ $contrato->postulacion->candidato->usuario->cedula ?? 'N/A' }}</td> --}}
+                            <td>{{ $contrato->postulacion->candidato->nombre ?? 'N/A' }}</td>
+                            <td>{{ $contrato->postulacion->ofertaLaboral->cargo }}</td>
                             <td>{{ number_format($sueldoBruto, 2, ',', '.') }}</td>
                             <td>{{ number_format($deduccionInces, 2, ',', '.') }}</td>
                             <td>{{ number_format($deduccionIvss, 2, ',', '.') }}</td>

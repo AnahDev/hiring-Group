@@ -22,7 +22,13 @@ class EstudioController extends Controller
         $candidato = Auth::user()->candidato;
         $candidato->estudios()->create($request->all());
 
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica añadida.');
+        // Lógica de redirección basada en el tipo de usuario
+        if (Auth::user()->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de contratado.');
+        } else {
+            return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica actualizada.');
+        }
     }
 
     public function update(Request $request, Estudio $estudio)
@@ -37,7 +43,13 @@ class EstudioController extends Controller
 
         $estudio->update($request->all());
 
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica actualizada.');
+        // Lógica de redirección basada en el tipo de usuario
+        if (Auth::user()->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de contratado.');
+        } else {
+            return redirect()->route('candidato.perfil.edit')->with('success', 'Formación académica actualizada.');
+        }
     }
 
     //Eliminar una formación académica.

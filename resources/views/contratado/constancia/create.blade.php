@@ -1,14 +1,20 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container">
-        <h2>Solicitar Constancia de Trabajo</h2>
-        <form method="POST" action="{{ route('contratado.constancia.store') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="motivo" class="form-label">Motivo o Destinatario (opcional)</label>
-                <input type="text" name="motivo" class="form-control">
+        <h1>Solicitar Constancia de Trabajo</h1>
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
             </div>
-            <button type="submit" class="btn btn-success">Solicitar Constancia</button>
+        @endif
+
+        <p>Haz clic en el botón para generar tu constancia de trabajo.</p>
+
+        <form action="{{ route('contratado.constancia.store') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary">Generar Constancia</button>
         </form>
     </div>
 @endsection

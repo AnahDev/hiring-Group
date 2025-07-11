@@ -37,7 +37,7 @@ class EstudioPolicy
      */
     public function update(usuario $usuario, Estudio $estudio): bool
     {
-        return $usuario->candidato->id === $estudio->candidato_id;
+        return $usuario->candidato->id  === $estudio->candidato_id;
     }
 
     /**

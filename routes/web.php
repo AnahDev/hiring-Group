@@ -164,28 +164,8 @@ Route::middleware(['auth', 'role:candidato,contratado', 'perfil.complete'])->pre
     Route::resource('profesiones', candidato_profesionController::class)->only(['index', 'store', 'destroy'])->parameters(['profesiones' => 'profesion']);
 });
 
-
-// Grupo 3: contratado
-Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
-
-    Route::get('/', function () {
-        return view('contratado.dashboard');
-    })->name('dashboard');
-    Route::get('/recibos', [ContratadoReciboController::class, 'index'])->name('recibos.index');
-    Route::get('/ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');
-
-    // Ruta principal para el perfil/currículum del contratado, que ahora enlazará a las rutas comunes.
-    Route::get('/curriculum', [ContratadoPerfilController::class, 'index'])->name('perfil.curriculum');
-
-    // NOTA: Las rutas 'perfil.edit' y 'perfil.update' del Contratado
-    // DEBERÍAN SER ELIMINADAS o REDIRIGIR a las rutas comunes del grupo 'perfil-candidato'.
-    // Si ContratadoPerfilController::edit/update manejan los mismos datos, unifícalos.
-    // Si solo enlazan a la vista de edición del currículum, haz que enlacen a las nuevas rutas comunes.
-
-    Route::get('constancia/solicitar', [ContratadoConstanciaController::class, 'create'])->name('constancia.create');
-    Route::post('constancia/solicitar', [ContratadoConstanciaController::class, 'store'])->name('constancia.store');
-});
-/* Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
+// Rutas especificas del candidato 
+Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
         $candidato = FacadesAuth::user()->candidato;
         return view('candidato.dashboard', compact('candidato'));
@@ -198,7 +178,25 @@ Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('cont
 
     // Ver mis postulaciones
     Route::get('postulaciones', [CandidatoPostulacionesController::class, 'index'])->name('postulaciones.index');
-}); */
+});
+
+
+// Grupo 3: contratado
+Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
+
+    Route::get('/', function () {
+        return view('contratado.dashboard');
+    })->name('dashboard');
+    Route::get('/recibos', [ContratadoReciboController::class, 'index'])->name('recibos.index');
+    Route::get('/ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');
+
+    // Ruta principal para el perfil/currículum del contratado, que ahora enlazará a las rutas comunes.
+    Route::get('/curriculum', [ContratadoPerfilController::class, 'index'])->name('perfil.curriculum');
+    Route::get('/perfil/edit', [CandidatoPerfilController::class, 'edit'])->name('perfil.edit');
+
+    Route::get('constancia/solicitar', [ContratadoConstanciaController::class, 'create'])->name('constancia.create');
+    Route::post('constancia/solicitar', [ContratadoConstanciaController::class, 'store'])->name('constancia.store');
+});
 
 /* 
 #############
@@ -225,10 +223,7 @@ Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('cont
 });
  */
 
-
-
-
-// Grupo 2: Rutas principales del dashboard del candidato.
+/* // Grupo 2: Rutas principales del dashboard del candidato.
 // Requiere que el perfil esté completo gracias al middleware 'profile.complete'.
 Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candidato')->name('candidato.')->group(function () {
     Route::get('/', function () {
@@ -255,12 +250,12 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
     Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show'])->parameters(['experiencias' => 'experienciaLaboral']);
     Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show']);
     Route::resource('profesiones', candidato_profesionController::class)->only(['index', 'store', 'destroy'])->parameters(['profesiones' => 'profesion']);
-});
+}); */
 
 #############
 // CONTRATADO
 #############
-Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
+/* Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
 
     Route::get('/', function () {
         return view('contratado.dashboard');
@@ -269,10 +264,10 @@ Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('cont
     Route::get('/ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');
 
     // Rutas para el perfil del contratado
-    Route::get('/curriculum', [ContratadoPerfilController::class, 'index'])->name('perfil.curriculum');
-    Route::get('/perfil/edit', [ContratadoPerfilController::class, 'edit'])->name('perfil.edit');
-    Route::put('/perfil/update', [ContratadoPerfilController::class, 'update'])->name('perfil.update');
+    // Route::get('/curriculum', [ContratadoPerfilController::class, 'index'])->name('perfil.curriculum');
+    
+    //Route::put('/perfil/update', [ContratadoPerfilController::class, 'update'])->name('perfil.update');
 
     Route::get('constancia/solicitar', [ContratadoConstanciaController::class, 'create'])->name('constancia.create');
     Route::post('constancia/solicitar', [ContratadoConstanciaController::class, 'store'])->name('constancia.store');
-});
+}); */

@@ -20,7 +20,14 @@ class telefonoController extends Controller
 
         $candidato = Auth::user()->candidato;
         $candidato->telefonos()->create($request->all());
-        return redirect()->route('candidato.perfil.edit')->with('success', 'Telefono añadido correctamente.');
+
+        // Lógica de redirección basada en el tipo de usuario
+        if (Auth::user()->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de contratado.');
+        } else {
+            return redirect()->route('candidato.perfil.edit')->with('success', 'Telefono añadido correctamente.');
+        }
     }
 
     /**

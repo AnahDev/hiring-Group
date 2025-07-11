@@ -18,7 +18,7 @@
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 Información Personal
-                <a href="{{ route('contratado.perfil.edit') }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('candidato.perfil.edit') }}" class="btn btn-primary btn-sm">
                     <i class="fas fa-edit"></i> Editar Perfil
                 </a>
             </div>

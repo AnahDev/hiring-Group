@@ -35,7 +35,13 @@ class experienciasController extends Controller
         $candidato = Auth::user()->candidato;
         $candidato->experienciasLaborales()->create($request->all());
 
-        return redirect()->route('candidato.experiencias.index')->with('success', 'Experiencia laboral añadida.');
+        // Lógica de redirección basada en el tipo de usuario
+        if (Auth::user()->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Experiencia laboral actualizada correctamente.');
+        } else {
+            return redirect()->route('candidato.experiencias.index')->with('success', 'Experiencia laboral añadida.');
+        }
     }
 
     public function edit(experienciaLaboral $experienciaLaboral)
@@ -57,7 +63,14 @@ class experienciasController extends Controller
         ]);
 
         $experienciaLaboral->update($request->all());
-        return redirect()->route('candidato.experiencias.index')->with('success', 'Oferta laboral actualizada.');
+
+        // Lógica de redirección basada en el tipo de usuario
+        if (Auth::user()->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Experiencia laboral actualizada correctamente.');
+        } else {
+            return redirect()->route('candidato.experiencias.index')->with('success', 'Experiencia laboral actualizada.');
+        }
     }
     public function destroy(experienciaLaboral $experienciaLaboral)
     {
