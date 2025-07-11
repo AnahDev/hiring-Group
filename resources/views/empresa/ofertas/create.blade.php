@@ -29,7 +29,6 @@
                 </select>
             </div>
 
-            {{-- El cargo debe convertirse en un comboBox y tener e boton de "Agregar cargo" --}}
             <div class="mb-3">
                 <label for="cargo" class="form-label">Cargo Vacante:</label>
                 <input type="text" class="form-control" id="cargo_vacante" name="cargo" value="{{ old('cargo') }}"
@@ -58,8 +57,6 @@
                     {{ old('estado', true) ? 'checked' : '' }}>
                 <label class="form-check-label" for="estado">Activa</label>
             </div>
-
-
 
             <button type="submit" class="btn btn-primary">Crear Oferta</button>
             <a href="{{ route('empresa.ofertas.index') }}" class="btn btn-secondary">Cancelar</a>

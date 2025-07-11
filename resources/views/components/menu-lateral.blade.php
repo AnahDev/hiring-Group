@@ -41,9 +41,8 @@
                 ['href' => route('hiringGroup.ofertas.index'), 'label' => 'Ofertas Laborales'],
                 ['href' => route('hiringGroup.reportes.index'), 'label' => 'Reportes de Ofertas y Profesiones'],
             ]" :open="true" />
-            <x-menu-group title="Empresas y Contrataciones" :items="[
+            <x-menu-group title="Empresas " :items="[
                 ['href' => route('hiringGroup.empresas.index'), 'label' => 'Empresas Clientes (CRUD)'],
-              /*   ['href' => route('hiringGroup.contrataciones.index'), 'label' => 'Contratación de Postulantes'], */
             ]" />
             <x-menu-group title="Nómina" :items="[
                 ['href' => route('hiringGroup.nomina.preparar'), 'label' => 'Preparar Nómina Mensual'],

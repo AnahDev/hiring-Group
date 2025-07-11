@@ -29,7 +29,6 @@ class candidato_profesionController extends Controller
 
     public function store(Request $request)
     {
-
         $user = Auth::user();
         $candidato = $user->candidato;
 
@@ -56,8 +55,15 @@ class candidato_profesionController extends Controller
             'candidato_id' => $candidato->id,
             'profesion_id' => $profesionId,
         ]);
-        return redirect()->route('candidato.profesiones.index')
-            ->with('success', 'Profesión añadida correctamente.');
+
+        // Lógica de redirección basada en el tipo de usuario 
+        if ($user->tipo === 'contratado') {
+            return redirect()->route('contratado.perfil.curriculum')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de contratado.');
+        } else {
+            return redirect()->route('candidato.profesiones.index')
+                ->with('success', 'Profesión añadida correctamente a tu perfil de candidato.');
+        }
     }
 
 

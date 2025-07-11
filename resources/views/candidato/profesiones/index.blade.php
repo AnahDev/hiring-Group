@@ -37,7 +37,6 @@
             @if ($profesionesDelCandidato->isNotEmpty())
                 <ul class="list-group">
                     @foreach ($profesionesDelCandidato as $profesion)
-                        {{-- ¡Aquí se usa $profesion directamente! --}}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ $profesion->descripcion }}
                             <form action="{{ route('candidato.profesiones.destroy', $profesion->id) }}" method="POST"

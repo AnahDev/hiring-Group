@@ -27,7 +27,6 @@
                 <p><strong>Apellido:</strong> {{ $candidato->apellido }}</p>
                 <p><strong>Dirección:</strong> {{ $candidato->direccion ?? 'No especificada' }}</p>
                 <p><strong>Email:</strong> {{ $candidato->usuario->correo ?? 'N/A' }}</p>
-                {{-- Agrega más campos si los tienes en tu modelo Candidato --}}
             </div>
         </div>
 

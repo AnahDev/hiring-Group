@@ -103,7 +103,7 @@
 
         {{-- Agregar Profesión --}}
         <h4>Agregar Profesión</h4>
-        <form method="POST" action="{{ route('candidato.candidato_profesiones.store') }}">
+        <form method="POST" action="{{ route('candidato.profesiones.store') }}">
             @csrf
             <input type="hidden" name="candidato_id" value="{{ $candidato->id }}">
             <div class="mb-3">
