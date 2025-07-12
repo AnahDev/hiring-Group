@@ -26,8 +26,12 @@ class bancoController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'nombreBanco' => 'required|string|max:255',
+            'nombreBanco' => 'required|string|max:255|unique:bancos,nombreBanco',
             /* 'codigoBanco' => 'required|string|max:10|unique:bancos,codigoBanco', */
+            [
+                'nombreBanco.unique' => 'Ya existe un banco con este nombre.',
+                'nombreBanco.required' => 'El nombre del banco es obligatorio.',
+            ]
         ]);
 
         // Crear el banco
