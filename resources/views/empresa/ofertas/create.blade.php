@@ -14,7 +14,9 @@
             </div>
         @endif
 
-        <form action="{{ route('empresa.ofertas.store') }}" method="POST">
+        {{-- Formulario para crear oferta --}}
+        <div class="card">
+            <form action="{{ route('empresa.ofertas.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
@@ -36,7 +38,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="descripcion class="form-label">Descripción del Perfil:</label>
+                <label for="descripcion" class="form-label">Descripción del Perfil:</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" rows="5" required>{{ old('descripcion') }}</textarea>
             </div>
 
@@ -52,8 +54,8 @@
             </div>
 
 
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1"
+            <div class="checkBox ">
+                <input type="checkbox" class="checkBox" id="estado" name="estado" value="1"
                     {{ old('estado', true) ? 'checked' : '' }}>
                 <label class="form-check-label" for="estado">Activa</label>
             </div>
@@ -61,5 +63,8 @@
             <button type="submit" class="btn btn-primary">Crear Oferta</button>
             <a href="{{ route('empresa.ofertas.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
+
+        </div>
+        
     </div>
 @endsection

@@ -185,7 +185,8 @@ Route::middleware(['auth', 'role:candidato', 'perfil.complete'])->prefix('candid
 Route::middleware(['auth', 'role:contratado'])->prefix('contratado')->name('contratado.')->group(function () {
 
     Route::get('/', function () {
-        return view('contratado.dashboard');
+        $contratado = FacadesAuth::user()->candidato;
+        return view('contratado.dashboard', compact('contratado'));
     })->name('dashboard');
     Route::get('/recibos', [ContratadoReciboController::class, 'index'])->name('recibos.index');
     Route::get('/ofertas', [ContratadoOfertaController::class, 'index'])->name('ofertas.index');

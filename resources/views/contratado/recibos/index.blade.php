@@ -17,7 +17,7 @@
                 <select name="anio" class="form-select">
                     <option value="">-- Año --</option>
                     @for ($y = date('Y'); $y >= 2020; $y--)
-                        <option value="{{ $y }}" {{ request('anio') == $y ? 'selected' : '' }}>
+                        <option value="{{ $y }}" {{ request('año') == $y ? 'selected' : '' }}>
                             {{ $y }}</option>
                     @endfor
                 </select>
@@ -36,12 +36,12 @@
             <tbody>
                 @forelse($recibos as $recibo)
                     <tr>
-                        <td>{{ \Carbon\Carbon::parse($recibo->fecha)->format('d/m/Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($recibo->nomina->fechaGeneracion)->format('d/m/Y') }}</td>
                         <td>${{ number_format($recibo->salarioNeto, 2, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">No hay recibos para mostrar.</td>
+                        <td colspan="2">No hay recibos para mostrar.</td>
                     </tr>
                 @endforelse
             </tbody>

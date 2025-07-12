@@ -15,38 +15,37 @@
                 </ul>
             </div>
         @endif
-
-        <form action="{{ route('hiringGroup.empresas.store') }}" method="POST" class="card"> {{-- Uses existing .card --}}
+            <div class="card">
+                <div class="form-grid cols-2">
+            <div class="card">
+                <form action="{{ route('hiringGroup.empresas.store') }}" method="POST" class="card"> {{-- Uses existing .card --}}
             @csrf
-            <div class="form-group"> {{-- Uses existing .form-group --}}
+            <div class="form-group"> 
                 <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Datos de la Empresa</h2>
-                {{-- Inline styles for H2, as no .section-heading was requested --}}
-                <label class="form-label" for="nombre"> {{-- Uses existing .form-label --}}
+                <label class="form-label" for="nombre"> 
                     Nombre de la Empresa
                 </label>
-                <input class="form-control" {{-- Uses existing .form-control --}} id="nombre" name="nombre" type="text"
-                    style="display: block; width: 30%;" placeholder="Nombre de la Empresa" value="{{ old('nombre') }}"
+                <input class="form-control"  id="nombre" name="nombre" type="text"
+                    placeholder="Nombre de la Empresa" value="{{ old('nombre') }}"
                     required>
             </div>
-            <div class="form-group"> {{-- Uses existing .form-group --}}
-                <label class="form-label" for="email">
-                    Email de Contacto de la Empresa
-                </label>
-                <input class="form-control" id="email" name="email" type="email" style="display: block; width: 30%;"
-                    placeholder="contacto@empresa.com" value="{{ old('email') }}" required>
+                <div class="form-group"> 
+                    <label class="form-label" for="email">
+                        Email de Contacto de la Empresa
+                    </label>
+                    <input class="form-control" id="email" name="email" type="email"
+                        placeholder="contacto@empresa.com" value="{{ old('email') }}" required>
+                </div>
             </div>
 
-            <hr style="margin-top: 1.5rem; margin-bottom: 1.5rem; border: 0; border-top: 1px solid #eee;">
-
-
-            <div class="form-group"> {{-- Uses existing .form-group --}}
+            <div class="card">
+                   <div class="form-group"> 
                 <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Datos del Usuario de Acceso</h2>
-                {{-- Inline styles for H2 --}}
                 <label class="form-label" for="user_email">
                     Email del Usuario
                 </label>
                 <input class="form-control" id="user_email" name="user_email" type="email"
-                    style="display: block; width: 30%;" placeholder="usuario@empresa.com" value="{{ old('user_email') }}"
+                     placeholder="usuario@empresa.com" value="{{ old('user_email') }}"
                     required>
             </div>
             <div class="form-group"> {{-- Uses existing .form-group --}}
@@ -54,23 +53,25 @@
                     Contraseña
                 </label>
                 <input class="form-control" id="user_password" name="user_password" type="password"
-                    style="display:block; width: 30%" placeholder="******************" required>
+                     placeholder="******************" required>
             </div>
             <div class="form-group"> {{-- Uses existing .form-group --}}
                 <label class="form-label" for="user_password_confirmation">
                     Confirmar Contraseña
                 </label>
                 <input class="form-control" id="user_password_confirmation" name="user_password_confirmation"
-                    type="password" style="display: block; width: 30%;" placeholder="******************" required>
+                    type="password" placeholder="******************" required>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;"> {{-- Inline flex styles for actions --}}
                 <button class="btn btn-primary" {{-- Uses existing .btn .btn-primary --}} type="submit">
                     Guardar Empresa
                 </button>
+            </div>
+        </div>
+    </div>
                 <a href="{{ route('hiringGroup.empresas.index') }}" class="btn"
                     style="background: rgb(63, 99, 160); border: 1px solid var(--secondary-color); color: var(--secondary-color); font-weight: bold; font-size: 0.875rem;">
-                    {{-- Uses .btn and inline styles for link-like appearance --}}
                     Cancelar
                 </a>
             </div>

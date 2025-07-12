@@ -8,11 +8,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Incluye los assets compilados por Vite -->
-    @vite('public/css/styles.css')
+    {{-- @vite('public/css/styles.css') --}}
     @vite('resources/css/app.css')
 
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> --}}
 </head>
 
 {{-- <body>
