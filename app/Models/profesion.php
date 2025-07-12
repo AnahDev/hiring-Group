@@ -43,7 +43,7 @@ class profesion extends Model
         foreach ($this->ofertaLaboral as $oferta) {
             foreach ($oferta->postulaciones as $postulacion) {
                 // Verificar si la colección de contratos para esta postulación no está vacía
-                if ($postulacion->contrato->isNotEmpty()) {
+                if ($postulacion->contrato != null) {
                     return true; // Encontramos al menos un contrato
                 }
             }

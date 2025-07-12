@@ -12,10 +12,9 @@
             <div style="padding: 1rem; border-bottom: 1px solid #eee; margin-bottom: 1rem; font-weight: bold;">
                 Información General
             </div>
-            <div class="card-body"> {{-- card-body aquí es solo para estructura --}}
+            <div class="card-body">
                 <p><strong>ID:</strong> {{ $banco->id }}</p>
                 <p><strong>Nombre del Banco:</strong> {{ $banco->nombreBanco }}</p>
-                {{-- <p><strong>Código del Banco:</strong> {{ $banco->codigoBanco }}</p> --}}
                 <p><strong>Creado el:</strong> {{ $banco->created_at->format('d/m/Y H:i') }}</p>
                 <p><strong>Última Actualización:</strong> {{ $banco->updated_at->format('d/m/Y H:i') }}</p>
             </div>

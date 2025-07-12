@@ -19,14 +19,6 @@
                             <div style="color: #dc3545; font-size: 0.875em; margin-top: 0.25rem;">{{ $message }}</div>
                         @enderror
                     </div>
-                    {{--  <div class="form-group">
-                        <label for="codigoBanco" style="display: block; margin-bottom: 0.5rem;">Código del Banco</label>
-                        <input type="text" class="form-control" id="codigoBanco" name="codigoBanco"
-                            value="{{ old('codigoBanco') }}" required maxlength="10">
-                        @error('codigoBanco')
-                            <div style="color: #dc3545; font-size: 0.875em; margin-top: 0.25rem;">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Guardar Banco
                     </button>

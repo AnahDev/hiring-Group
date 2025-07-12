@@ -4,9 +4,11 @@
     <div class="container">
         <h1>Experiencias Laborales</h1>
         <a href="{{ route('candidato.experiencias.create') }}" class="btn btn-primary mb-3">Agregar Experiencia</a>
+        <hr>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        <br>
         @if ($experiencias->isEmpty())
             <div class="alert alert-info">No hay experiencias registradas.</div>
         @else

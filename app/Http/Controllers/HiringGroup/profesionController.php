@@ -70,7 +70,7 @@ class profesionController extends Controller
     //Elimina una profesión de la base de datos.
     public function destroy(profesion $profesion)
     {
-        // Adaptación Clave: Verificar si la profesión está en uso.
+        // Verificar si la profesión está en uso.
         // Una profesión está en uso si está asociada a una oferta laboral
         // o si un candidato la tiene en su perfil.
         $profesion->loadCount(['ofertaLaboral', 'candidatoProfesiones']);

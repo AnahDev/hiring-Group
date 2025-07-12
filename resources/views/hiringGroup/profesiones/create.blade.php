@@ -14,8 +14,8 @@
                     <div class="form-group">
                         <label for="nombreProfesion" style="display: block; margin-bottom: 0.5rem;">Nombre de la
                             Profesion</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion"
-                            value="{{ old('descripcion') }}" required>
+                        <input type="text" class="form-control" style="display: block; width:30%" id="descripcion"
+                            name="descripcion" value="{{ old('descripcion') }}" required>
                         @error('descripcion')
                             <div style="color: #dc3545; font-size: 0.875em; margin-top: 0.25rem;">{{ $message }}</div>
                         @enderror

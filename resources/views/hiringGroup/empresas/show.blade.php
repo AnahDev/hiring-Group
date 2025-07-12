@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
     <div class="container mx-auto px-4 py-8">
@@ -32,6 +32,53 @@
                 <div>
                     <h3 class="text-lg font-semibold text-gray-700 mb-2">Contactos</h3>
                     <ul class="list-disc list-inside">
+                        @forelse ($empresa->contactos as $contacto)
+                            <li>{{ $contacto->personaContacto }} - {{ $contacto->tlfContacto }}</li>
+                        @empty
+                            <li>No hay contactos registrados.</li>
+                        @endforelse
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+@endsection
+ --}}
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="card">
+            <div class="header-section-actions">
+                <h1 class="page-title" style="margin-bottom: 0;">Detalles de la Empresa</h1>
+                <a href="{{ route('hiringGroup.empresas.index') }}" class="btn btn-link">
+                    &larr; Volver a la lista
+                </a>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <h2 class="section-heading" style="margin-bottom: 0.5rem;">{{ $empresa->nombre }}</h2>
+                <p style="color: #000000;">{{ $empresa->email }}</p>
+            </div>
+
+            <hr class="hr-divider">
+
+            <div class="detail-grid">
+                <div>
+                    <h3 class="sub-heading">Usuario Asociado</h3>
+                    @if ($empresa->usuario)
+                        <p><strong>Correo:</strong> {{ $empresa->usuario->correo }}</p>
+                        <p><strong>Fecha de Registro:</strong> {{ $empresa->usuario->fechaRegistro->format('d/m/Y') }}</p>
+                    @else
+                        <p style="color: #ef4444;">No hay un usuario asociado a esta empresa.</p>
+                    @endif
+                </div>
+
+                <div>
+                    <h3 class="sub-heading">Contactos</h3>
+                    <ul style="list-style-type: disc; padding-left: 1.25rem;">
                         @forelse ($empresa->contactos as $contacto)
                             <li>{{ $contacto->personaContacto }} - {{ $contacto->tlfContacto }}</li>
                         @empty

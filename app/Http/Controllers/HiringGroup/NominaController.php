@@ -59,30 +59,6 @@ class NominaController extends Controller
 
         // Pasa los datos a la vista de reporte
         return view('hiringGroup.nomina.reporte', compact('empresa', 'mes', 'año', 'contratos'));
-        /* 
-        $request->validate([
-            'empresa_id' => 'required|exists:empresa,id',
-            'mes' => 'required|integer|min:1|max:12',
-            'año' => 'required|integer|min:2020',
-        ]);
-
-        $empresa = empresa::findOrFail($request->empresa_id);
-        $mes = $request->mes;
-        $año = $request->año;
-
-        // Buscamos todos los contratos activos asociados a la empresa seleccionada.
-        // La relación es: Empresa -> Oferta -> Postulación -> Contrato
-        $contratos = contrato::whereHas('postulacion.ofertaLaboral', function ($query) use ($empresa) {
-            $query->where('empresa_id', $empresa->id);
-        })
-            ->where('fechaInicio', '<=', now()) // Considera solo contratos que ya han iniciado
-            ->where(function ($query) { // Y que no han finalizado
-                $query->whereNull('fechaFin')->orWhere('fechaFin', '>=', now());
-            })
-            ->with('postulacion.candidato') // Cargamos datos del empleado para mostrarlos
-            ->get();
-
-        return view('hiringGroup.nomina.reporte', compact('empresa', 'mes', 'año', 'contratos')); */
     }
 
 

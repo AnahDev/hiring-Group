@@ -31,7 +31,6 @@
                 <thead>
                     <tr>
                         <th>Empleado</th>
-                        <th>Cédula</th>
                         <th>Sueldo Bruto</th>
                         <th>Deducción INCES</th>
                         <th>Deducción IVSS</th>
@@ -42,8 +41,9 @@
                 <tbody>
                     @foreach ($nomina->detalleNomina as $detalle)
                         <tr>
-                            <td>{{ $detalle->contrato->postulacion->candidato->usuario->name ?? 'N/A' }}</td>
-                            <td>{{ $detalle->contrato->postulacion->candidato->usuario->cedula ?? 'N/A' }}</td>
+                            <td>{{ $detalle->contrato->postulacion->candidato->nombre ?? 'N/A' }}
+                                {{ $detalle->contrato->postulacion->candidato->apellido ?? 'N/A' }}
+                            </td>
                             <td>{{ number_format($detalle->sueldoBruto, 2, ',', '.') }}</td>
                             <td>{{ number_format($detalle->deduccionInces, 2, ',', '.') }}</td>
                             <td>{{ number_format($detalle->deduccionIvss, 2, ',', '.') }}</td>

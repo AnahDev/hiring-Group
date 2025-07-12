@@ -159,7 +159,7 @@ Route::middleware(['auth', 'role:candidato,contratado', 'perfil.complete'])->pre
 
     // CRUD para secciones del currículum que son comunes
     Route::resource('telefonos', CandidatoTelefonoController::class)->except(['index', 'show'])->parameters(['telefonos' => 'telefono']);
-    Route::resource('experiencias', CandidatoExperienciasController::class)->except(['index', 'show'])->parameters(['experiencias' => 'experienciaLaboral']);
+    Route::resource('experiencias', CandidatoExperienciasController::class)->except(['show'])->parameters(['experiencias' => 'experienciaLaboral']);
     Route::resource('estudios', CandidatoEstudioController::class)->except(['index', 'show'])->parameters(['estudios' => 'estudio']);
     Route::resource('profesiones', candidato_profesionController::class)->only(['index', 'store', 'destroy'])->parameters(['profesiones' => 'profesion']);
 });

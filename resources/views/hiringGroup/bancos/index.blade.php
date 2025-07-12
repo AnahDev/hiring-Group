@@ -44,13 +44,11 @@
                             <tr>
                                 <td>{{ $banco->id }}</td>
                                 <td>{{ $banco->nombreBanco }}</td>
-                                {{--  <td>{{ $banco->codigoBanco }}</td> --}}
                                 <td>
-                                    <a href="{{ route('hiringGroup.bancos.show', $banco->id) }}" class="btn"
-                                        style="background-color: #17a2b8; color: white;">
+                                    <a href="{{ route('hiringGroup.bancos.show', $banco->id) }}" class="btn btn-info">
                                         <i class="fas fa-eye">Ver</i>
                                     </a>
-                                    <a href="{{ route('hiringGroup.bancos.edit', $banco->id) }}" class="btn btn-primary">
+                                    <a href="{{ route('hiringGroup.bancos.edit', $banco->id) }}" class="btn btn-warning">
                                         <i class="fas fa-edit">Editar</i>
                                     </a>
                                     <form action="{{ route('hiringGroup.bancos.destroy', $banco->id) }}" method="POST"
@@ -58,8 +56,7 @@
                                         onsubmit="return confirm('¿Estás seguro de que quieres eliminar este banco? Esta acción no se puede deshacer y fallará si hay contratos asociados.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn"
-                                            style="background-color: #dc3545; color: white;">
+                                        <button type="submit" class="btn btn-danger">
                                             <i class="fas fa-trash-alt">Eliminar</i>
                                         </button>
                                     </form>

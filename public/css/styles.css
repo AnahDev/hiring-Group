@@ -1,4 +1,15 @@
 /* Componentes generales */
+:root {
+    background-color: #7e7ebb69 ;
+    --primary-color: #34495e; /* Dark blue/grey */
+    --secondary-color: #3498db; /* Bright blue */
+    --border-radius: 0.5rem;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+html {
+    box-sizing: border-box;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -15,11 +26,20 @@
 
 /* Formularios */
 .form-group {
+    width: 80%;
+
     margin-bottom: 1.5rem;
 }
 
+.form-label{
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    display: block;
+}
+
 .form-control {
-    width: 100%;
+    width: 50%;
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
@@ -32,6 +52,45 @@
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
+.form-section {
+    margin-bottom: 1.5rem; /* Espaciado entre secciones del formulario */
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1.5rem; /* Espacio entre los grupos de formulario */
+}
+
+@media (min-width: 768px) {
+    .form-grid.cols-2 {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .form-grid.cols-3 {
+        grid-template-columns: repeat(3, 1fr); /* Tres columnas en desktop */
+    }
+    .form-grid.cols-1-2 {
+        grid-template-columns: 1fr 2fr;
+    }
+    .form-grid.cols-2-1 {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.form-group p {
+    color: #4a5568;
+    padding: 0.8rem 0; 
+}
+
+
+.form-grid .form-control {
+    width: 100%;
+}
+
+.card .form-control {
+    background-color: white; 
+}
+
 /* Botones */
 .btn {
     padding: 0.8rem 1.5rem;
@@ -39,17 +98,52 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none; 
+    display: inline-block; 
+    text-align: center;
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    color: rgb(62, 20, 97);
+    background-color: #6c757d;
+    color: rgb(255, 255, 255);
     border: none;
 }
 
 .btn-primary:hover {
     background-color: #2c3e50;
 }
+
+.btn-info {
+    background-color: #17a2b8; /* Info blue */
+    color: white;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138192;
+}
+
+.btn-warning {
+    background-color: #ffc107; /* Warning yellow */
+    color: #212529; /* Dark text for contrast */
+    border: none;
+    font-weight: 400;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Danger red */
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
 
 /* Tarjetas */
 .card {
@@ -68,10 +162,11 @@
 }
 
 .table th,
-.table td {
+.table td,
+.table tr {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #000c5049;
 }
 
 /* Dashboard */
@@ -109,6 +204,56 @@
     font-size: 1rem;
 }
 
+.alert {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.page-title { /* For H1 */
+    font-size: 2rem; /* text-2xl */
+    font-weight: bold;
+    margin-bottom: 1.5rem; /* mb-4 */
+}
+
+.section-heading { /* For H2 within forms/sections */
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.sub-heading { /* NEW: For H3 elements */
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: #4a5568; /* text-gray-700 */
+}
+/* New class for right-aligned elements */
+.text-right {
+    text-align: right;
+}
+
+/* New class for pagination container */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
 /* Responsive */
 @media (max-width: 768px) {
     .dashboard-grid {

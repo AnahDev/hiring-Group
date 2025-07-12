@@ -11,6 +11,7 @@ use App\Models\postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class ContratacionController extends Controller
 {
@@ -29,7 +30,8 @@ class ContratacionController extends Controller
     {
         $this->authorize('create', contrato::class);
         $bancos = banco::all();
-        return view('hiringGroup.contrataciones.create', compact('postulacion', 'bancos'));
+        $duracionOpciones = contrato::getDuracionOptions();
+        return view('hiringGroup.contrataciones.create', compact('postulacion', 'bancos', 'duracionOpciones'));
     }
 
     public function show(ofertaLaboral $ofertaLaboral)
@@ -42,13 +44,15 @@ class ContratacionController extends Controller
     public function store(Request $request, postulacion $postulacion)
     {
         $this->authorize('create', contrato::class);
+        // Obtenemos las opciones válidas para la validación
+        $duracionOpciones = contrato::getDuracionOptions();
 
         // Valida los datos del formulario y crea un nuevo contrato asociado a la postulación
         $validatedData = $request->validate([
             'banco_id' => 'required|exists:banco,id',
             'fechaInicio' => 'required|date',
-            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
-            'duracion' => 'required|integer|min:1',
+            'fechaFin' => 'nullable|date|after_or_equal:fechaInicio',
+            'duracion' => ['required', Rule::in($duracionOpciones)],
             'salarioMensual' => 'required|numeric|min:0',
             'tipoSangre' => 'required|string|max:3',
             'tlfEmergencia' => 'required|string|max:15',

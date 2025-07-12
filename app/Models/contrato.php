@@ -24,6 +24,17 @@ class contrato extends Model
         'cuentaBanco',
     ];
 
+    //Opciones validas en el campo enum de Duracion, no se consulta la BD
+    public static function getDuracionOptions(): array
+    {
+        return [
+            '1 Mes',
+            '3 Meses',
+            '6 Meses',
+            '1 Año',
+            'Indefinido',
+        ];
+    }
     //Relaciones uno a muchos
     public function banco(): BelongsTo
     {

@@ -2,49 +2,73 @@
 
 @section('content')
     <div class="container">
-        <h1>Empresas Registradas</h1>
-        <a href="{{ route('hiringGroup.empresas.create') }}" class="btn btn-primary mb-3">Agregar Empresa</a>
+        <h1 class="page-title">Empresas Registradas</h1>
+
+        <div class="text-right" style="margin-bottom: 1.5rem;">
+            <a href="{{ route('hiringGroup.empresas.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Agregar Empresa
+            </a>
+        </div>
+
         @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
+
+        @if (session('error'))
+            <div class="alert alert-error"> {{-- Using alert-error for consistency --}}
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if ($empresas->isEmpty())
-            <div class="alert alert-info">No hay empresas registradas.</div>
+            <div class="alert alert-info">
+                No hay empresas registradas.
+            </div>
         @else
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Teléfono</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($empresas as $empresa)
+            <div class="table"> {{-- Mantengo table-responsive si tienes CSS para ello o para overflow --}}
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ $empresa->nombre }}</td>
-                            <td>{{ $empresa->email }}</td>
-                            <td>
-                                @foreach ($empresa->contactos as $contacto)
-                                    {{ $contacto->tlfContacto }}<br>
-                                @endforeach
-                            </td>
-                            <td>
-                                <a href="{{ route('hiringGroup.empresas.show', $empresa->id) }}"
-                                    class="btn btn-info btn-sm">Ver</a>
-                                <a href="{{ route('hiringGroup.empresas.edit', $empresa->id) }}"
-                                    class="btn btn-warning btn-sm">Editar</a>
-                                <form action="{{ route('hiringGroup.empresas.destroy', $empresa->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Está seguro de eliminar esta empresa?')">Eliminar</button>
-                                </form>
-                            </td>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th style="width: auto;">Acciones</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($empresas as $empresa)
+                            <tr>
+                                <td>{{ $empresa->nombre }}</td>
+                                <td>{{ $empresa->email }}</td>
+                                <td>
+                                    @foreach ($empresa->contactos as $contacto)
+                                        {{ $contacto->tlfContacto }}<br>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <a href="{{ route('hiringGroup.empresas.show', $empresa->id) }}" class="btn btn-info">
+                                        <i class="fas fa-eye"></i> Ver
+                                    </a>
+                                    <a href="{{ route('hiringGroup.empresas.edit', $empresa->id) }}"
+                                        class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <form action="{{ route('hiringGroup.empresas.destroy', $empresa->id) }}" method="POST"
+                                        style="display:inline;"
+                                        onsubmit="return confirm('¿Está seguro de eliminar esta empresa? Esta acción no se puede deshacer.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
         @endif
-    @endsection
+    </div>
+@endsection

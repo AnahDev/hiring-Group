@@ -42,14 +42,13 @@
                         @foreach ($profesiones as $profesion)
                             <tr>
                                 <td>{{ $profesion->descripcion }}</td>
-                                {{--  <td>{{ $banco->codigoBanco }}</td> --}}
                                 <td>
                                     <a href="{{ route('hiringGroup.profesiones.show', $profesion->id) }}" class="btn"
                                         style="background-color: #17a2b8; color: white;">
                                         <i class="fas fa-eye">Ver</i>
                                     </a>
                                     <a href="{{ route('hiringGroup.profesiones.edit', $profesion->id) }}"
-                                        class="btn btn-primary">
+                                        class="btn btn-warning">
                                         <i class="fas fa-edit">Editar</i>
                                     </a>
                                     <form action="{{ route('hiringGroup.profesiones.destroy', $profesion->id) }}"
@@ -57,9 +56,8 @@
                                         onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta profesión? Esta acción no se puede deshacer y fallará si hay contratos asociados.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn"
-                                            style="background-color: #dc3545; color: white;">
-                                            <i class="fas fa-trash-alt">Eliminar</i>
+                                        <button type="submit" class="btn btn-danger" <i
+                                            class="fas fa-trash-alt">Eliminar</i>
                                         </button>
                                     </form>
                                 </td>

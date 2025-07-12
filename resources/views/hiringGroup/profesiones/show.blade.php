@@ -37,7 +37,6 @@
                                 <tr>
                                     <th>ID Contrato</th>
                                     <th>Empleado (Nombre y Apellido)</th>
-                                    {{-- <th>Cédula</th> --}}
                                     <th>Cargo</th>
                                     <th>Fecha Inicio Contrato</th>
                                 </tr>
@@ -52,12 +51,11 @@
                                             {{ $contrato->postulacion->candidato->nombre ?? 'N/A' }}
                                             {{ $contrato->postulacion->candidato->apellido ?? '' }}
                                         </td>
-                                        {{-- <td>{{ $contrato->postulacion->candidato->usuario->cedula ?? 'N/A' }}</td > --}}
                                         <td>{{ $contrato->postulacion->ofertaLaboral->cargo ?? 'N/A' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($contrato->fecha_inicio)->format('d/m/Y') }}</td>
                                     </tr>
                                 @endforeach
-                                {{--   @foreach ($profesion->contrato as $contrato)
+                                @foreach ($profesion->contrato as $contrato)
                                     <tr>
                                         <td>{{ $contrato->id }}</td>
                                         <td>{{ $contrato->postulacion->candidato->nombre ?? 'N/A' }}
@@ -65,7 +63,7 @@
                                         <td>{{ $contrato->postulacion->ofertaLaboral->cargo ?? 'N/A' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($contrato->fecha_inicio)->format('d/m/Y') }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
