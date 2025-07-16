@@ -91,30 +91,5 @@ class ContratacionController extends Controller
 
         // 3. Si todo fue exitoso, redirigimos al dashboard con un mensaje de éxito.
         return redirect()->route('hiringGroup.contrataciones.index')->with('success', '¡Candidato contratado exitosamente!');
-
-
-        /* DB::transaction(function () use ($request, $postulacion) {
-            // Crear el contrato
-            $contrato = $postulacion->contrato()->create($request->all());
-
-            // Crear el detalle de nómina asociado
-            detalleNomina::create([
-                'nomina_id' => $contrato->nomina_id,
-                'contrato_id' => $contrato->id,
-                'sueldoBruto' => $contrato->salarioMensual,
-                'comisionHg' => 0,
-                'deduccionInces' => 0,
-                'deduccionIvss' => 0,
-                'salarioNeto' => $contrato->salarioMensual,
-            ]);
-
-            // Actualiza el usuario asociado al candidato
-            $postulacion->candidato->usuario->update(['tipo' => 'contratado']);
-
-            // Actualiza la oferta laboral
-            $postulacion->ofertaLaboral->update(['estado' => 'inactiva']);
-        });
-        return redirect()->route('hiringGroup.dashboard')
-            ->with('success', 'Contrato y detalle de nómina creados correctamente.'); */
     }
 }

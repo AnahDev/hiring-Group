@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class EstudioController extends Controller
 {
-
     //Agregar una nueva formación académica
     public function store(Request $request)
     {

@@ -35,7 +35,11 @@ class ofertaLaboralController extends Controller
         // Traer todos los cargos únicos para el combobox
         $cargos = ofertaLaboral::select('cargo')->distinct()->pluck('cargo');
 
-        return view('candidato.ofertas.index', compact('ofertas', 'cargos'));
+        $profesiones = Profesion::whereHas('ofertaLaboral', function ($q) {
+            $q->where('estado', 'activa');
+        })->get();
+
+        return view('candidato.ofertas.index', compact('ofertas', 'cargos', 'profesiones'));
     }
 
     public function store(Request $request)

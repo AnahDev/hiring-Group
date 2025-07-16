@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class candidato_profesionController extends Controller
 {
-
     public function index()
     {
         $candidato = Auth::user()->candidato;

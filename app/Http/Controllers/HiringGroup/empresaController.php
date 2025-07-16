@@ -30,7 +30,7 @@ class empresaController extends Controller
         // Validar los datos del formulario para el usuario y la empresa
         $request->validate([
             'nombre' => 'required|string|min:3|max:255',
-            'email' => 'required|email|max:255|unique:empresa,email', // Tabla es 'empresa'
+            'email' => 'required|email|max:255|unique:empresa,email',
             'user_email' => 'required|email|max:255|unique:usuario,correo',
             'user_password' => 'required|string|min:6|confirmed',
         ]);

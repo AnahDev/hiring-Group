@@ -9,6 +9,15 @@
         </select>
     </div>
     <div class="col-md-3">
+        <select name="profesion_id" class="form-select">
+            <option value="">-- profesion --</option>
+            @foreach ($profesiones as $profesion)
+                <option value="{{ $profesion->id }}" {{ request('profesion_id') == $profesion->id ? 'selected' : '' }}>
+                    {{ $profesion->descripcion }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-3">
         <input type="text" name="ubicacion" class="form-control" placeholder="Ubicación"
             value="{{ request('ubicacion') }}">
     </div>
