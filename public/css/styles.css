@@ -1,6 +1,7 @@
 /*Componentes generales*/
 :root {
-    background-color: #7e7ebb69 ;
+    /* background-color: #7e7ebb69; */
+
     --primary-color: #34495e; /* Dark blue/grey */
     --secondary-color: #3498db; /* Bright blue */
     --border-radius: 0.5rem;
@@ -31,7 +32,7 @@ html {
     margin-bottom: 1.5rem;
 }
 
-.form-label{
+.form-label {
     margin-top: 1rem;
     font-size: 1rem;
     font-weight: 700;
@@ -58,13 +59,13 @@ html {
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     gap: 1.5rem; /* Espacio entre los grupos de formulario */
 }
 
 @media (min-width: 768px) {
     .form-grid.cols-2 {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(2, 1fr);
     }
     .form-grid.cols-3 {
         grid-template-columns: repeat(3, 1fr); /* Tres columnas en desktop */
@@ -79,16 +80,15 @@ html {
 
 .form-group p {
     color: #4a5568;
-    padding: 0.8rem 0; 
+    padding: 0.8rem 0;
 }
-
 
 .form-grid .form-control {
     width: 100%;
 }
 
 .card .form-control {
-    background-color: white; 
+    background-color: white;
 }
 
 /* Botones */
@@ -98,8 +98,8 @@ html {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none; 
-    display: inline-block; 
+    text-decoration: none;
+    display: inline-block;
     text-align: center;
 }
 
@@ -124,7 +124,7 @@ html {
 }
 
 .btn-warning {
-    background-color: #ffc107; 
+    background-color: #ffc107;
     color: #212529; /* Dark text for contrast */
     border: none;
     font-weight: 400;
@@ -230,29 +230,28 @@ html {
     color: #0c5460;
 }
 
-.page-title { 
-    font-size: 2rem; 
+.page-title {
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
 }
 
-.section-heading { 
-    font-size: 1.25rem; 
-    font-weight: 600; 
-    margin-bottom: 0.5rem; 
+.section-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.sub-heading { 
-    font-size: 1.125rem; 
+.sub-heading {
+    font-size: 1.125rem;
     font-weight: 600;
-    margin-bottom: 0.5rem; 
-    color: #4a5568; 
+    margin-bottom: 0.5rem;
+    color: #4a5568;
 }
 
 .text-right {
     text-align: right;
 }
-
 
 .pagination-container {
     display: flex;
@@ -269,4 +268,3 @@ html {
         margin-bottom: 1rem;
     }
 }
- 

@@ -46,6 +46,18 @@
                 <input placeholder="Confirma tu contraseña" type="password" id="password_confirmation"
                     name="password_confirmation" required>
             </div>
+            {{-- <div class="input tipo">
+                <label for="tipo">Tipo de usuario</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecciona un tipo</option>
+                    <option value="empresa" {{ old('tipo') == 'empresa' ? 'selected' : '' }}>Empresa</option>
+                    <option value="candidato" {{ old('tipo') == 'candidato' ? 'selected' : '' }}>Candidato</option>
+                </select>
+                @error('tipo')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div> --}}
+
             <div class="input">
                 <label for="tipo">Tipo de usuario</label>
                 <select id="tipo" name="tipo" required>

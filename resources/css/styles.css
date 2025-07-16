@@ -5,37 +5,118 @@
     --blanco: #faf8f8;
     --fuente: "Quicksand", sans-serif;
 }
-html {
+/* Estilos para el layout con menú lateral */
+
+/* Reset global para eliminar márgenes y padding predeterminados */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-*,
+/* Body sin márgenes */
+body {
+    font-family: var(--fuente);
+    background-color: var(--blanco);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Contenedor principal que se adapta al menú lateral */
+.main-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Área de contenido principal */
+.main-content {
+    flex: 1;
+    margin-left: 250px; /* Mismo ancho que el menú */
+    padding: 20px;
+    background-color: var(--blanco);
+    min-height: 100vh;
+}
+
+/* Estilos específicos para el menú lateral */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+        min-height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .main-layout {
+        flex-direction: column;
+    }
+}
+
+/* Scroll personalizado para el menú */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ######################################### */
+
+/* html {
+    box-sizing: border-box;
+} */
+
+/*
+/* *,,,,,
 *::after,
 *::before {
     box-sizing: inherit;
-}
+/* }  */
 
-body {
+/* body {
     font-family: var(--fuente);
     background-color: var(--azulOscuro);
     display: flex;
     align-items: center;
-    /* height: 100vh; */
-}
+} */
 
 .contenedor {
     margin: 40px auto;
-    /* max-width: 400px; */
-
     width: 70%;
-    height: 500px;
+    height: auto;
     border-radius: 0px 5px 5px 0px;
 }
 
 .imagen-formulario {
-    /* background-image: url("../img/bg.jpg"); */
-    /* background-position: center center;
-    background-size: cover; */
     height: 200px;
     flex: 0 0 calc(60%);
     position: relative;
@@ -46,7 +127,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 5px 0 0 5px; 
+    border-radius: 5px 0 0 5px;
 }
 .imagen-formulario::before {
     content: "";
@@ -111,12 +192,23 @@ body {
     margin-top: 20px;
     font-size: 15px;
 }
-.input input {
+.input input,
+.input select {
     width: 100%;
     padding: 10px 16px;
     border: none;
     border-radius: 5px;
     outline: none;
+    font-family: var(--fuente);
+    font-size: 14px;
+}
+.input select {
+    background-color: var(--blanco);
+    color: var(--azulOscuro);
+    cursor: pointer;
+}
+.input select:focus {
+    border: 2px solid var(--azulGris);
 }
 .input input[type="submit"] {
     background-color: var(--azulGris);
@@ -126,10 +218,22 @@ body {
     border: none;
     margin-top: 20px;
     transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
 }
 .input input[type="submit"]:hover {
-    cursor: pointer;
     background-color: var(--azulOscuro);
+}
+
+.crear-cuenta,
+.crear-cuenta a {
+    color: var(--blanco);
+}
+
+.text-danger {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
 }
 
 /* ############################################## */
@@ -143,12 +247,21 @@ body {
     display: none;
 }
 .menu-group-title {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 10px 20px;
     background: #10335c;
     color: #fff;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.menu-group-title:hover {
+    background: #0b2545;
+}
+.menu-group-title .icon {
+    margin-right: 10px;
+    font-size: 16px;
 }
 .menu-group-list {
     max-height: 0;
@@ -167,12 +280,44 @@ body {
     margin: 0;
     padding: 6px 0;
 }
+.menu-group-list li a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.menu-group-list li a:hover {
+    background-color: #0b2545;
+}
+.menu-group-list li a .icon {
+    margin-right: 8px;
+    font-size: 14px;
+}
 
-/* ------------------------------------
-####################################### */
-
-/* TRAIDOS DE PUBLIC STYLES */
-
-/* ######################################## */
-
-/* Variables de diseño */
+/* Logout button */
+.logout-form {
+    padding: 0 20px;
+}
+.logout-form button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.logout-form button:hover {
+    background-color: #0b2545;
+}
+.logout-form button .icon {
+    margin-right: 8px;
+    font-size: 16px;
+}

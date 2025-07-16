@@ -38,7 +38,8 @@
             </div>
             {{-- Crear un nuevo usuario --}}
             <div class="crear-cuenta">
-                <p>¿No tienes una cuenta? <a href="{{ route('registrar') }}">Crea una cuenta</a></p>
+                <p>¿No tienes una cuenta? <a href="{{ route('registrar') }}"> Registrate</a>
+                </p>
             </div>
             {{-- <div class="password-olvidada">
                 <a href="#">¿Olvidaste tu contraseña?</a>
