@@ -2,7 +2,13 @@
 <aside
  {{-- background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); --}}
   {{-- background: linear-gradient(135deg, #5a6eea 0%, #6d4ba2 100%); --}}
-    style="width: 250px;  background: linear-gradient(135deg, #5a6eea 0%, #6d4ba2 100%); color: #fff; padding: 0; margin: 0; min-height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); position: relative;">
+    style="width: 250px;  
+        background: linear-gradient(135deg, #5a6eea 0%, #6d4ba2 100%); 
+        color: #fff; 
+        padding: 0; margin: 0; 
+        min-height: 100vh; box-shadow: 
+        2px 0 10px rgba(0,0,0,0.1); 
+        position: relative;">
     @auth 
     
         @php

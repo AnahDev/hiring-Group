@@ -9,7 +9,7 @@
 
     <!-- Incluye los assets compilados por Vite -->
     {{-- @vite('public/css/styles.css') --}}
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css'])
 
     {{-- <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> --}}
