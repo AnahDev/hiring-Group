@@ -206,7 +206,7 @@
                     ],
                 ]" />
             {{-- @else
-                {{-- Admin o cualquier otro tipo --}}
+                {{-- Admin o cualquier otro tipo 
                 <x-menu-group title="Panel Principal" icon="layout-dashboard" :items="[
                     [
                         'href' => route('admin.dashboard'), 
