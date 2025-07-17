@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Ofertas Laborales</h1>
-    <table border="1" cellpadding="6" cellspacing="0">
+    <h2>Ofertas Laborales</h2>
+    <table class="table table-container">
         <thead>
             <tr>
                 <th>Empresa</th>

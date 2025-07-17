@@ -3,10 +3,12 @@
  @section('content')
      <div class="container">
          <h2>Contratación de Postulantes</h2>
-         <table class="table table-bordered">
+
+         {{-- <h3>Listado de Postulaciones</h3> --}}
+         <table class="table table-container">
              <thead>
                  <tr>
-                     <th>ID de Postulación</th>
+                     <th>ID</th>
                      <th>Profesión</th>
                      <th>Oferta</th>
                      <th>Empresa</th>
@@ -23,7 +25,8 @@
                          <td>{{ $postulacion->ofertaLaboral->empresa->nombre ?? '-' }}</td>
                          <td>{{ $postulacion->fechaPostulacion ?? '-' }}</td>
                          <td>
-                             <a href="{{ route('hiringGroup.contrataciones.show', $postulacion->ofertaLaboral->id) }}">Ver
+                             <a href="{{ route('hiringGroup.contrataciones.show', $postulacion->ofertaLaboral->id) }}"
+                                 class="btn-action">Ver
                                  Oferta</a>
                          </td>
                      </tr>

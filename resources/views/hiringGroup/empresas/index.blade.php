@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="page-title">Empresas Registradas</h1>
+        <h2>Empresas Registradas</h2>
 
         <div class="text-right" style="margin-bottom: 1.5rem;">
             <a href="{{ route('hiringGroup.empresas.create') }}" class="btn btn-primary">
@@ -27,8 +27,8 @@
                 No hay empresas registradas.
             </div>
         @else
-            <div class="table"> {{-- Mantengo table-responsive si tienes CSS para ello o para overflow --}}
-                <table class="table">
+            <div class=""> {{-- Mantengo table-responsive si tienes CSS para ello o para overflow --}}
+                <table class="table table-container">
                     <thead>
                         <tr>
                             <th>Nombre</th>

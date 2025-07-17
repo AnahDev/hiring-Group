@@ -36,13 +36,13 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 Route::get('/', function () {
-    return view('welcome'); // Aquí puedes cambiar 'welcome' por la vista que desees mostrar
+    return view('auth.login'); // Aquí puedes cambiar 'welcome' por la vista que desees mostrar
 });
 
-//RUTA AL AIRE (SI NO HACE NADA ELIMINAR) :S
-Route::get('/home', function () {
-    return 'Aqui se va la vista del administrador';
-})->middleware('auth'); // Asegura que el usuario esté autenticado para acceder a esta ruta 
+// //RUTA AL AIRE (SI NO HACE NADA ELIMINAR) :S
+// Route::get('/home', function () {
+//     return 'Aqui se va la vista del administrador';
+// })->middleware('auth'); // Asegura que el usuario esté autenticado para acceder a esta ruta 
 
 
 ##################

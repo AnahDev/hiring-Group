@@ -29,7 +29,7 @@
     <div style="display: flex; min-height: 100vh;">
         <x-menu-lateral />
         {{-- Contenido principal --}}
-        <main style="flex:1; padding:20px;">
+        <main style="flex:1; padding:20px; background-color: #fbfcff;">
             @yield('content')
         </main>
     </div>
