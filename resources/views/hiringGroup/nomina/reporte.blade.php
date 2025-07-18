@@ -23,11 +23,11 @@
                 <thead>
                     <tr>
                         {{-- <th>Cédula</th> --}}
-                        <th>Nombre Empleado</th>
-                        <th>Cargo Contrato</th>
-                        <th>Sueldo Bruto Contrato</th>
-                        <th>Deducción INCES (0.5%)</th>
-                        <th>Deducción IVSS (1%)</th>
+                        <th>Nombre </th>
+                        <th>Cargo </th>
+                        <th>Sueldo Bruto</th>
+                        <th>INCES (0.5%)</th>
+                        <th>IVSS (1%)</th>
                         <th>Comisión HG (2%)</th>
                         <th>Salario Neto Estimado</th>
                     </tr>
@@ -55,23 +55,43 @@
                 </tbody>
             </table>
 
-            <hr class="my-4">
 
-            {{-- Formulario para CONFIRMAR y EJECUTAR la corrida de nómina --}}
-            <form action="{{ route('hiringGroup.nomina.ejecutar') }}" method="POST">
-                @csrf
-                {{-- Campos ocultos para pasar los datos de la nómina --}}
-                <input type="hidden" name="empresa_id" value="{{ $empresa->id }}">
-                <input type="hidden" name="mes" value="{{ $mes }}">
-                <input type="hidden" name="año" value="{{ $año }}">
+            <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 1rem;">
+                {{-- Formulario para CONFIRMAR y EJECUTAR la corrida de nómina --}}
+                <form action="{{ route('hiringGroup.nomina.ejecutar') }}" method="POST">
+                    @csrf
+                    {{-- Campos ocultos para pasar los datos de la nómina --}}
+                    <input type="hidden" name="empresa_id" value="{{ $empresa->id }}">
+                    <input type="hidden" name="mes" value="{{ $mes }}">
+                    <input type="hidden" name="año" value="{{ $año }}">
 
-                <button type="submit" class="btn btn-success btn-lg"
-                    onclick="return confirm('¿Está seguro de que desea ejecutar esta corrida de nómina? ¡Esta acción es irreversible!');">
-                    Confirmar y Ejecutar Corrida de Nómina
-                </button>
-                <a href="{{ route('hiringGroup.nomina.preparar') }}" class="btn btn-secondary btn-lg ms-2">Cancelar y
-                    Volver</a>
-            </form>
+                    {{-- <button type="submit" class="btn btn-primary btn-lg"
+                        onclick="return confirm('¿Está seguro de que desea ejecutar esta corrida de nómina? ¡Esta acción es irreversible!');">
+                        Confirmar y Ejecutar Corrida de Nómina
+                    </button> --}}
+                    {{-- <form id="form-nomina" action="{{ route('empresa.ofertas.toggleStatus', $oferta) }}" method="POST">
+                        @csrf --}}
+                    <button id="b" type="submit" class="btn btn-primary btn-lg" onclick="return confirmar()">
+                        Confirmar y Ejecutar Corrida de Nómina
+                    </button>
+                    {{-- </form> --}}
+
+                </form>
+                <a href="{{ route('hiringGroup.nomina.preparar') }}" class=" btn btn-danger btn-lg ">Cancelar</a>
+            </div>
         @endif
+
     </div>
+
+    <script>
+        function confirmar() {
+            let seguro = confirm(
+                '¿Está seguro de que desea ejecutar esta corrida de nómina? ¡Esta acción es irreversible!');
+
+            if (!seguro) return false; // Cancela si el usuario no acepta
+
+            alert('✅ Nómina ejecutada con éxito');
+        }
+    </script>
+
 @endsection

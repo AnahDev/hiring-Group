@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Gestión de Ofertas Laborales</h1>
+        <h2>Gestión de Ofertas Laborales</h2>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -16,16 +16,16 @@
             </div>
         @endif
 
-        <table border="1" cellpadding="6" cellspacing="0">
+        <table class="table table-container">
             <thead>
                 <tr>
                     {{-- <th>ID</th> --}}
                     <th>Profesión</th>
-                    <th>Cargo Vacante</th>
-                    <th>Salario Ofrecido</th>
+                    <th>Vacante</th>
+                    <th>Salario</th>
                     <th>Ubicación</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <th style="width:auto;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,24 +35,29 @@
                         <td>{{ $oferta->profesion->descripcion ?? 'N/A' }}</td>
                         <td>{{ $oferta->cargo }}</td>
                         <td>${{ number_format($oferta->salario, 2, ',', '.') }}</td>
-                        <th>{{ $oferta->ubicacion }} </th>
+                        <td>{{ $oferta->ubicacion }} </th>
                         <td>{{ $oferta->estado }}</td>
+
                         <td>
+
                             <form action="{{ route('empresa.ofertas.toggleStatus', $oferta) }}" method="POST"
-                                style="display:inline-block;">
+                                style="display:inline;">
                                 @csrf
                                 <button type="submit"
-                                    class="btn btn-sm {{ $oferta->estado ? 'btn-warning' : 'btn-success' }}">
-                                    {{ $oferta->estado ? 'Cambiar' : 'Activar' }}
+                                    class="btn btn-sm {{ $oferta->estado ? 'btn-warning' : 'btn-success' }}"
+                                    title="{{ $oferta->estado ? 'Cambiar estado' : 'Activar oferta' }}">
+                                    &#8596;
                                 </button>
                             </form>
-                            <a href="{{ route('empresa.ofertas.edit', $oferta) }}" class="btn btn-info btn-sm">Editar</a>
+                            <a href="{{ route('empresa.ofertas.edit', $oferta) }}" title="Editar" class="btn btn-info">
+                                &#9998;</a>
                             <form action="{{ route('empresa.ofertas.destroy', $oferta) }}" method="POST"
-                                style="display:inline-block;">
+                                style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Estás seguro de que quieres eliminar esta oferta?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('¿Estás seguro de que quieres eliminar esta oferta?')"
+                                    title="Eliminar">&#128465;</button>
                             </form>
                         </td>
                     </tr>

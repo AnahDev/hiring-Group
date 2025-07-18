@@ -4,8 +4,12 @@
     <div class="container">
         <h2>Postulantes para la oferta: {{ $ofertaLaboral->cargo }}</h2>
 
+        <div style="margin-bottom:1.5rem";><a href="{{ route('hiringGroup.ofertas.index') }}" class="btn-action">
+                &larr;Volver</a>
+        </div>
+
         @if ($ofertaLaboral->postulaciones->count())
-            <table class="table table-bordered">
+            <table class="table table-container">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -53,8 +57,7 @@
                                 </ul>
                             </td>
                             <td>
-                                <a href="{{ route('hiringGroup.contratacion.create', $postulacion) }}"
-                                    class="btn btn-success btn-sm">
+                                <a href="{{ route('hiringGroup.contratacion.create', $postulacion) }}" class="btn-action">
                                     Contratar
                                 </a>
                             </td>
@@ -66,6 +69,6 @@
             <p>No hay postulantes para esta oferta.</p>
         @endif
 
-        <a href="{{ route('hiringGroup.ofertas.index') }}" class="btn btn-secondary mt-3">Volver a Ofertas</a>
+
     </div>
 @endsection

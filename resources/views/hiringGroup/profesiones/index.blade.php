@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 style="margin-bottom: 1.5rem;">Gestión de profesiones</h1>
+        <h2>Gestión de profesiones</h2>
 
         @if (session('success'))
             <div

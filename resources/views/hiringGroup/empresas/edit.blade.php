@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1 class="page-title">Editar Empresa: {{ $empresa->nombre }}</h1>
+    <div class="main-content">
+        <div class="page-header">
+            <h2 class="page-title">Editar Empresa: {{ $empresa->nombre }}</h2>
+        </div>
+
 
         @if ($errors->any())
             <div class="alert alert-error" role="alert">
@@ -15,39 +18,44 @@
                 </ul>
             </div>
         @endif
+        <div class="form-card">
 
-        <form action="{{ route('hiringGroup.empresas.update', $empresa) }}" method="POST" class="card">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label class="form-label" for="nombre">
-                    Nombre de la Empresa
-                </label>
-                <input class="form-control" style="display: block; width: 30%" id="nombre" name="nombre" type="text"
-                    value="{{ old('nombre', $empresa->nombre) }}" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="email">
-                    Email de Contacto de la Empresa
-                </label>
-                <input class="form-control" style="display: block; width: 30%" id="email" name="email" type="email"
-                    value="{{ old('email', $empresa->email) }}" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">
-                    Usuario de Acceso (Email)
-                </label>
-                <p style="color: #000000;">{{ $empresa->usuario->correo ?? 'No asignado' }}</p> {{-- Inline style for text-gray-700 --}}
-            </div>
+            <form action="{{ route('hiringGroup.empresas.update', $empresa) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <label class="form-label" for="nombre">
+                        Nombre de la Empresa
+                    </label>
+                    <input class="form-control" id="nombre" name="nombre" type="text"
+                        value="{{ old('nombre', $empresa->nombre) }}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        Email de Contacto de la Empresa
+                    </label>
+                    <input class="form-control" id="email" name="email" type="email"
+                        value="{{ old('email', $empresa->email) }}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        Usuario de Acceso (Email)
+                    </label>
+                    <p
+                        style="color: #000000; background-color:rgba(179, 199, 244, 0.371); display: inline-block; padding: 0.5rem; border-radius: 0.25rem;">
+                        {{ $empresa->usuario->correo ?? 'No asignado' }}
+                    </p> {{-- Inline style for text-gray-700 --}}
+                </div>
 
-            <div class="form-actions">
-                <button class="btn btn-primary" type="submit">
-                    Actualizar Empresa
-                </button>
-                <a href="{{ route('hiringGroup.empresas.index') }}" class="btn btn-link"> {{-- Uses existing .btn .btn-link --}}
-                    Cancelar
-                </a>
-            </div>
-        </form>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <button class="btn btn-primary" type="submit">
+                        Actualizar Empresa
+                    </button>
+                    <a href="{{ route('hiringGroup.empresas.index') }}" class="btn btn-danger">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

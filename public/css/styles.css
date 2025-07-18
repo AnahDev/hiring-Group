@@ -17,6 +17,7 @@
     --danger-color: #e74c3c; /* Red */
     /* --border-radius: 0.5rem; */
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
     --table-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --table-hover-bg: #f8f9fa;
     --table-border: #e9ecef;
@@ -68,6 +69,10 @@ h2::after {
     border-radius: 2px;
 }
 
+.icono {
+    font-size: 18px; /* tamaño del ícono */
+    font-weight: bold;
+}
 /* ----------------- */
 
 /* Tablas mejoradas */
@@ -298,71 +303,8 @@ h2::after {
     box-shadow: var(--box-shadow);
 }
 
-/* Formularios */
-.form-group {
-    width: 80%;
-
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: 700;
-    display: block;
-}
-
-.form-control {
-    width: 50%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-
-.form-section {
-    margin-bottom: 1.5rem; /* Espaciado entre secciones del formulario */
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem; /* Espacio entre los grupos de formulario */
-}
-
-@media (min-width: 768px) {
-    .form-grid.cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .form-grid.cols-3 {
-        grid-template-columns: repeat(3, 1fr); /* Tres columnas en desktop */
-    }
-    .form-grid.cols-1-2 {
-        grid-template-columns: 1fr 2fr;
-    }
-    .form-grid.cols-2-1 {
-        grid-template-columns: 2fr 1fr;
-    }
-}
-
-.form-group p {
-    color: #4a5568;
-    padding: 0.8rem 0;
-}
-
-.form-grid .form-control {
-    width: 100%;
-}
-
-.card .form-control {
-    background-color: white;
-}
+/* ############################################ */
+/* ###################################### */
 
 /* Botones */
 .btn {
@@ -429,14 +371,14 @@ h2::after {
 /* ########################## */
 .main-content {
     flex: 1;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .page-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .page-title {
@@ -775,13 +717,206 @@ h2::after {
 }
 
 /* --------------- */
-.table th,
+/* .table th,
 .table td,
-.table tr {
+.table tr {`
     padding: 1rem;
     text-align: left;
     border: 1px solid #000c5049;
+} */
+
+/* #################################### */
+/* FORMULARIOS */
+/* #################################### */
+/* Form Card */
+.form-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 2.5rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.025em;
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.8rem;
+    padding-right: 2.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    background: white;
+    transition: all 0.3s ease;
+    appearance: none;
+    cursor: pointer;
+}
+/* Container for select with Lucide icon */
+.select-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.select-icon {
+    position: absolute;
+    right: 1rem; /* Ajusta la posición desde la derecha */
+    top: 50%; /* Centra verticalmente el icono */
+    transform: translateY(-50%); /* Ajuste fino para el centrado vertical */
+    pointer-events: none; /* Permite hacer clic en el select a través del icono */
+    color: var(--primary-color); /* O el color que desees para el icono */
+    font-size: 1.2rem; /* Ajusta el tamaño del icono según sea necesario */
+}
+.form-select:focus + .select-icon {
+    color: #22d3ee;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+}
+
+.form-select:hover {
+    border-color: #cbd5e1;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+}
+
+.form-select:hover {
+    border-color: #cbd5e1;
+}
+
+/* --- Nuevos estilos para inputs genéricos (.form-control) --- */
+.form-control {
+    width: 100%; /* <<-- ¡Esto es clave para que se ajuste! */
+    padding: 0.8rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #22d3ee;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+}
+
+.form-control:hover {
+    border-color: #cbd5e1;
+}
+/* ----------------------------------------------------- */
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
+    letter-spacing: 0.025em;
+    box-shadow: 0 4px 6px -1px rgba(34, 211, 238, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px -3px rgba(34, 211, 238, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Form Header */
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.form-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    /* .main-content {
+        padding: 1.5rem;
+    }
+
+    .form-card {
+        padding: 1.5rem;
+    } */
+}
+
+/* FORMULARIO EN CUADRICULA  */
+
+/* Estilos para la cuadrícula de formulario de dos columnas */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        2,
+        1fr
+    ); /* Crea dos columnas de igual ancho */
+    gap: 2rem; /* Espacio entre las columnas y filas */
+    margin-bottom: 2rem; /* Añade espacio debajo de la cuadrícula del formulario */
+}
+
+/* Media Query para responsividad: en pantallas pequeñas, que se apilen */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+        gap: 1.5rem; /* Ajusta el espacio para pantallas pequeñas */
+    }
+}
+
+/* #################################### */
+/* #################################### */
 
 /* Dashboard */
 .dashboard-grid {
@@ -805,18 +940,9 @@ h2::after {
     color: var(--primary-color);
 }
 
-/* Gráficos */
-.chart-container {
-    height: 300px;
-    margin-bottom: 2rem;
-}
-.form-select {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #8f8f8f;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-}
+/* #################################### */
+/* ALERTAS */
+/* ####################################  */
 
 .alert {
     padding: 1rem;
@@ -838,6 +964,29 @@ h2::after {
     background-color: #d1ecf1;
     color: #0c5460;
 }
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* ####################################### */
+/* ####################################### */
+
+/* Gráficos */
+/*
+.chart-container {
+    height: 300px;
+    margin-bottom: 2rem;
+}
+.form-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #8f8f8f;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
 
 .page-title {
     font-size: 2rem;
@@ -877,3 +1026,4 @@ h2::after {
         margin-bottom: 1rem;
     }
 }
+    */

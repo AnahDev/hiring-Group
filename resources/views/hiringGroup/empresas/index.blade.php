@@ -49,19 +49,19 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('hiringGroup.empresas.show', $empresa->id) }}" class="btn btn-info">
-                                        <i class="fas fa-eye"></i> Ver
+                                        Ver
                                     </a>
-                                    <a href="{{ route('hiringGroup.empresas.edit', $empresa->id) }}"
-                                        class="btn btn-warning">
-                                        <i class="fas fa-edit"></i> Editar
+                                    <a href="{{ route('hiringGroup.empresas.edit', $empresa->id) }}" class="btn btn-warning"
+                                        title="Editar Empresa">
+                                        &#9998;
                                     </a>
                                     <form action="{{ route('hiringGroup.empresas.destroy', $empresa->id) }}" method="POST"
                                         style="display:inline;"
                                         onsubmit="return confirm('¿Está seguro de eliminar esta empresa? Esta acción no se puede deshacer.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        <button type="submit" class="btn btn-danger" title="Eliminar Empresa">
+                                            &#128465;
                                         </button>
                                     </form>
                                 </td>

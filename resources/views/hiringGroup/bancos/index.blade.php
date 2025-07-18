@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 style="margin-bottom: 1.5rem;">Gestión de Bancos</h1>
+        <h2 style="margin-bottom: 1.5rem;">Gestión de Bancos</h2>
 
         @if (session('success'))
             <div
@@ -30,8 +30,8 @@
                 No hay bancos registrados en el sistema.
             </div>
         @else
-            <div class="table-responsive"> {{-- Mantengo table-responsive si tienes CSS para ello o para overflow --}}
-                <table class="table">
+            <div class=""> {{-- Mantengo table-responsive si tienes CSS para ello o para overflow --}}
+                <table class="table table-container">
                     <thead>
                         <tr>
                             <th>ID</th>

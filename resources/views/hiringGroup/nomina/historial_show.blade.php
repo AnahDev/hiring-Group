@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ route('hiringGroup.nomina.historial') }}" class="btn btn-secondary mb-3">
-            <i class="fas fa-arrow-left"></i> Volver al Historial
+        <a href="{{ route('hiringGroup.nomina.historial') }}" class="btn-action">
+            &larr; Volver al Historial
         </a>
-        <h1>Detalles de Nómina #{{ $nomina->id }}</h1>
+        <h2>Detalles de Nómina: #{{ $nomina->id }}</h2>
 
-        <div class="card mb-4">
+        <div class="empresa-card">
             <div class="card-header">
                 Información General de la Nómina
             </div>
@@ -21,38 +21,43 @@
                 <p><strong>Total Comisión Hiring Group:</strong>
                     {{ number_format($nomina->total_comision_hg, 2, ',', '.') }}</p>
             </div>
+            <div class="card-body">
+                <h3 style="text-align: center">Detalles por Empleado</h3>
+                @if ($nomina->detalleNomina->isEmpty())
+                    <div
+                        style="background-color: #d1ecf1; color: #0c5460; padding: 1rem; border-radius: var(--border-radius); text-align: center;">
+                        No hay detalles de nómina para este registro.</div>
+                @else
+                    <table class="table table-container">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Sueldo Bruto</th>
+                                <th>Deducción INCES</th>
+                                <th>Deducción IVSS</th>
+                                <th>Comisión HG</th>
+                                <th>Salario Neto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($nomina->detalleNomina as $detalle)
+                                <tr>
+                                    <td>{{ $detalle->contrato->postulacion->candidato->nombre ?? 'N/A' }}
+                                        {{ $detalle->contrato->postulacion->candidato->apellido ?? 'N/A' }}
+                                    </td>
+                                    <td>{{ number_format($detalle->sueldoBruto, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($detalle->deduccionInces, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($detalle->deduccionIvss, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($detalle->comisionHg, 2, ',', '.') }}</td>
+                                    <td>{{ number_format($detalle->salarioNeto, 2, ',', '.') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
         </div>
-
-        <h3>Detalles por Empleado</h3>
-        @if ($nomina->detalleNomina->isEmpty())
-            <div class="alert alert-warning">No hay detalles de nómina para este registro.</div>
-        @else
-            <table class="table table-bordered table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th>Empleado</th>
-                        <th>Sueldo Bruto</th>
-                        <th>Deducción INCES</th>
-                        <th>Deducción IVSS</th>
-                        <th>Comisión HG</th>
-                        <th>Salario Neto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nomina->detalleNomina as $detalle)
-                        <tr>
-                            <td>{{ $detalle->contrato->postulacion->candidato->nombre ?? 'N/A' }}
-                                {{ $detalle->contrato->postulacion->candidato->apellido ?? 'N/A' }}
-                            </td>
-                            <td>{{ number_format($detalle->sueldoBruto, 2, ',', '.') }}</td>
-                            <td>{{ number_format($detalle->deduccionInces, 2, ',', '.') }}</td>
-                            <td>{{ number_format($detalle->deduccionIvss, 2, ',', '.') }}</td>
-                            <td>{{ number_format($detalle->comisionHg, 2, ',', '.') }}</td>
-                            <td>{{ number_format($detalle->salarioNeto, 2, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
     </div>
+
+
 @endsection

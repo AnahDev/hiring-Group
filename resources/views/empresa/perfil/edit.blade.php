@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Gestionar Perfil de la Empresa</h2>
-        <p>Desde aquí puedes actualizar la información de tu empresa, así como agregar o eliminar sectores y personas de
-            contacto.</p>
+    <div class="main-content">
+        <div class="page-header">
+            <h2>Gestionar Perfil de la Empresa</h2>
+        </div>
+
+        <p>Desde aquí puedes actualizar la información de tu empresa.</p>
 
         {{-- Mostrar mensajes de éxito o error --}}
         @if (session('success'))
@@ -28,99 +30,132 @@
         @endif
 
 
-        <hr>
 
         {{-- SECCIÓN PARA GESTIONAR SECTORES --}}
-        <div class="card mb-4">
+        <div class="empresa-card">
             <div class="card-header">
-                <h3>Sectores de la Empresa</h3>
+                <h3>Sectores Actuales</h3>
             </div>
-            <div class="card-body">
-                <h5>Sectores Actuales</h5>
-                @if ($empresa->sectores->isNotEmpty())
-                    <ul class="list-group mb-3">
-                        @foreach ($empresa->sectores as $sector)
-                            {{--   
-                            @php dd($sector); @endphp
-                            --}}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $sector->descripcion }}
-                                <form action="{{ route('empresa.sectores.destroy', $sector->id) }}" method="POST"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este sector?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted">Aún no has agregado ningún sector.</p>
-                @endif
+            <div class="">
+                <table class="table table-container">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($empresa->sectores->isNotEmpty())
+                            @foreach ($empresa->sectores as $sector)
+                                <tr>
+                                    <td>{{ $sector->descripcion }}</td>
+                                    <td>
+                                        <form action="{{ route('empresa.sectores.destroy', $sector->id) }}" method="POST"
+                                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar este sector?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"
+                                                class="icono">&#128465;</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="2" class="text-center">Aún no has agregado ningún sector.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
 
-                <hr>
 
-                <h5>Agregar Nuevo Sector</h5>
-                <form action="{{ route('empresa.sectores.store') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="descripcion_sector" class="form-label">Descripción del Sector</label>
-                        <input type="text" class="form-control" id="descripcion_sector" name="descripcion" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar Sector</button>
-                </form>
+                <div class="card-header">
+                    <h3>Agregar Nuevo Sector</h3>
+                </div>
+                <div class="form-card">
+                    <form action="{{ route('empresa.sectores.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="descripcion_sector" class="form-label">Descripción del Sector</label>
+                            <input type="text" class="form-control" id="descripcion_sector" name="descripcion" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Agregar Sector</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            {{-- SECCIÓN PARA GESTIONAR CONTACTOS --}}
+            <div class="card">
+                <div class="card-header">
+                    <h3>Contactos de la Empresa</h3>
+                </div>
+
+                <table class="table table-container">
+                    <thead>
+                        <tr>
+                            <th>Persona de Contacto</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($empresa->contactos->isNotEmpty())
+                            @foreach ($empresa->contactos as $contacto)
+                                <tr>
+                                    <td>{{ $contacto->personaContacto }}</td>
+                                    <td>{{ $contacto->tlfContacto }}</td>
+                                    <td>
+                                        <form action="{{ route('empresa.contactos.destroy', $contacto->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar este contacto?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"
+                                                class="icono">&#128465;</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="3" class="text-center">Aún no has agregado ningún contacto.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+
+
+
+                <div class="card-header">
+                    <h3>Agregar Nuevo Contacto</h3>
+                </div>
+                <div class="form-card">
+                    <form action="{{ route('empresa.contactos.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="personaContacto" class="form-label">Nombre de Contacto</label>
+                                <input type="text" class="form-control" id="personaContacto" name="personaContacto"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tlfContacto" class="form-label">Teléfono de Contacto</label>
+                                <input type="text" class="form-control" id="tlfContacto" name="tlfContacto" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Contacto</button>
+                    </form>
+                </div>
+
             </div>
         </div>
+    </div>
 
 
-        {{-- SECCIÓN PARA GESTIONAR CONTACTOS --}}
-        <div class="card">
-            <div class="card-header">
-                <h3>Contactos de la Empresa</h3>
-            </div>
-            <div class="card-body">
-                <h5>Contactos Actuales</h5>
-                @if ($empresa->contactos->isNotEmpty())
-                    <ul class="list-group mb-3">
-                        @foreach ($empresa->contactos as $contacto)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $contacto->personaContacto }}</strong>
-                                    <br>
-                                    <small class="text-muted">Teléfono: {{ $contacto->tlfContacto }}</small>
-                                </div>
-                                <form action="{{ route('empresa.contactos.destroy', $contacto->id) }}" method="POST"
-                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este contacto?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-muted">Aún no has agregado ningún contacto.</p>
-                @endif
 
-                <hr>
-
-                <h5>Agregar Nuevo Contacto</h5>
-                <form action="{{ route('empresa.contactos.store') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="personaContacto" class="form-label">Nombre de la Persona de Contacto</label>
-                            <input type="text" class="form-control" id="personaContacto" name="personaContacto" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="tlfContacto" class="form-label">Teléfono de Contacto</label>
-                            <input type="text" class="form-control" id="tlfContacto" name="tlfContacto" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Agregar Contacto</button>
-                </form>
-            </div>
-        </div>
 
     </div>
 @endsection
