@@ -1,29 +1,35 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="main-content">
         <h2>Mis Recibos de Pago</h2>
+
         <form method="GET" class="row g-3 mb-3">
-            <div class="col-md-3">
-                <select name="mes" class="form-select">
-                    <option value="">-- Mes --</option>
-                    @foreach (range(1, 12) as $m)
-                        <option value="{{ $m }}" {{ request('mes') == $m ? 'selected' : '' }}>
-                            {{ \Carbon\Carbon::create()->month($m)->format('F') }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="form-grid">
+                <div class="col-md-3">
+                    <select name="mes" class="form-select">
+                        <option value="">-- Mes --</option>
+                        @foreach (range(1, 12) as $m)
+                            <option value="{{ $m }}" {{ request('mes') == $m ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($m)->format('F') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="anio" class="form-select">
+                        <option value="">-- Año --</option>
+                        @for ($y = date('Y'); $y >= 2020; $y--)
+                            <option value="{{ $y }}" {{ request('año') == $y ? 'selected' : '' }}>
+                                {{ $y }}</option>
+                        @endfor
+                    </select>
+                </div>
+
             </div>
-            <div class="col-md-3">
-                <select name="anio" class="form-select">
-                    <option value="">-- Año --</option>
-                    @for ($y = date('Y'); $y >= 2020; $y--)
-                        <option value="{{ $y }}" {{ request('año') == $y ? 'selected' : '' }}>
-                            {{ $y }}</option>
-                    @endfor
-                </select>
-            </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+
+            <div style="display: flex; gap: 10px; justify-content:center; margin-top:-15px; margin-bottom: 15px;">
+
+                <button type="submit" class="submit-btn">&#128269; Filtrar</button>
             </div>
         </form>
         <table class="table table-bordered">

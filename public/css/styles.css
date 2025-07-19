@@ -319,6 +319,7 @@ h2::after {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    font-weight: bold;
 }
 
 .btn-primary {

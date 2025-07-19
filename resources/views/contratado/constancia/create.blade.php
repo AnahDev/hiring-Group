@@ -14,7 +14,7 @@
 
         <form action="{{ route('contratado.constancia.store') }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-primary">Generar Constancia</button>
+            <button type="submit" class="btn btn-primary"> &#128195;Generar Constancia</button>
         </form>
     </div>
 @endsection
