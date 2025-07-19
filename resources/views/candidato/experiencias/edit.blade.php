@@ -1,44 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Editar Experiencia Laboral</h2>
-        <form method="POST" action="{{ route('candidato.experiencias.update', $experienciaLaboral->id) }}">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label for="empresa" class="form-label">Empresa</label>
-                <input type="text" class="form-control" id="empresa" name="empresa"
-                    value="{{ old('empresa', $experienciaLaboral->empresa) }}" required>
-                @error('empresa')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="cargo" class="form-label">Cargo</label>
-                <input type="text" class="form-control" id="cargo" name="cargo"
-                    value="{{ old('cargo', $experienciaLaboral->cargo) }}" required>
-                @error('cargo')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"
-                    value="{{ old('fechaInicio', $experienciaLaboral->fechaInicio) }}" required>
-                @error('fechaInicio')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="fechaFin" class="form-label">Fecha de Fin</label>
-                <input type="date" class="form-control" id="fechaFin" name="fechaFin"
-                    value="{{ old('fechaFin', $experienciaLaboral->fechaFin) }}">
-                @error('fechaFin')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <button type="submit" class="btn btn-success">Actualizar Experiencia</button>
-        </form>
+    <div class="main-container">
+        <div class="page-header">
+            <h2>Editar Experiencia Laboral</h2>
+        </div>
+
+        <div class="form-card">
+            <form method="POST" action="{{ route('candidato.experiencias.update', $experienciaLaboral->id) }}">
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <label for="empresa" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa"
+                        value="{{ old('empresa', $experienciaLaboral->empresa) }}" required>
+                    @error('empresa')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="cargo" class="form-label">Cargo</label>
+                    <input type="text" class="form-control" id="cargo" name="cargo"
+                        value="{{ old('cargo', $experienciaLaboral->cargo) }}" required>
+                    @error('cargo')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"
+                        value="{{ old('fechaInicio', $experienciaLaboral->fechaInicio) }}" required>
+                    @error('fechaInicio')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin"
+                        value="{{ old('fechaFin', $experienciaLaboral->fechaFin) }}">
+                    @error('fechaFin')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit" class="submit-btn" style="margin-top: 1rem;">Actualizar Experiencia</button>
+            </form>
+        </div>
+
+
     </div>
 @endsection

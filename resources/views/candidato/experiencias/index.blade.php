@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Experiencias Laborales</h1>
+        <h2>Experiencias Laborales</h2>
         <a href="{{ route('candidato.experiencias.create') }}" class="btn btn-primary mb-3">Agregar Experiencia</a>
         <hr>
         @if (session('success'))
@@ -12,7 +12,7 @@
         @if ($experiencias->isEmpty())
             <div class="alert alert-info">No hay experiencias registradas.</div>
         @else
-            <table class="table">
+            <table class="table table-container">
                 <thead>
                     <tr>
                         <th>Cargo</th>
@@ -36,8 +36,8 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Seguro que deseas eliminar esta experiencia?')">Eliminar</button>
+                                    <button type="submit" title="Eliminar" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('¿Seguro que deseas eliminar esta experiencia?')">&#128465;</button>
                                 </form>
                             </td>
                         </tr>

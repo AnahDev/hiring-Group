@@ -36,6 +36,9 @@
     --success-color: #27ae60;
     --info-color: #3498db;
 }
+* {
+    box-sizing: border-box;
+}
 
 html {
     box-sizing: border-box;
@@ -745,6 +748,7 @@ h2::after {
 
 .form-label {
     display: block;
+    width: auto;
     font-size: 0.875rem;
     font-weight: 500;
     color: #374151;
@@ -901,6 +905,16 @@ h2::after {
     display: grid;
     grid-template-columns: repeat(
         2,
+        1fr
+    ); /* Crea dos columnas de igual ancho */
+    gap: 2rem; /* Espacio entre las columnas y filas */
+    margin-bottom: 2rem; /* Añade espacio debajo de la cuadrícula del formulario */
+}
+
+.grid-sec {
+    display: grid;
+    grid-template-columns: repeat(
+        3,
         1fr
     ); /* Crea dos columnas de igual ancho */
     gap: 2rem; /* Espacio entre las columnas y filas */

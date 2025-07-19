@@ -3,14 +3,14 @@
 @section('content')
     <div class="container">
         <h2>Historial de Postulaciones</h2>
-        <table class="table table-bordered mt-3">
+        <table class="table table-container">
             <thead>
                 <tr>
                     <th>Oferta</th>
                     <th>Profesión</th>
                     <th>Cargo</th>
-                    <th>Fecha de Postulación</th>
-                    <th>Estado de la Postulación</th>
+                    <th>Fecha </th>
+                    <th>Estado</th>
                     <th>Ver Oferta</th>
                 </tr>
             </thead>

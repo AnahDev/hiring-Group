@@ -7,7 +7,7 @@
         {{-- Filtros --}}
         @include('candidato.ofertas.parciales.filters')
 
-        <table class="table table-bordered mt-3">
+        <table class="table table-container">
             <thead>
                 <tr>
                     <th>Profesión</th>
